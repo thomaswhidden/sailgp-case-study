@@ -264,7 +264,7 @@ nav #search .pagefind-ui__search-input {
 @media print {
   nav, footer, #search, .no-print { display: none !important; }
   body { background: white !important; color: black !important; }
-  * { color-adjust: exact; -webkit-print-color-adjust: exact; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .interview-needed {
     background: transparent !important;
     color: #DC2626 !important;

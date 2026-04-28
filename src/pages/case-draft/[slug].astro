@@ -15,9 +15,10 @@ const { Content } = await entry.render();
 const { section_number, title, part, status, last_updated } = entry.data;
 
 // Build prev/next navigation
-const all = await getCollection('case-draft');
 const order = ['0','A-I','A-II','A-III','A-IV','B-I','B-II','B-III','exhibits','matrix'];
-all.sort((a, b) => order.indexOf(a.data.section_number) - order.indexOf(b.data.section_number));
+const all = [...(await getCollection('case-draft'))].sort(
+  (a, b) => order.indexOf(a.data.section_number) - order.indexOf(b.data.section_number)
+);
 const idx = all.findIndex(s => s.slug === entry.slug);
 const prev = idx > 0 ? all[idx - 1] : null;
 const next = idx < all.length - 1 ? all[idx + 1] : null;

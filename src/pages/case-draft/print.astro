@@ -2,9 +2,10 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
-const sections = await getCollection('case-draft');
 const order = ['0','A-I','A-II','A-III','A-IV','B-I','B-II','B-III','exhibits','matrix'];
-sections.sort((a, b) => order.indexOf(a.data.section_number) - order.indexOf(b.data.section_number));
+const sections = [...(await getCollection('case-draft'))].sort(
+  (a, b) => order.indexOf(a.data.section_number) - order.indexOf(b.data.section_number)
+);
 
 const rendered = await Promise.all(
   sections.map(async s => {

@@ -8,14 +8,14 @@ current_valuation_usd: 0
 latest_valuation_date: ""
 title_sponsor: ""
 driver: "Peter Burling"
-championships: 1
+championships: 0
 status: league-owned
-notes: "Season 4 champions (2024). Peter Burling driver (Olympic gold, America's Cup winner). League-owned; being sold in 2026. One of two teams involved in the February 2026 Auckland collision."
+notes: "Peter Burling driver (Olympic gold, America's Cup winner). League-owned; being sold in 2026. One of two teams involved in the February 2026 Auckland collision."
 ---
 
 ## Overview
 
-New Zealand (the Black Foils) won the Season 4 championship in 2024 under Peter Burling's leadership. Burling is one of the most decorated sailors in the world: multiple Olympic medals, America's Cup winner with Emirates Team New Zealand.
+New Zealand (the Black Foils) compete under Peter Burling's leadership. Burling is one of the most decorated sailors in the world: multiple Olympic medals, America's Cup winner with Emirates Team New Zealand.
 
 The team is one of the last remaining league-owned teams in SailGP (alongside possibly one or two others being transitioned in 2026). The league's strategy is to move all teams to private ownership, and NZ is in an active sale process as of early 2026.
 

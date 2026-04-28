@@ -2,11 +2,10 @@
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
 
-const sections = await getCollection('case-draft');
-sections.sort((a, b) => {
-  const order = ['0','A-I','A-II','A-III','A-IV','B-I','B-II','B-III','exhibits','matrix'];
-  return order.indexOf(a.data.section_number) - order.indexOf(b.data.section_number);
-});
+const order = ['0','A-I','A-II','A-III','A-IV','B-I','B-II','B-III','exhibits','matrix'];
+const sections = [...(await getCollection('case-draft'))].sort(
+  (a, b) => order.indexOf(a.data.section_number) - order.indexOf(b.data.section_number)
+);
 
 const partA = sections.filter(s => s.data.part === 'A' || s.data.part === 'cover');
 const partB = sections.filter(s => s.data.part === 'B');

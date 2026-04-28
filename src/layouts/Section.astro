@@ -12,7 +12,7 @@ interface Props {
 const { title, chapter, description, dark = false } = Astro.props;
 ---
 <Base title={title}>
-  <div class="min-h-screen flex flex-col" style="background:var(--bone);">
+  <div class="min-h-screen flex flex-col" style={`background:${dark ? 'var(--ink)' : 'var(--bone)'};`}>
     <Nav />
 
     <!-- Page header -->

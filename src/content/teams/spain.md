@@ -9,9 +9,9 @@ current_valuation_usd: 0
 latest_valuation_date: "2026-02"
 title_sponsor: ""
 driver: ""
-championships: 0
+championships: 1
 status: active
-notes: "Acquired by Idan Ofer / Quantum Pacific in February 2026. Valuation below the $60M+ benchmark. Cadiz/Spain was the venue for the record CBS viewership race (November 2023, 1.78M viewers)."
+notes: "Season 5 champions (2025). Acquired by Idan Ofer / Quantum Pacific in February 2026. Valuation below the $60M+ benchmark. Cadiz/Spain was the venue for the record CBS viewership race (November 2023, 1.78M viewers)."
 ---
 
 ## Ownership
@@ -24,6 +24,10 @@ The Spain acquisition price was reported as below the $60M+ benchmark, reflectin
 
 Spain is one of SailGP's most significant markets from a broadcast perspective. The Cadiz race (November 2023) generated 1.78M US viewers on CBS — the most-watched sailing broadcast in the US since 1992, and a record for SailGP at the time (since surpassed by Abu Dhabi 2025 at 3.47M). The Spanish coastal audience and European timezone are commercially valuable.
 
+## Championship
+
+Spain won the Season 5 championship in 2025, the first title for the team.
+
 ## Strategic Notes
 
-The Spain team is in early commercial development under its new ownership. The Ofer acquisition February 2026 gives the team a financially capable owner who can invest in commercial infrastructure. The key question is what commercial strategy Quantum Pacific brings and whether they pursue an active celebrity co-investment model similar to Australia and France.
+The Spain team is in active commercial development following its championship win and new ownership. The Ofer acquisition February 2026 gives the team a financially capable owner who can invest in commercial infrastructure. The key question is what commercial strategy Quantum Pacific brings and whether they pursue an active celebrity co-investment model similar to Australia and France.
