@@ -1,0 +1,422 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import ImagePlate from '../components/ImagePlate.astro';
+import StatBand from '../components/StatBand.astro';
+import ViewershipChart from '../components/ViewershipChart.astro';
+import PullQuote from '../components/PullQuote.astro';
+import TeamCard from '../components/TeamCard.astro';
+import FrameworkRow from '../components/FrameworkRow.astro';
+import TimelineItem from '../components/TimelineItem.astro';
+import ComparableCard from '../components/ComparableCard.astro';
+import QuestionRow from '../components/QuestionRow.astro';
+import { getCollection } from 'astro:content';
+import { sailgpImages, teamImages } from '../data/teamImages';
+
+const sources       = await getCollection('sources');
+const interviews    = await getCollection('interviews');
+const teams         = await getCollection('teams');
+const timeline      = await getCollection('timeline');
+const framework     = await getCollection('framework');
+const openQuestions = await getCollection('open-questions');
+const comparables   = await getCollection('comparables');
+
+const sortedTeams     = [...teams].sort((a, b) => b.data.championships - a.data.championships);
+const sortedFramework = [...framework].sort((a, b) => a.data.criterion_number - b.data.criterion_number);
+const sortedTimeline  = [...timeline].sort((a, b) => a.data.date.localeCompare(b.data.date));
+const sortedQuestions = [...openQuestions].sort((a, b) => {
+  const ord = { high: 0, medium: 1, low: 2 };
+  return (ord[a.data.priority] ?? 9) - (ord[b.data.priority] ?? 9);
+});
+const sortedComparables = [...comparables].sort((a, b) => a.data.founded - b.data.founded);
+
+const readSources  = sources.filter(s => s.data.status === 'read' || s.data.status === 'cited');
+const highPriority = openQuestions.filter(q => q.data.priority === 'high' && !q.data.already_asked);
+
+const homeStats = [
+  { value: '$200M+', label: 'Season 5 revenue' },
+  { value: '3.47M',  label: 'Abu Dhabi US viewers' },
+  { value: '$26.2M', label: 'Avg regional economic impact' },
+  { value: '+58',    label: 'Average event NPS' },
+  { value: '112k+',  label: 'Ticketed spectators, 2025' },
+  { value: '13→20',  label: 'Current teams → cap' },
+];
+
+const teamColors: Record<string, string> = {
+  australia:    '#FFD400',
+  gbr:          '#E11D48',
+  france:       '#1E40AF',
+  germany:      '#0EA5E9',
+  brazil:       '#16A34A',
+  denmark:      '#DC2626',
+  us:           '#1D4ED8',
+  italy:        '#7C3AED',
+  sweden:       '#0891B2',
+  spain:        '#EA580C',
+  'new-zealand':'#0F172A',
+  canada:       '#B91C1C',
+  switzerland:  '#DC2626',
+};
+
+const frameworkSummaries: Record<number, { summary: string; status: string }> = {
+  1:  { summary: '"F1 of sailing." Ellison-Coutts founding credibility; explicit disruption of the Cup model.', status: 'strong' },
+  2:  { summary: 'Quality of capital exceptional — Lasry, Ares, PE-grade family offices, plus celebrity names.', status: 'strong' },
+  3:  { summary: 'League-vs-team rights split unclear. Coutts succession unaddressed.', status: 'open' },
+  4:  { summary: 'F50 foiling at 60+ mph, stadium courses, regular-season cadence.', status: 'strong' },
+  5:  { summary: 'Global pool to crew F50s is shallow. Pipeline overlaps Olympic + Cup.', status: 'open' },
+  6:  { summary: '$26.2M avg regional impact. Christchurch and St-Tropez exits show fragility.', status: 'mixed' },
+  7:  { summary: 'CBS deal; 3.47M Abu Dhabi peak; "Uncharted" docuseries.', status: 'strong' },
+  8:  { summary: 'Rolex 10-yr title; Emirates, DP World, KPMG, Accor multi-season.', status: 'strong' },
+  9:  { summary: '+58 NPS, 112k+ ticketed, 25k Auckland. Demographic mix unclear.', status: 'strong' },
+  10: { summary: '$200M+ revenue. Four teams reportedly profitable. League P&L not public.', status: 'open' },
+  11: { summary: '20-team cap, expansion queued. Broadcast + licensing underdeveloped.', status: 'strong' },
+  12: { summary: 'Talent depth, single-supplier F50 risk, geopolitics.', status: 'mixed' },
+  13: { summary: 'Disrupts America\'s Cup; defends vs. Extreme E; F1 is aspirational.', status: 'strong' },
+};
+---
+
+<Base>
+  <div style="background:var(--bone);color:var(--ink);min-height:100vh;">
+    <Nav />
+
+    <!-- ══ HERO ══════════════════════════════════════════════════ -->
+    <section
+      class="px-6 md:px-10 lg:px-16"
+      style="padding-top:clamp(48px,8vw,80px);padding-bottom:clamp(32px,5vw,40px);"
+      data-chapter="brief"
+    >
+      <div class="grid grid-cols-1 lg:[grid-template-columns:7fr_5fr]" style="gap:clamp(28px,5vw,56px);align-items:center;">
+        <!-- Left: headline -->
+        <div>
+          <div class="eyebrow-marker mb-6">Stanford GSB · Working Case · 2026</div>
+          <h1 class="type-hero" style="margin:0 0 28px;">
+            Eight seasons<br/>above <em style="color:var(--sun);">the water.</em>
+          </h1>
+          <p class="type-body-lead" style="color:rgba(11,31,38,0.75);max-width:560px;margin:0;">
+            A Stanford GSB case study with Professor George Foster on how SailGP turned a six-team Ellison experiment into a thirteen-nation league worth $200 million — and what it must do to scale to twenty.
+          </p>
+          <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--mute);">
+            <span>Researcher · GSB '26</span>
+            <span style="width:16px;height:1px;background:rgba(11,31,38,0.25);display:inline-block;"></span>
+            <span>Advisor · Prof. George Foster</span>
+            <span style="width:16px;height:1px;background:rgba(11,31,38,0.25);display:inline-block;"></span>
+            <span>Subject · Russell Coutts</span>
+          </div>
+        </div>
+
+        <!-- Right: image plate + callout -->
+        <div style="position:relative;" class="hidden lg:block">
+          <ImagePlate
+            src={sailgpImages.hero.url}
+            alt={sailgpImages.hero.alt}
+            height={520}
+            caption="SailGP · New York Harbour · CC BY-SA"
+          />
+          <div style="position:absolute;bottom:-20px;left:-20px;background:var(--ink);color:var(--bone);padding:20px 24px;max-width:260px;">
+            <div class="type-eyebrow mb-2" style="color:var(--sun-2);">Centerpiece</div>
+            <div style="font-family:var(--font-display);font-size:32px;line-height:1.05;letter-spacing:-0.02em;font-style:italic;">"By outworking the opposition."</div>
+            <div class="type-eyebrow mt-3" style="color:rgba(242,235,221,0.6);">R. Coutts · TIME · 2024</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ STAT BAND ══════════════════════════════════════════════ -->
+    <StatBand stats={homeStats} />
+
+    <!-- ══ CHAPTER I — VIEWERSHIP ═════════════════════════════════ -->
+    <section
+      class="px-6 md:px-10 lg:px-16"
+      style="padding-top:40px;padding-bottom:80px;"
+      data-chapter="story"
+    >
+      <div class="grid grid-cols-1 lg:[grid-template-columns:4fr_8fr]" style="gap:clamp(32px,5vw,64px);align-items:start;">
+        <!-- Sticky left rail -->
+        <div style="position:sticky;top:80px;">
+          <div class="eyebrow-marker mb-3">Chapter I</div>
+          <h2 class="type-3" style="margin:0 0 16px;">
+            The audience problem, <em style="color:var(--sun);">solved.</em>
+          </h2>
+          <p class="type-body" style="color:rgba(11,31,38,0.65);">
+            Sailing's old problem was television: white triangles on a blue background.
+            F50s at sixty miles an hour, racing inside a city harbour, fixed it.
+            Per-event US viewership has compounded six times in seven seasons.
+          </p>
+          <a href="/timeline" class="link-sun type-eyebrow mt-6 inline-block">Full story →</a>
+        </div>
+
+        <!-- Chart + callouts -->
+        <div>
+          <ViewershipChart />
+          <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+            <div style="padding:18px 0;border-top:1px solid rgba(11,31,38,0.2);">
+              <div class="type-5" style="color:var(--sun);">Nov 2023</div>
+              <p style="font-family:var(--font-serif);font-size:14px;line-height:1.5;color:rgba(11,31,38,0.72);margin-top:8px;">
+                1.78M US viewers for the Spain race on CBS — the most-watched US sailing broadcast since 1992. It outdrew F1 Brazil that same weekend.
+              </p>
+            </div>
+            <div style="padding:18px 0;border-top:1px solid rgba(11,31,38,0.2);">
+              <div class="type-5" style="color:var(--sun);">Nov 2025</div>
+              <p style="font-family:var(--font-serif);font-size:14px;line-height:1.5;color:rgba(11,31,38,0.72);margin-top:8px;">
+                3.47M for Race to Abu Dhabi — the most-watched sailing race in US history. The "Uncharted" docuseries launched five months earlier.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PULL QUOTE ═════════════════════════════════════════════ -->
+    <PullQuote
+      quote='I asked Larry the secret to business success. After a long answer, he stopped and said the key is not giving up.'
+      emphasis="not giving up"
+      attribution="Russell Coutts · TIME magazine · January 2024"
+    />
+
+    <!-- ══ SASSNITZ FLEET DIVIDER ═══════════════════════════════════ -->
+    <div style="position:relative;overflow:hidden;height:clamp(200px,22vw,340px);">
+      <img
+        src={sailgpImages.sassnitz.url}
+        alt={sailgpImages.sassnitz.alt}
+        loading="lazy"
+        style="width:100%;height:115%;object-fit:cover;object-position:center 50%;position:absolute;top:-7.5%;"
+      />
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom, transparent 50%, rgba(11,31,38,0.4) 100%);"></div>
+      <div style="position:absolute;bottom:18px;right:clamp(24px,4vw,64px);">
+        <div class="type-eyebrow" style="color:rgba(242,235,221,0.6);">SailGP · Sassnitz, Germany 2025 / CC BY-SA</div>
+      </div>
+    </div>
+
+    <!-- ══ CHAPTER II — CAP TABLE ══════════════════════════════════ -->
+    <section
+      class="px-6 md:px-10 lg:px-16 py-16 md:py-20"
+      data-chapter="teams"
+    >
+      <div style="max-width:880px;margin-bottom:44px;">
+        <div class="eyebrow-marker mb-3">Chapter II</div>
+        <h2 class="type-chap" style="margin:0 0 18px;">
+          The cap table that <em style="color:var(--sun);">built itself.</em>
+        </h2>
+        <p class="type-body-large" style="color:rgba(11,31,38,0.65);">
+          Lasry. Reynolds. Jackman. Hathaway. Mbappé. Vettel. DeVos. Ofer. Törnqvist. Ares. Mubadala. Quantum Pacific.
+          Thirteen teams, thirteen ownership stories — and every team that has changed hands has set a new valuation record.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap:14px;">
+        {sortedTeams.map(team => (
+          <TeamCard
+            name={team.data.name}
+            nation={team.data.nation}
+            current_owner={team.data.current_owner}
+            current_valuation_usd={team.data.current_valuation_usd}
+            latest_valuation_date={team.data.latest_valuation_date}
+            championships={team.data.championships}
+            title_sponsor={team.data.title_sponsor}
+            driver={team.data.driver}
+            slug={team.slug}
+            status={team.data.status}
+            color={teamColors[team.slug] ?? 'var(--mute)'}
+            imageSrc={teamImages[team.slug]?.url}
+            imageAlt={teamImages[team.slug]?.alt}
+          />
+        ))}
+      </div>
+      <a href="/teams" class="link-sun type-eyebrow mt-8 inline-block">All team profiles →</a>
+    </section>
+
+    <!-- ══ CHAPTER III — FOSTER FRAMEWORK ════════════════════════ -->
+    <section
+      style="background:var(--bone-2);padding:clamp(48px,7vw,80px) clamp(24px,4vw,64px);"
+      data-chapter="framework"
+    >
+      <div class="grid grid-cols-1 lg:[grid-template-columns:5fr_7fr]" style="gap:clamp(32px,5vw,56px);">
+        <!-- Left -->
+        <div>
+          <div class="eyebrow-marker mb-3">Chapter III</div>
+          <h2 class="type-2" style="margin:0 0 18px;">
+            Foster's <em style="color:var(--sun);">thirteen.</em>
+          </h2>
+          <p class="type-body" style="color:rgba(11,31,38,0.65);">
+            The framework from <em>Sports Business Management</em> (3e), applied to SailGP.
+            Each criterion scored 1–5; status flagged where the public record leaves the question open.
+            Strongest pillars: capital and commercial. Softest: governance, talent depth, and the league's own P&amp;L.
+          </p>
+          <a href="/framework" class="link-sun type-eyebrow mt-6 inline-block">Full analysis →</a>
+        </div>
+
+        <!-- Right: framework rows -->
+        <div>
+          {sortedFramework.map(c => (
+            <FrameworkRow
+              n={c.data.criterion_number}
+              name={c.data.criterion_name}
+              summary={frameworkSummaries[c.data.criterion_number]?.summary}
+              score={c.data.sailgp_score ?? 0}
+              status={frameworkSummaries[c.data.criterion_number]?.status ?? 'open'}
+              slug={c.slug}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CHAPTER IV — TIMELINE ══════════════════════════════════ -->
+    <section
+      class="px-6 md:px-10 lg:px-16 py-16 md:py-20"
+      data-chapter="story"
+    >
+      <div style="max-width:880px;margin-bottom:44px;">
+        <div class="eyebrow-marker mb-3">Chapter IV</div>
+        <h2 class="type-chap" style="margin:0 0 18px;">
+          From Ellison's idea<br/>to <em style="color:var(--sun);">thirteen flags.</em>
+        </h2>
+      </div>
+
+      <div style="position:relative;">
+        <!-- Vertical rule -->
+        <div style="position:absolute;left:102px;top:12px;bottom:12px;width:1px;background:rgba(11,31,38,0.18);"></div>
+        {sortedTimeline.slice(0, 10).map(event => (
+          <TimelineItem
+            date={event.data.date}
+            category={event.data.category}
+            title={event.data.title}
+            summary={event.data.summary}
+            sources={event.data.sources}
+          />
+        ))}
+      </div>
+      <a href="/timeline" class="link-sun type-eyebrow mt-8 inline-block">Full timeline ({timeline.length} events) →</a>
+    </section>
+
+    <!-- ══ FLEET PHOTO DIVIDER ══════════════════════════════════════ -->
+    <div style="position:relative;overflow:hidden;height:clamp(240px,30vw,420px);">
+      <img
+        src={sailgpImages.christchurch.url}
+        alt={sailgpImages.christchurch.alt}
+        loading="lazy"
+        style="width:100%;height:115%;object-fit:cover;object-position:center 40%;position:absolute;top:-7.5%;"
+      />
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(11,31,38,0.55) 0%, transparent 60%);"></div>
+      <div style="position:absolute;bottom:24px;left:clamp(24px,4vw,64px);">
+        <div class="type-eyebrow" style="color:rgba(242,235,221,0.7);">SailGP · Christchurch 2024 · Alan Viles / CC BY 2.0</div>
+      </div>
+    </div>
+
+    <!-- ══ CHAPTER V — COMPARABLES ════════════════════════════════ -->
+    <section
+      style="background:var(--ink);color:var(--bone);padding:clamp(48px,7vw,80px) clamp(24px,4vw,64px);"
+      data-chapter="data"
+    >
+      <div style="max-width:880px;margin-bottom:44px;">
+        <div class="eyebrow-marker mb-3" style="color:var(--sun);">Chapter V</div>
+        <h2 class="type-chap" style="color:var(--bone);margin:0 0 18px;">
+          Measured against <em style="color:var(--sun);">everyone.</em>
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style="gap:14px;">
+        {sortedComparables.slice(0, 4).map(league => (
+          <ComparableCard
+            name={league.data.name}
+            founded={league.data.founded}
+            parent_owner={league.data.parent_owner}
+            season_revenue_usd={league.data.season_revenue_usd}
+            season_event_count={league.data.season_event_count}
+            relevance_to_sailgp={league.data.relevance_to_sailgp}
+            slug={league.slug}
+            dark={true}
+          />
+        ))}
+      </div>
+      <a href="/comparables" class="link-sun type-eyebrow mt-8 inline-block">All {comparables.length} comparables →</a>
+    </section>
+
+    <!-- ══ CHAPTER VI — OPEN QUESTIONS ═══════════════════════════ -->
+    <section
+      class="px-6 md:px-10 lg:px-16 py-16 md:py-20"
+      data-chapter="questions"
+    >
+      <div style="max-width:880px;margin-bottom:36px;">
+        <div class="eyebrow-marker mb-3">Chapter VI</div>
+        <h2 class="type-chap" style="margin:0 0 18px;">
+          What the public record <em style="color:var(--sun);">won't say.</em>
+        </h2>
+        <p class="type-body" style="color:rgba(11,31,38,0.65);">
+          {openQuestions.length} question themes, priority-sorted, cross-checked against Coutts interviews.
+          This is the working draft of the interview brief.
+        </p>
+      </div>
+
+      <div>
+        {sortedQuestions.map((q, i) => (
+          <QuestionRow
+            index={i + 1}
+            theme={q.data.theme}
+            question={q.body.split('\n').find(l => l.trim().startsWith('-'))?.replace(/^-\s*/, '') ?? q.data.theme}
+            priority={q.data.priority}
+          />
+        ))}
+      </div>
+      <a href="/open-questions" class="link-sun type-eyebrow mt-8 inline-block">Full question list →</a>
+    </section>
+
+    <!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+    <footer style="background:var(--ink);">
+      <div class="px-6 md:px-10 lg:px-16 py-10 flex flex-col sm:flex-row justify-between gap-6">
+        <span class="type-eyebrow" style="color:rgba(242,235,221,0.5);">Foiling · A Stanford GSB case study</span>
+        <span class="type-eyebrow" style="color:rgba(242,235,221,0.35);">With Prof. George Foster · v0.07</span>
+        <span class="type-eyebrow" style="color:rgba(242,235,221,0.25);">Local research instrument · Not for distribution</span>
+      </div>
+    </footer>
+  </div>
+</Base>
+
+<script>
+  /* Nav active state via IntersectionObserver */
+  const sections = document.querySelectorAll<HTMLElement>('[data-chapter]');
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('nav a[href]');
+
+  const chapterToPath: Record<string, string> = {
+    brief:     '/',
+    story:     '/timeline',
+    data:      '/sources',
+    teams:     '/teams',
+    framework: '/framework',
+    questions: '/open-questions',
+  };
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const chapter = (entry.target as HTMLElement).dataset.chapter ?? '';
+      const target  = chapterToPath[chapter];
+      navLinks.forEach(a => {
+        const active = a.getAttribute('href') === target;
+        a.style.color = active ? 'var(--sun)' : 'var(--mute)';
+        a.style.borderBottom = active ? '1px solid var(--sun)' : '';
+      });
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => obs.observe(s));
+
+  /* Hero parallax */
+  const plate = document.querySelector<HTMLElement>('.parallax-plate');
+  if (plate && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY * 0.12;
+      plate.style.transform = `translate3d(0,${y}px,0)`;
+    }, { passive: true });
+  }
+
+  /* Timeline dot scroll activation */
+  const dots = document.querySelectorAll<HTMLElement>('.tl-dot');
+  const mid  = window.innerHeight / 2;
+  function updateDots() {
+    dots.forEach(dot => {
+      const rect = dot.getBoundingClientRect();
+      if (rect.top < mid) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  }
+  window.addEventListener('scroll', updateDots, { passive: true });
+</script>

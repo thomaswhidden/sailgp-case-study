@@ -1,0 +1,99 @@
+---
+const viewership = [
+  { season: 'S1', label: '2019',    avg: 0.4, peak: 0.6  },
+  { season: 'S2', label: '2020',    avg: 0.5, peak: 0.8  },
+  { season: 'S3', label: '2021–22', avg: 0.7, peak: 1.1  },
+  { season: 'S4', label: '2023',    avg: 1.1, peak: 1.78 },
+  { season: 'S5', label: '2024–25', avg: 1.6, peak: 2.4  },
+  { season: 'S6', label: '2025–26', avg: 2.2, peak: 3.47 },
+];
+
+const W = 760, H = 280, P = 44;
+const max = Math.max(...viewership.map(v => v.peak)) * 1.15;
+const xs = (i: number) => P + (i * (W - 2 * P)) / (viewership.length - 1);
+const ys = (v: number) => H - P - (v / max) * (H - 2 * P);
+
+const peakPoints = viewership.map((v, i) => `${i === 0 ? 'M' : 'L'}${xs(i)},${ys(v.peak)}`).join(' ');
+const area = peakPoints + ` L${xs(viewership.length - 1)},${H - P} L${xs(0)},${H - P} Z`;
+---
+
+<div id="viewership-chart-wrap" style="background:var(--bone-2);padding:32px;">
+  <svg
+    viewBox={`0 0 ${W} ${H}`}
+    style="width:100%;height:auto;display:block;"
+    role="img"
+    aria-label="SailGP US viewership by season"
+  >
+    <defs>
+      <linearGradient id="d3area" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#E97451" stop-opacity="0.55" />
+        <stop offset="100%" stop-color="#E97451" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    <!-- Grid lines -->
+    {[0, 0.5, 1].map((p) => (
+      <line
+        x1={P} x2={W - P}
+        y1={P + p * (H - 2 * P)}
+        y2={P + p * (H - 2 * P)}
+        stroke="#0B1F26" stroke-opacity="0.1"
+      />
+    ))}
+
+    <!-- Area fill -->
+    <path class="chart-area" d={area} fill="url(#d3area)" />
+
+    <!-- Line -->
+    <path class="chart-line" d={peakPoints} fill="none" stroke="#E97451" stroke-width="2.5" />
+
+    <!-- Data points -->
+    {viewership.map((v, i) => (
+      <g>
+        <circle cx={xs(i)} cy={ys(v.peak)} r="5" fill="#F2EBDD" stroke="#E97451" stroke-width="2" />
+        <text
+          x={xs(i)} y={ys(v.peak) - 14}
+          fill="#0B1F26" font-size="13"
+          font-family='"Fraunces", Georgia, serif'
+          font-weight="600" text-anchor="middle"
+        >
+          {v.peak}M
+        </text>
+        <text
+          x={xs(i)} y={H - P + 18}
+          fill="#0B1F26" font-size="11"
+          font-family='"JetBrains Mono", monospace'
+          text-anchor="middle"
+        >
+          {v.season}
+        </text>
+        <text
+          x={xs(i)} y={H - P + 32}
+          fill="#5A6E76" font-size="9.5"
+          font-family='"JetBrains Mono", monospace'
+          text-anchor="middle"
+        >
+          {v.label}
+        </text>
+      </g>
+    ))}
+  </svg>
+
+  <div style="display:flex;justify-content:space-between;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:0.12em;">
+    <span>US viewers · millions · peak per event</span>
+    <span>Source · TIME, Sportico, Fast Company</span>
+  </div>
+</div>
+
+<script>
+  const wrap = document.getElementById('viewership-chart-wrap');
+  if (wrap) {
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        wrap.classList.add('chart-revealed');
+        obs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    obs.observe(wrap);
+  }
+</script>

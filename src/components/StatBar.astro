@@ -1,0 +1,26 @@
+---
+interface Stat {
+  label: string;
+  value: number | string;
+  total?: number;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+const { stats } = Astro.props;
+---
+
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+  {stats.map(stat => (
+    <div class="bg-navy-900 border border-navy-800 border-t-[3px] border-t-amber-500 px-5 py-4">
+      <div class="text-3xl font-serif font-normal text-white tracking-tight tabular-nums">
+        {stat.value}{stat.total !== undefined && <span class="text-navy-400 text-xl">/{stat.total}</span>}
+      </div>
+      <div class="text-[11px] text-zinc-500 mt-1.5 uppercase tracking-widest font-mono">
+        {stat.label}
+      </div>
+    </div>
+  ))}
+</div>

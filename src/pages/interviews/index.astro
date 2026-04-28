@@ -1,0 +1,81 @@
+---
+import Section from '../../layouts/Section.astro';
+import { getCollection } from 'astro:content';
+
+const interviews = await getCollection('interviews');
+const sorted = [...interviews].sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const allTags = [...new Set(interviews.flatMap(i => i.data.already_asked_tags))].sort();
+---
+
+<Section
+  title="Interview Archive"
+  chapter="Russell Coutts · Public Record"
+  description="Q&A summaries of every public Coutts interview. Already-asked tags prevent duplication in the live interview."
+>
+  <!-- Already-asked tag cloud -->
+  {allTags.length > 0 && (
+    <div style="margin-bottom:36px;padding:20px 24px;background:var(--bone-2);">
+      <div class="eyebrow-marker mb-4">Topics already covered across all interviews</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        {allTags.map((tag: string) => (
+          <span
+            class="type-eyebrow"
+            style="padding:4px 10px;background:var(--bone);border:1px solid var(--border-ink);color:var(--mute);"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Interview cards -->
+  <div style="display:flex;flex-direction:column;gap:2px;">
+    {sorted.map(interview => (
+      <a
+        href={`/interviews/${interview.slug}`}
+        class="card-hover block"
+        style="padding:24px;text-decoration:none;"
+      >
+        <!-- Outlet eyebrow -->
+        <div class="eyebrow-marker mb-3" style="color:var(--sun);">{interview.data.outlet}</div>
+
+        <!-- Title -->
+        <h2 style="font-family:var(--font-display);font-size:clamp(22px,3vw,30px);line-height:1.05;letter-spacing:-0.015em;color:var(--ink);margin:0 0 10px;">
+          {interview.data.title}
+        </h2>
+
+        <!-- Meta row -->
+        <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:12px;">
+          <span class="type-eyebrow" style="color:var(--mute);">{interview.data.date}</span>
+          {interview.data.interviewer && (
+            <span class="type-eyebrow" style="color:var(--mute);">{interview.data.interviewer}</span>
+          )}
+          <span class="type-eyebrow" style="color:var(--mute);">{interview.data.format}</span>
+          <span class="type-eyebrow" style="color:var(--sun);">
+            {interview.data.already_asked_tags.length} topics covered →
+          </span>
+        </div>
+
+        <!-- Key topics -->
+        {interview.data.key_topics.length > 0 && (
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            {interview.data.key_topics.map((t: string) => (
+              <span class="type-eyebrow" style="padding:3px 8px;background:var(--bone-2);color:var(--mute);border:1px solid var(--border-ink);">
+                {t}
+              </span>
+            ))}
+          </div>
+        )}
+      </a>
+    ))}
+  </div>
+
+  <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
+    <p class="type-body-small" style="color:var(--mute);">
+      Create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/interviews/slug.md</code>
+      with <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">title, outlet, date, url, format</code>.
+    </p>
+  </div>
+</Section>

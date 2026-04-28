@@ -1,0 +1,78 @@
+---
+interface Props {
+  question: string;
+  priority: 'high' | 'medium' | 'low';
+  framework_links: string[];
+  already_asked: boolean;
+  source_check: string[];
+}
+
+const { question, priority, framework_links, already_asked, source_check } = Astro.props;
+
+const priorityStyles: Record<string, string> = {
+  high:   'bg-rose-50 text-rose-700 border-rose-200',
+  medium: 'bg-amber-50 text-amber-700 border-amber-200',
+  low:    'bg-zinc-100 text-zinc-500 border-zinc-200',
+};
+
+function criterionLabel(slug: string): string {
+  const map: Record<string, string> = {
+    'vision-strategic-positioning': 'Vision',
+    'investor-owner-base':          'Investors',
+    'league-governance':            'Governance',
+    'competitive-format':           'Format',
+    'athlete-talent-pool':          'Talent',
+    'venue-host-city':              'Venues',
+    'broadcast-media':              'Broadcast',
+    'sponsorship':                  'Sponsorship',
+    'fan-engagement':               'Fans',
+    'financial-sustainability':     'Financials',
+    'growth-opportunities':         'Growth+',
+    'growth-challenges':            'Growth−',
+    'disruptive-positioning':       'Disruption',
+  };
+  return map[slug] ?? slug;
+}
+---
+
+<div
+  class:list={[
+    'py-4 border-b border-zinc-100 last:border-0',
+    already_asked && 'opacity-50',
+  ]}
+  data-asked={already_asked}
+>
+  <div class="flex items-start gap-3">
+    <span
+      class:list={[
+        'text-xs font-mono uppercase tracking-wide px-2 py-0.5 border shrink-0 mt-0.5',
+        priorityStyles[priority],
+      ]}
+    >
+      {priority}
+    </span>
+    <div class="flex-1">
+      <p class:list={[
+        'text-sm text-zinc-800 leading-relaxed',
+        already_asked && 'line-through text-zinc-400',
+      ]}>
+        {question}
+      </p>
+      <div class="flex flex-wrap gap-1.5 mt-2">
+        {framework_links.map(slug => (
+          <a
+            href={`/framework/${slug}`}
+            class="text-xs font-mono text-navy-600 bg-navy-50 px-1.5 py-0.5 border border-navy-100 hover:bg-navy-100 transition-colors"
+          >
+            {criterionLabel(slug)}
+          </a>
+        ))}
+        {source_check.map(src => (
+          <span class="text-xs font-mono text-zinc-400 bg-zinc-50 px-1.5 py-0.5 border border-zinc-200">
+            checked: {src}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

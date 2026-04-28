@@ -1,0 +1,36 @@
+---
+interface Props {
+  n: number;
+  name: string;
+  summary?: string;
+  score?: number;
+  status?: string;
+  slug?: string;
+}
+const { n, name, summary, score = 0, status = 'open', slug } = Astro.props;
+
+const col =
+  status === 'strong' ? 'var(--ink-2)' :
+  status === 'open'   ? 'var(--sun)'   :
+                        'var(--mute)';
+
+const numStr = String(n).padStart(3, '0');
+---
+
+<a
+  href={slug ? `/framework/${slug}` : undefined}
+  class="block"
+  style="display:grid;grid-template-columns:44px 1fr 96px 64px;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--border-ink);text-decoration:none;"
+>
+  <div class="type-eyebrow" style="color:var(--mute);">{numStr}</div>
+  <div>
+    <div style="font-family:var(--font-display);font-size:20px;line-height:1.05;letter-spacing:-0.015em;color:var(--ink);">{name}</div>
+    {summary && <div style="font-family:var(--font-serif);font-size:13px;color:rgba(11,31,38,0.65);margin-top:4px;line-height:1.5;">{summary}</div>}
+  </div>
+  <div style="display:flex;gap:3px;align-items:center;">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <div style={`width:12px;height:22px;background:${i < score ? col : 'rgba(11,31,38,0.1)'};`}></div>
+    ))}
+  </div>
+  <div class="type-eyebrow" style={`color:${col};text-align:right;font-weight:600;`}>{status}</div>
+</a>

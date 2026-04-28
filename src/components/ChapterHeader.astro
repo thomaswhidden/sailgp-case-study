@@ -1,0 +1,19 @@
+---
+interface Props {
+  chapter?: string;
+  title: string;
+  lead?: string;
+  size?: 'hero' | 'chap' | '2' | '3';
+}
+const { chapter, title, lead, size = 'chap' } = Astro.props;
+const cls = { hero: 'type-hero', chap: 'type-chap', '2': 'type-2', '3': 'type-3' }[size];
+---
+<div>
+  {chapter && (
+    <div class="eyebrow-marker mb-3">{chapter}</div>
+  )}
+  <h2 class={cls} set:html={title} />
+  {lead && (
+    <p class="type-body mt-4" style="color: rgba(11,31,38,0.72); max-width: 560px;">{lead}</p>
+  )}
+</div>

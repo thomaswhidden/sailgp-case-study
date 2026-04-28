@@ -1,0 +1,143 @@
+---
+import Section from '../../layouts/Section.astro';
+import { getCollection } from 'astro:content';
+
+const sources = await getCollection('sources');
+const statusOrder: Record<string, number> = { cited: 0, read: 1, reading: 2, 'to-read': 3 };
+const sorted = [...sources].sort((a, b) => {
+  const so = (statusOrder[a.data.status] ?? 9) - (statusOrder[b.data.status] ?? 9);
+  if (so !== 0) return so;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+const readCount = sources.filter(s => s.data.status === 'read' || s.data.status === 'cited').length;
+
+const statusStyle: Record<string, string> = {
+  cited:    'background:var(--sun);color:var(--bone);',
+  read:     'background:rgba(11,31,38,0.08);color:var(--ink);',
+  reading:  'background:rgba(11,31,38,0.06);color:var(--mute);',
+  'to-read':'background:transparent;color:var(--mute);border:1px solid var(--border-ink);',
+};
+---
+
+<Section
+  title="Sources"
+  chapter="Research Library"
+  description={`${sources.length} sources tracked — ${readCount} read or cited.`}
+>
+  <!-- Search + filter row -->
+  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;align-items:center;">
+    <input
+      id="source-search"
+      type="text"
+      placeholder="Search titles..."
+      class="type-eyebrow"
+      style="padding:8px 12px;border:1px solid var(--border-ink);background:transparent;color:var(--ink);flex:1;min-width:180px;outline:none;"
+    />
+    <select
+      id="status-filter"
+      class="type-eyebrow"
+      style="padding:8px 12px;border:1px solid var(--border-ink);background:transparent;color:var(--mute);cursor:pointer;"
+    >
+      <option value="all">All statuses</option>
+      <option value="cited">Cited</option>
+      <option value="read">Read</option>
+      <option value="reading">Reading</option>
+      <option value="to-read">To read</option>
+    </select>
+    <select
+      id="type-filter"
+      class="type-eyebrow"
+      style="padding:8px 12px;border:1px solid var(--border-ink);background:transparent;color:var(--mute);cursor:pointer;"
+    >
+      <option value="all">All types</option>
+      <option value="article">Article</option>
+      <option value="podcast">Podcast</option>
+      <option value="video">Video</option>
+      <option value="book">Book</option>
+      <option value="report">Report</option>
+      <option value="website">Website</option>
+    </select>
+  </div>
+
+  <!-- Source rows -->
+  <div id="source-list">
+    {sorted.map(s => (
+      <div
+        class="source-row"
+        data-status={s.data.status}
+        data-type={s.data.type}
+        data-title={s.data.title.toLowerCase()}
+        style="display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--border-ink);"
+      >
+        <!-- Status pill -->
+        <div
+          class="type-eyebrow shrink-0"
+          style={`${statusStyle[s.data.status] ?? ''};padding:3px 8px;white-space:nowrap;`}
+        >
+          {s.data.status}
+        </div>
+
+        <!-- Title + meta -->
+        <div style="flex:1;min-width:0;">
+          <a
+            href={s.data.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style="font-family:var(--font-serif);font-size:17px;color:var(--ink);text-decoration:none;line-height:1.3;display:block;"
+            class="hover:underline"
+          >
+            {s.data.title}
+          </a>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;">
+            <span class="type-eyebrow" style="color:var(--mute);">{s.data.publisher}</span>
+            {s.data.date && <span class="type-eyebrow" style="color:var(--mute);">{s.data.date}</span>}
+            <span class="type-eyebrow" style="color:var(--mute);">{s.data.type}</span>
+          </div>
+          {s.data.tags.length > 0 && (
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+              {s.data.tags.map((tag: string) => (
+                <span
+                  class="type-eyebrow"
+                  style="padding:2px 7px;background:var(--bone-2);color:var(--mute);border:1px solid var(--border-ink);"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
+    <p class="type-body-small" style="color:var(--mute);">
+      Create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/sources/slug.md</code>
+      with <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">title, url, publisher, type, status</code>.
+    </p>
+  </div>
+</Section>
+
+<script>
+  const search      = document.getElementById('source-search') as HTMLInputElement;
+  const statusSel   = document.getElementById('status-filter') as HTMLSelectElement;
+  const typeSel     = document.getElementById('type-filter') as HTMLSelectElement;
+  const rows        = document.querySelectorAll<HTMLElement>('.source-row');
+
+  function filter() {
+    const q   = search.value.toLowerCase();
+    const st  = statusSel.value;
+    const ty  = typeSel.value;
+    rows.forEach(r => {
+      const matchTitle  = r.dataset.title?.includes(q) ?? true;
+      const matchStatus = st === 'all' || r.dataset.status === st;
+      const matchType   = ty === 'all' || r.dataset.type === ty;
+      r.style.display   = matchTitle && matchStatus && matchType ? '' : 'none';
+    });
+  }
+
+  search.addEventListener('input', filter);
+  statusSel.addEventListener('change', filter);
+  typeSel.addEventListener('change', filter);
+</script>

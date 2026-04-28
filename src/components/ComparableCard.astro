@@ -1,0 +1,59 @@
+---
+interface Props {
+  name: string;
+  founded: number;
+  parent_owner?: string;
+  team_count?: number;
+  season_revenue_usd?: string;
+  season_event_count?: number;
+  relevance_to_sailgp?: string;
+  slug: string;
+  dark?: boolean;
+}
+
+const {
+  name, founded, parent_owner, season_revenue_usd,
+  season_event_count, relevance_to_sailgp, slug, dark = false,
+} = Astro.props;
+---
+
+<a
+  href={`/comparables/${slug}`}
+  class="block card-hover"
+  style={`padding:22px;border:1px solid ${dark ? 'rgba(242,235,221,0.2)' : 'var(--border-ink)'};text-decoration:none;`}
+>
+  <div class="type-eyebrow mb-1" style={`color:${dark ? 'rgba(242,235,221,0.55)' : 'var(--mute)'};`}>
+    Founded {founded}
+  </div>
+  <div style={`font-family:var(--font-display);font-size:26px;line-height:1;letter-spacing:-0.02em;margin-top:5px;color:${dark ? 'var(--bone)' : 'var(--ink)'};`}>
+    {name}
+  </div>
+  {parent_owner && (
+    <div class="type-eyebrow mt-1" style={`color:${dark ? 'rgba(242,235,221,0.45)' : 'var(--mute)'};`}>
+      {parent_owner}
+    </div>
+  )}
+
+  <div style={`height:1px;background:${dark ? 'rgba(242,235,221,0.18)' : 'var(--border-ink)'};margin:14px 0;`}></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    {season_revenue_usd && (
+      <div>
+        <div class="type-eyebrow mb-1" style={`color:${dark ? 'rgba(242,235,221,0.55)' : 'var(--mute)'};`}>Revenue</div>
+        <div style={`font-family:var(--font-display);font-size:20px;color:var(--sun);line-height:1;`}>{season_revenue_usd}</div>
+      </div>
+    )}
+    {season_event_count !== undefined && (
+      <div>
+        <div class="type-eyebrow mb-1" style={`color:${dark ? 'rgba(242,235,221,0.55)' : 'var(--mute)'};`}>Events</div>
+        <div style={`font-family:var(--font-display);font-size:20px;color:${dark ? 'var(--bone)' : 'var(--ink)'};line-height:1;`}>{season_event_count}</div>
+      </div>
+    )}
+  </div>
+
+  {relevance_to_sailgp && (
+    <p style={`font-family:var(--font-serif);font-size:13px;color:${dark ? 'rgba(242,235,221,0.72)' : 'rgba(11,31,38,0.65)'};line-height:1.5;margin-top:14px;`}>
+      {relevance_to_sailgp}
+    </p>
+  )}
+</a>

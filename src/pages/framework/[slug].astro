@@ -1,0 +1,121 @@
+---
+import Section from '../../layouts/Section.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const criteria = await getCollection('framework');
+  return criteria.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { criterion_number, criterion_name, sailgp_score, last_updated, sources } = entry.data;
+
+const allInterviews = await getCollection('interviews');
+const linkedInterviews = allInterviews.filter(iv => sources.includes(iv.slug));
+
+const allQuestions = await getCollection('open-questions');
+const related = allQuestions.filter(q => q.data.framework_links.includes(entry.slug));
+related.sort((a, b) => {
+  const order: Record<string, number> = { high: 0, medium: 1, low: 2 };
+  return (order[a.data.priority] ?? 9) - (order[b.data.priority] ?? 9);
+});
+
+function scoreLabel(n?: number): string {
+  if (!n) return 'Not rated';
+  return ['', 'Very Weak', 'Weak', 'Moderate', 'Strong', 'Very Strong'][n] ?? String(n);
+}
+
+const scoreStatus = sailgp_score
+  ? (sailgp_score >= 4 ? 'strong' : sailgp_score >= 3 ? 'mixed' : 'open')
+  : 'open';
+
+const scoreColor =
+  scoreStatus === 'strong' ? 'var(--ink-2)' :
+  scoreStatus === 'open'   ? 'var(--sun)'   : 'var(--mute)';
+---
+
+<Section
+  title={`${String(criterion_number).padStart(2, '0')}. ${criterion_name}`}
+  chapter={`Chapter III · Foster Framework · Criterion ${criterion_number}`}
+>
+  <!-- Score header -->
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border-ink);">
+    <div style="display:flex;gap:3px;align-items:center;">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div style={`width:14px;height:26px;background:${i < (sailgp_score ?? 0) ? scoreColor : 'rgba(11,31,38,0.1)'};`}></div>
+      ))}
+    </div>
+    <span class="type-eyebrow" style={`color:${scoreColor};font-weight:600;`}>
+      {scoreLabel(sailgp_score)} {sailgp_score ? `(${sailgp_score}/5)` : ''}
+    </span>
+    {last_updated && (
+      <span class="type-eyebrow" style="color:var(--mute);">Updated {last_updated}</span>
+    )}
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+    <!-- Main content -->
+    <div class="lg:col-span-2">
+      <div class="prose max-w-none">
+        <Content />
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div>
+      {linkedInterviews.length > 0 && (
+        <div style="background:var(--bone-2);padding:20px 24px;margin-bottom:16px;">
+          <div class="eyebrow-marker mb-4">Interview Sources</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            {linkedInterviews.map(iv => (
+              <a
+                href={`/interviews/${iv.slug}`}
+                style="font-family:var(--font-serif);font-size:14px;color:var(--ink);text-decoration:none;display:block;padding-bottom:10px;border-bottom:1px solid var(--border-ink);"
+                class="hover:underline"
+              >
+                <span class="type-eyebrow" style="color:var(--mute);display:block;margin-bottom:2px;">{iv.data.outlet} · {iv.data.date}</span>
+                {iv.data.guest ?? iv.data.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {related.length > 0 ? (
+        <div style="background:var(--bone-2);padding:20px 24px;">
+          <div class="eyebrow-marker mb-4">Related Questions</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            {related.map(q => {
+              const pBg  = q.data.priority === 'high' ? 'var(--sun)' : 'rgba(11,31,38,0.08)';
+              const pCol = q.data.priority === 'high' ? 'var(--bone)' : 'var(--mute)';
+              return (
+                <div style="padding-bottom:12px;border-bottom:1px solid var(--border-ink);">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                    <span class="type-eyebrow" style={`padding:2px 7px;background:${pBg};color:${pCol};`}>
+                      {q.data.priority}
+                    </span>
+                  </div>
+                  <a href="/open-questions" style="font-family:var(--font-serif);font-size:14px;color:var(--ink);text-decoration:none;" class="hover:underline">
+                    {q.data.theme}
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+          <a href="/open-questions" class="link-sun type-eyebrow mt-4 inline-block">All open questions →</a>
+        </div>
+      ) : (
+        <p class="type-eyebrow" style="color:var(--mute);">No linked open questions yet.</p>
+      )}
+    </div>
+  </div>
+
+  <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border-ink);">
+    <a href="/framework" class="link-sun type-eyebrow">← All criteria</a>
+  </div>
+</Section>

@@ -1,0 +1,75 @@
+---
+import Section from '../../layouts/Section.astro';
+import ImagePlate from '../../components/ImagePlate.astro';
+import { getCollection } from 'astro:content';
+import { teamImages } from '../../data/teamImages';
+
+export async function getStaticPaths() {
+  const teams = await getCollection('teams');
+  return teams.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const d = entry.data;
+const img = teamImages[entry.slug];
+
+function formatValuation(v?: number): string {
+  if (!v) return '—';
+  return `$${Math.round(v / 1_000_000)}M`;
+}
+---
+
+<Section title={d.name} chapter={`Team · ${d.nation}`}>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+
+    <!-- Key facts sidebar -->
+    <div class="lg:col-span-1">
+      <ImagePlate
+        src={img?.url}
+        alt={img?.alt ?? `${d.name} · ${d.nation}`}
+        height={200}
+        caption={img ? `${d.nation} · ${img.credit}` : d.nation}
+      />
+
+      <div style="background:var(--bone-2);padding:20px 24px;margin-top:2px;">
+        <dl style="display:flex;flex-direction:column;gap:14px;">
+          {[
+            ['Nation',         d.nation],
+            ['Current Owner',  d.current_owner],
+            ['Valuation',      formatValuation(d.current_valuation_usd) + (d.latest_valuation_date ? ` (${d.latest_valuation_date})` : '')],
+            ...(d.title_sponsor ? [['Title Sponsor', d.title_sponsor]] : []),
+            ...(d.driver ? [['Skipper', d.driver]] : []),
+            ['Championships',  d.championships === 0 ? 'None yet' : `${d.championships}×`],
+            ['Status',         d.status],
+          ].map(([label, value]) => (
+            <div>
+              <dt class="type-eyebrow mb-1" style="color:var(--mute);">{label}</dt>
+              <dd style="font-family:var(--font-serif);font-size:15px;color:var(--ink);">{value}</dd>
+            </div>
+          ))}
+          {d.notable_owners.length > 0 && (
+            <div>
+              <dt class="type-eyebrow mb-1" style="color:var(--mute);">Notable Owners</dt>
+              <dd style="font-family:var(--font-serif);font-size:15px;color:var(--ink);">{d.notable_owners.join(', ')}</dd>
+            </div>
+          )}
+        </dl>
+      </div>
+    </div>
+
+    <!-- Body content -->
+    <div class="lg:col-span-2">
+      <div class="prose max-w-none">
+        <Content />
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border-ink);">
+    <a href="/teams" class="link-sun type-eyebrow">← All teams</a>
+  </div>
+</Section>

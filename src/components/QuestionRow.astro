@@ -1,0 +1,33 @@
+---
+interface Props {
+  index: number;
+  theme: string;
+  question: string;
+  priority: string;
+  count?: number;
+}
+const { index, theme, question, priority, count } = Astro.props;
+
+const pillBg  = priority === 'high' ? 'var(--sun)' : 'rgba(11,31,38,0.1)';
+const pillCol = priority === 'high' ? 'var(--bone)' : 'var(--ink)';
+---
+
+<div
+  class="card-hover"
+  style="display:grid;grid-template-columns:60px 1fr 110px;gap:18px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-ink);"
+>
+  <div style="font-family:var(--font-display);font-size:36px;color:rgba(11,31,38,0.22);line-height:1;letter-spacing:-0.02em;">
+    {String(index).padStart(2, '0')}
+  </div>
+  <div>
+    <div style="font-family:var(--font-display);font-size:26px;line-height:1.05;letter-spacing:-0.015em;color:var(--ink);">{theme}</div>
+    <div style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:rgba(11,31,38,0.65);margin-top:8px;line-height:1.5;">
+      "{question}"
+    </div>
+  </div>
+  <div style="text-align:right;padding-top:4px;">
+    <div style={`display:inline-block;padding:4px 10px;background:${pillBg};color:${pillCol};font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;`}>
+      {priority}{count ? ` · ${count}q` : ''}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const sections = await getCollection('case-draft');
+const order = ['0','A-I','A-II','A-III','A-IV','B-I','B-II','B-III','exhibits','matrix'];
+sections.sort((a, b) => order.indexOf(a.data.section_number) - order.indexOf(b.data.section_number));
+
+const rendered = await Promise.all(
+  sections.map(async s => {
+    const { Content } = await s.render();
+    return { section: s, Content };
+  })
+);
+---
+
+<Base title="SailGP Case Draft — Print View">
+  <!-- Print controls (hidden when printing) -->
+  <div class="no-print" style="position:sticky;top:0;z-index:50;background:var(--bone);border-bottom:1px solid var(--border-ink);padding:12px 32px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--mute);">
+      SailGP Case Draft · Print View · {sections.length} sections
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <a href="/case-draft" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute);text-decoration:none;">← Back</a>
+      <button
+        onclick="window.print()"
+        style="padding:7px 18px;background:var(--ink);color:var(--bone);font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;"
+      >
+        Print / Save PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Cover header -->
+  <div style="padding:48px 64px 32px;border-bottom:2px solid var(--ink);" class="print-cover">
+    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--mute);margin-bottom:8px;">
+      DRAFT ONLY · NOT TO BE DISTRIBUTED BEYOND GSB
+    </div>
+    <div style="font-family:'Instrument Serif',Georgia,serif;font-size:clamp(28px,4vw,48px);line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:6px;">
+      From Harbor to Horizon
+    </div>
+    <div style="font-family:var(--font-serif);font-size:16px;color:var(--mute);margin-bottom:16px;">
+      SailGP's Construction of a New Global Sporting League
+    </div>
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute);">
+      Stanford Graduate School of Business · Professor George Foster · April 2026
+    </div>
+  </div>
+
+  <!-- All sections -->
+  {rendered.map(({ section, Content }) => {
+    const partLabel =
+      section.data.part === 'cover'     ? 'Preface' :
+      section.data.part === 'A'         ? `Part A · § ${section.data.section_number}` :
+      section.data.part === 'B'         ? `Part B · § ${section.data.section_number}` :
+      section.data.part === 'exhibits'  ? 'Exhibits' : 'Interview Matrix';
+    return (
+      <div class="print-section" style="padding:40px 64px;border-bottom:1px solid rgba(11,31,38,0.15);">
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mute);margin-bottom:10px;">
+          {partLabel}
+        </div>
+        <h1 style="font-family:'Instrument Serif',Georgia,serif;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid rgba(11,31,38,0.15);">
+          {section.data.title}
+        </h1>
+        <div class="prose max-w-none case-draft-content">
+          <Content />
+        </div>
+      </div>
+    );
+  })}
+</Base>
+
+<style>
+  body { background: white; }
+
+  .case-draft-content ul { margin: 0.4em 0 0.6em; }
+  .case-draft-content li { margin-bottom: 0.55em; line-height: 1.65; font-family: var(--font-serif); font-size: 15px; }
+  .case-draft-content li > em { color: rgba(11,31,38,0.65); }
+  .case-draft-content hr { border: none; border-top: 1px solid rgba(11,31,38,0.12); margin: 1.75rem 0; }
+
+  @media print {
+    .no-print { display: none !important; }
+    .print-cover { padding: 40px 0 28px; }
+    .print-section { padding: 32px 0; page-break-before: always; }
+    .print-section:first-of-type { page-break-before: auto; }
+    .case-draft-content { font-size: 10.5pt; line-height: 1.55; }
+    .case-draft-content h2 { font-size: 12pt; break-after: avoid; margin-top: 1.6em; }
+    .case-draft-content li { font-size: 10pt; margin-bottom: 0.4em; break-inside: avoid; }
+    .exhibit-callout { break-inside: avoid; padding: 8pt 10pt; background: #f5f5f5 !important; margin: 10pt 0; }
+    .quote-placeholder { break-inside: avoid; padding: 8pt 12pt; background: #fff8f8 !important; border-left: 2px solid #DC2626; }
+    h1 { break-after: avoid; }
+    @page { margin: 1.5cm 2cm; }
+    @page :first { margin-top: 2cm; }
+  }
+</style>

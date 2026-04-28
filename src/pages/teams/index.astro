@@ -1,0 +1,85 @@
+---
+import Section from '../../layouts/Section.astro';
+import TeamCard from '../../components/TeamCard.astro';
+import { getCollection } from 'astro:content';
+import { teamImages, sailgpImages } from '../../data/teamImages';
+
+const teams = await getCollection('teams');
+const sorted = [...teams].sort((a, b) => {
+  if (b.data.championships !== a.data.championships) return b.data.championships - a.data.championships;
+  return a.data.name.localeCompare(b.data.name);
+});
+
+const totalValued = teams.filter(t => t.data.current_valuation_usd).length;
+const highestVal  = Math.max(...teams.filter(t => t.data.current_valuation_usd).map(t => t.data.current_valuation_usd!));
+
+const teamColors: Record<string, string> = {
+  australia:    '#FFD400',
+  gbr:          '#E11D48',
+  france:       '#1E40AF',
+  germany:      '#0EA5E9',
+  brazil:       '#16A34A',
+  denmark:      '#DC2626',
+  us:           '#1D4ED8',
+  italy:        '#7C3AED',
+  sweden:       '#0891B2',
+  spain:        '#EA580C',
+  'new-zealand':'#0F172A',
+  canada:       '#B91C1C',
+  switzerland:  '#DC2626',
+};
+---
+
+<Section
+  title="The Cap Table"
+  chapter="Chapter II · Teams"
+  description={`${teams.length} teams for the 2026 season. ${totalValued} have reported valuations. Highest: $${Math.round(highestVal / 1_000_000)}M+.`}
+>
+  <!-- Perth 2026 fleet image -->
+  <div style="position:relative;overflow:hidden;height:260px;margin-bottom:36px;">
+    <img
+      src={sailgpImages.perthFleet.url}
+      alt={sailgpImages.perthFleet.alt}
+      loading="lazy"
+      style="width:100%;height:115%;object-fit:cover;object-position:center 40%;position:absolute;top:-7.5%;"
+    />
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(11,31,38,0.6) 0%, transparent 70%);"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 32px;">
+      <div>
+        <div class="eyebrow-marker mb-2" style="color:var(--sun);">2026 Perth SailGP</div>
+        <div style="font-family:var(--font-display);font-size:clamp(24px,3vw,40px);color:var(--bone);line-height:1.05;letter-spacing:-0.02em;">
+          Artemis · Black Foils · Rockwool Denmark
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:12px;right:20px;">
+      <div class="type-eyebrow" style="color:rgba(242,235,221,0.5);">Wikimedia Commons / CC BY-SA 4.0</div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap:14px;">
+    {sorted.map(team => (
+      <TeamCard
+        name={team.data.name}
+        nation={team.data.nation}
+        current_owner={team.data.current_owner}
+        current_valuation_usd={team.data.current_valuation_usd}
+        latest_valuation_date={team.data.latest_valuation_date}
+        championships={team.data.championships}
+        title_sponsor={team.data.title_sponsor}
+        driver={team.data.driver}
+        slug={team.slug}
+        status={team.data.status}
+        color={teamColors[team.slug] ?? 'var(--mute)'}
+        imageSrc={teamImages[team.slug]?.url}
+        imageAlt={teamImages[team.slug]?.alt}
+      />
+    ))}
+  </div>
+
+  <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
+    <p class="type-body-small" style="color:var(--mute);max-width:520px;">
+      Photos: Wikimedia Commons contributors / CC BY-SA 4.0. To add a team, create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/teams/slug.md</code>.
+    </p>
+  </div>
+</Section>

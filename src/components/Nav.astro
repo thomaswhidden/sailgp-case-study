@@ -1,0 +1,69 @@
+---
+const pathname = Astro.url.pathname;
+
+const links = [
+  { href: '/',              label: 'Brief',     exact: true },
+  { href: '/timeline',      label: 'Story' },
+  { href: '/sources',       label: 'Sources' },
+  { href: '/teams',         label: 'Teams' },
+  { href: '/framework',     label: 'Framework' },
+  { href: '/open-questions',label: 'Questions' },
+  { href: '/comparables',   label: 'Comparables' },
+  { href: '/interviews',    label: 'Interviews' },
+  { href: '/interview-prep',label: 'Prep' },
+  { href: '/case-draft',    label: 'Draft' },
+];
+
+function isActive(href: string, exact = false): boolean {
+  if (exact) return pathname === href;
+  return pathname === href || pathname.startsWith(href + '/');
+}
+---
+
+<nav
+  class="sticky top-0 z-50 flex items-center justify-between px-6 md:px-10 lg:px-16"
+  style="background: rgba(242,235,221,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(11,31,38,0.12); height: 56px;"
+>
+  <!-- Wordmark -->
+  <a href="/" class="flex items-center gap-3 shrink-0 no-underline" style="text-decoration: none;">
+    <div style="width:20px;height:20px;position:relative;flex-shrink:0;">
+      <div style="position:absolute;inset:0;background:#0B1F26;clip-path:polygon(0 100%, 100% 100%, 50% 0);"></div>
+    </div>
+    <span style="font-family:'Instrument Serif',Georgia,serif;font-size:19px;letter-spacing:-0.01em;line-height:1;color:#0B1F26;">
+      Foiling / a case study
+    </span>
+  </a>
+
+  <!-- Nav items -->
+  <div class="flex items-center gap-5 overflow-x-auto" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">
+    {links.map(link => (
+      <a
+        href={link.href}
+        class="shrink-0 whitespace-nowrap no-underline transition-colors duration-150"
+        style={`
+          color: ${isActive(link.href, link.exact) ? '#E97451' : '#5A6E76'};
+          position: relative;
+          padding-bottom: 2px;
+          ${isActive(link.href, link.exact) ? 'border-bottom: 1px solid #E97451;' : ''}
+        `}
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+
+  <!-- Search -->
+  <div class="shrink-0 w-36 ml-5 hidden md:block">
+    <div id="search"></div>
+  </div>
+</nav>
+
+<script>
+  if (typeof window !== 'undefined' && (window as any).PagefindUI) {
+    new (window as any).PagefindUI({
+      element: '#search',
+      showSubResults: false,
+      resetStyles: false,
+    });
+  }
+</script>

@@ -1,0 +1,30 @@
+---
+interface Props {
+  quote: string;
+  attribution: string;
+  emphasis?: string;
+}
+const { quote, attribution, emphasis } = Astro.props;
+
+const displayQuote = emphasis
+  ? quote.replace(emphasis, `<span style="color:var(--sun);font-style:normal;">${emphasis}</span>`)
+  : quote;
+---
+
+<div style="background:var(--ink);color:var(--bone);padding:clamp(48px,8vw,90px) clamp(24px,5vw,64px);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;opacity:0.35;" role="presentation">
+    <!-- ocean texture -->
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(180deg,rgba(242,235,221,0.04) 0 1px,transparent 1px 8px);"></div>
+  </div>
+  <div style="position:relative;max-width:980px;">
+    <div class="eyebrow-marker mb-7">From the interview archive</div>
+    <blockquote
+      style="font-family:var(--font-display);font-size:clamp(32px,5vw,84px);line-height:1.02;font-weight:400;font-style:italic;margin:0 0 32px;letter-spacing:-0.02em;color:var(--bone);"
+      set:html={`"${displayQuote}"`}
+    />
+    <div style="display:flex;align-items:center;gap:16px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(242,235,221,0.7);">
+      <span style="width:40px;height:1px;background:var(--sun);display:inline-block;flex-shrink:0;"></span>
+      <span>{attribution}</span>
+    </div>
+  </div>
+</div>

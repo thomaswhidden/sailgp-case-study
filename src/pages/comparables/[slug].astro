@@ -1,0 +1,58 @@
+---
+import Section from '../../layouts/Section.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const comparables = await getCollection('comparables');
+  return comparables.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const d = entry.data;
+---
+
+<Section
+  title={d.name}
+  chapter={`Chapter V · Comparables · Founded ${d.founded}`}
+>
+  <!-- Quick stats -->
+  <div class="grid grid-cols-2 sm:grid-cols-4" style="gap:2px;margin-bottom:32px;">
+    {[
+      [String(d.founded), 'Founded'],
+      ...(d.team_count !== undefined ? [[String(d.team_count), 'Teams']] : []),
+      ...(d.season_revenue_usd ? [[d.season_revenue_usd, 'Revenue']] : []),
+      ...(d.season_event_count !== undefined ? [[String(d.season_event_count), 'Events / season']] : []),
+    ].map(([val, lbl]) => (
+      <div style="background:var(--bone-2);padding:20px;">
+        <div style="font-family:var(--font-display);font-size:28px;color:var(--sun);line-height:1;letter-spacing:-0.02em;">{val}</div>
+        <div class="type-eyebrow mt-2" style="color:var(--mute);">{lbl}</div>
+      </div>
+    ))}
+  </div>
+
+  {d.parent_owner && (
+    <div style="margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border-ink);">
+      <span class="type-eyebrow" style="color:var(--mute);">Parent / Owner · </span>
+      <span style="font-family:var(--font-serif);font-size:16px;color:var(--ink);">{d.parent_owner}</span>
+    </div>
+  )}
+
+  {d.relevance_to_sailgp && (
+    <div style="margin-bottom:28px;padding:16px 20px;background:var(--bone-2);border-left:3px solid var(--sun);">
+      <div class="eyebrow-marker mb-2">Relevance to SailGP</div>
+      <p style="font-family:var(--font-serif);font-size:16px;color:var(--ink);line-height:1.6;">{d.relevance_to_sailgp}</p>
+    </div>
+  )}
+
+  <div class="prose max-w-none">
+    <Content />
+  </div>
+
+  <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border-ink);">
+    <a href="/comparables" class="link-sun type-eyebrow">← All comparables</a>
+  </div>
+</Section>

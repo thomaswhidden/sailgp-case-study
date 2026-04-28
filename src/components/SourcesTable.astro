@@ -1,0 +1,169 @@
+---
+interface Source {
+  slug: string;
+  data: {
+    title: string;
+    url: string;
+    publisher: string;
+    date?: string;
+    type: string;
+    status: string;
+    tags: string[];
+    framework: string[];
+    notes?: string;
+  };
+}
+
+interface Props {
+  sources: Source[];
+}
+
+const { sources } = Astro.props;
+
+const allTypes     = [...new Set(sources.map(s => s.data.type))].sort();
+const allStatuses  = ['to-read', 'reading', 'read', 'cited'];
+const allFramework = [...new Set(sources.flatMap(s => s.data.framework))].sort();
+
+const statusStyles: Record<string, string> = {
+  'to-read': 'bg-zinc-100 text-zinc-500',
+  'reading':  'bg-amber-50 text-amber-700',
+  'read':     'bg-emerald-50 text-emerald-700',
+  'cited':    'bg-navy-50 text-navy-700',
+};
+---
+
+<div>
+  <!-- Filter controls -->
+  <div class="flex flex-wrap gap-3 mb-4 p-4 bg-white border border-zinc-200">
+    <input
+      id="src-search"
+      type="text"
+      placeholder="Search title, publisher, notes…"
+      class="border border-zinc-200 text-sm px-3 py-1.5 flex-1 min-w-48 focus:outline-none focus:border-navy-400"
+    />
+    <select id="src-type" class="border border-zinc-200 text-sm px-2 py-1.5 bg-white focus:outline-none focus:border-navy-400">
+      <option value="">All types</option>
+      {allTypes.map(t => <option value={t}>{t}</option>)}
+    </select>
+    <select id="src-status" class="border border-zinc-200 text-sm px-2 py-1.5 bg-white focus:outline-none focus:border-navy-400">
+      <option value="">All statuses</option>
+      {allStatuses.map(s => <option value={s}>{s}</option>)}
+    </select>
+    <select id="src-framework" class="border border-zinc-200 text-sm px-2 py-1.5 bg-white focus:outline-none focus:border-navy-400">
+      <option value="">All criteria</option>
+      {allFramework.map(f => <option value={f}>{f}</option>)}
+    </select>
+    <button
+      id="src-reset"
+      class="text-sm text-zinc-500 hover:text-zinc-900 px-3 py-1.5 border border-zinc-200 bg-white transition-colors"
+    >
+      Reset
+    </button>
+  </div>
+
+  <p id="src-count" class="text-xs font-mono text-zinc-400 mb-3">
+    Showing {sources.length} of {sources.length} sources
+  </p>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm border-collapse">
+      <thead>
+        <tr class="border-b-2 border-zinc-200 text-left">
+          <th class="pb-2 pr-4 font-mono text-xs uppercase tracking-wide text-zinc-400 font-normal">Title</th>
+          <th class="pb-2 pr-4 font-mono text-xs uppercase tracking-wide text-zinc-400 font-normal">Publisher</th>
+          <th class="pb-2 pr-4 font-mono text-xs uppercase tracking-wide text-zinc-400 font-normal">Type</th>
+          <th class="pb-2 pr-4 font-mono text-xs uppercase tracking-wide text-zinc-400 font-normal">Status</th>
+          <th class="pb-2 font-mono text-xs uppercase tracking-wide text-zinc-400 font-normal">Framework</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sources.map(source => (
+          <tr
+            class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors"
+            data-type={source.data.type}
+            data-status={source.data.status}
+            data-framework={source.data.framework.join(' ')}
+            data-text={`${source.data.title} ${source.data.publisher} ${source.data.notes ?? ''}`.toLowerCase()}
+          >
+            <td class="py-2.5 pr-4">
+              <a
+                href={source.data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-navy-600 hover:text-navy-700 hover:underline leading-snug"
+              >
+                {source.data.title}
+              </a>
+              {source.data.notes && (
+                <p class="text-xs text-zinc-400 mt-0.5 leading-snug">{source.data.notes}</p>
+              )}
+            </td>
+            <td class="py-2.5 pr-4 text-zinc-600 whitespace-nowrap">{source.data.publisher}</td>
+            <td class="py-2.5 pr-4">
+              <span class="text-xs font-mono bg-zinc-100 text-zinc-500 px-1.5 py-0.5">{source.data.type}</span>
+            </td>
+            <td class="py-2.5 pr-4">
+              <span class:list={[
+                'text-xs font-mono px-1.5 py-0.5',
+                statusStyles[source.data.status] ?? '',
+              ]}>
+                {source.data.status}
+              </span>
+            </td>
+            <td class="py-2.5">
+              <div class="flex flex-wrap gap-1">
+                {source.data.framework.map(f => (
+                  <span class="text-xs font-mono bg-navy-50 text-navy-600 px-1.5 py-0.5 border border-navy-100">
+                    {f}
+                  </span>
+                ))}
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const search     = document.getElementById('src-search') as HTMLInputElement;
+  const typeEl     = document.getElementById('src-type') as HTMLSelectElement;
+  const statusEl   = document.getElementById('src-status') as HTMLSelectElement;
+  const frameworkEl= document.getElementById('src-framework') as HTMLSelectElement;
+  const resetBtn   = document.getElementById('src-reset') as HTMLButtonElement;
+  const countEl    = document.getElementById('src-count') as HTMLElement;
+  const rows       = Array.from(document.querySelectorAll<HTMLTableRowElement>('tbody tr'));
+  const total      = rows.length;
+
+  function filter() {
+    const q  = search.value.toLowerCase();
+    const ty = typeEl.value;
+    const st = statusEl.value;
+    const fw = frameworkEl.value;
+    let visible = 0;
+
+    rows.forEach(row => {
+      const match =
+        (!q  || (row.dataset.text ?? '').includes(q)) &&
+        (!ty || row.dataset.type === ty) &&
+        (!st || row.dataset.status === st) &&
+        (!fw || (row.dataset.framework ?? '').split(' ').includes(fw));
+
+      row.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+
+    countEl.textContent = `Showing ${visible} of ${total} sources`;
+  }
+
+  [search, typeEl, statusEl, frameworkEl].forEach(el => el.addEventListener('input', filter));
+
+  resetBtn.addEventListener('click', () => {
+    search.value = typeEl.value = statusEl.value = frameworkEl.value = '';
+    filter();
+  });
+
+  filter();
+</script>

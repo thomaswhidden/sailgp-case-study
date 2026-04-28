@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(curl -s http://localhost:4322/interviews)",
+      "Bash(curl -s http://localhost:4322/interviews/fastcompany-2025-11)",
+      "Bash(curl -s http://localhost:4322/)",
+      "Bash(curl -s http://localhost:4322/framework)",
+      "Bash(curl -s http://localhost:4322/teams)",
+      "Bash(curl -s http://localhost:4322/open-questions)",
+      "WebSearch",
+      "WebFetch(domain:sailgp.com)",
+      "WebFetch(domain:commons.wikimedia.org)",
+      "Bash(npm run *)",
+      "Bash(curl -sI \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/SAILGP_Australian_Team.jpg/1200px-SAILGP_Australian_Team.jpg\")",
+      "Bash(curl -sI \"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Red_Bull_Italy_SailGP_Team_%282026_Perth_SailGP%29_-_1.jpg/1200px-Red_Bull_Italy_SailGP_Team_%282026_Perth_SailGP%29_-_1.jpg\")",
+      "Bash(curl -sI \"https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Great_Britain_SailGP_New_York.jpg/1600px-Great_Britain_SailGP_New_York.jpg\")",
+      "Bash(curl -sI -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/SAILGP_Australian_Team.jpg/1200px-SAILGP_Australian_Team.jpg\")",
+      "Bash(curl *)",
+      "Bash(wait)",
+      "Bash(python3 -m json.tool)",
+      "Bash(python3 -c \" import sys,json d=json.load\\(sys.stdin\\) for p in d['query']['pages'].values\\(\\): info=p.get\\('imageinfo',[{}]\\)[0] print\\(p['title']\\) print\\(' url:', info.get\\('url','N/A'\\)\\) print\\(' thumb:', info.get\\('thumburl','N/A'\\)\\) print\\(\\) \")",
+      "Bash(python3 -c \" import sys,json,re d=json.load\\(sys.stdin\\) for p in d['query']['pages'].values\\(\\): info=p.get\\('imageinfo',[{}]\\)[0] thumb=info.get\\('thumburl','N/A'\\) m=re.search\\(r'/\\(\\\\d+\\)px-', thumb\\) w=m.group\\(1\\) if m else '?' print\\(p['title'].replace\\('File:',''\\), '->', w+'px'\\) print\\(' ', thumb\\) \")",
+      "Bash(pandoc --version)"
+    ]
+  }
+}

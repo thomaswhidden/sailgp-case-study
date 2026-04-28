@@ -1,0 +1,102 @@
+---
+import Section from '../../layouts/Section.astro';
+import TimelineItem from '../../components/TimelineItem.astro';
+import { getCollection } from 'astro:content';
+
+const events = await getCollection('timeline');
+const sorted = [...events].sort((a, b) => a.data.date.localeCompare(b.data.date));
+
+const categories = [
+  'founding', 'team-sale', 'sponsor', 'venue', 'broadcast', 'incident', 'governance', 'other',
+] as const;
+
+const catColors: Record<string, string> = {
+  founding:   'var(--ink-2)',
+  'team-sale':'var(--sun)',
+  sponsor:    'var(--ink-2)',
+  venue:      'var(--mute)',
+  broadcast:  'var(--ink-2)',
+  incident:   'var(--sun)',
+  governance: 'var(--mute)',
+  other:      'var(--mute)',
+};
+---
+
+<Section
+  title="From Ellison's idea to thirteen flags."
+  chapter="Chapter IV · Timeline"
+  description={`${events.length} events from 2018 to present. Chronological order.`}
+>
+  <!-- Category filters -->
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;">
+    <button
+      class="filter-btn type-eyebrow"
+      data-cat="all"
+      style="padding:6px 14px;border:1px solid var(--border-ink);background:var(--ink);color:var(--bone);"
+    >
+      All
+    </button>
+    {categories.map(cat => (
+      <button
+        class="filter-btn type-eyebrow"
+        data-cat={cat}
+        style={`padding:6px 14px;border:1px solid ${catColors[cat] ?? 'var(--border-ink)'};color:${catColors[cat] ?? 'var(--mute)'};background:transparent;cursor:pointer;`}
+      >
+        {cat}
+      </button>
+    ))}
+  </div>
+
+  <!-- Timeline -->
+  <div id="timeline-list" style="position:relative;">
+    <div style="position:absolute;left:102px;top:12px;bottom:12px;width:1px;background:rgba(11,31,38,0.15);"></div>
+    {sorted.map(event => (
+      <TimelineItem
+        date={event.data.date}
+        category={event.data.category}
+        title={event.data.title}
+        summary={event.data.summary}
+        sources={event.data.sources}
+      />
+    ))}
+  </div>
+
+  <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
+    <p class="type-body-small" style="color:var(--mute);max-width:520px;">
+      To add an event, create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/timeline/YYYY-MM-slug.md</code>.
+    </p>
+  </div>
+</Section>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items   = document.querySelectorAll<HTMLElement>('.timeline-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat ?? 'all';
+
+      buttons.forEach(b => {
+        b.style.background = b === btn ? 'var(--ink)' : 'transparent';
+        b.style.color      = b === btn ? 'var(--bone)' : '';
+      });
+
+      items.forEach(item => {
+        const show = cat === 'all' || item.dataset.cat === cat;
+        (item as HTMLElement).style.display = show ? '' : 'none';
+      });
+    });
+  });
+
+  /* Dot activation on scroll */
+  const dots = document.querySelectorAll<HTMLElement>('.tl-dot');
+  const mid  = window.innerHeight / 2;
+  function updateDots() {
+    dots.forEach(dot => {
+      const rect = dot.getBoundingClientRect();
+      if (rect.top < mid) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  }
+  window.addEventListener('scroll', updateDots, { passive: true });
+</script>

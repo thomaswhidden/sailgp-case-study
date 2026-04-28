@@ -1,0 +1,148 @@
+---
+import Section from '../../layouts/Section.astro';
+import { getCollection } from 'astro:content';
+
+const questions = await getCollection('interview-prep');
+const sorted = [...questions].sort((a, b) => a.data.order - b.data.order);
+
+const confirmed = sorted.filter(q => q.data.status === 'confirmed');
+const draft     = sorted.filter(q => q.data.status === 'draft');
+const cut       = sorted.filter(q => q.data.status === 'cut');
+
+const frameworkLabels: Record<string, string> = {
+  'vision-strategic-positioning': '01 Vision',
+  'investor-owner-base':          '02 Investors',
+  'league-governance':            '03 Governance',
+  'competitive-format':           '04 Format',
+  'athlete-talent-pool':          '05 Talent',
+  'venue-host-city':              '06 Venues',
+  'broadcast-media':              '07 Broadcast',
+  'sponsorship':                  '08 Sponsorship',
+  'fan-engagement':               '09 Fans',
+  'financial-sustainability':     '10 Financials',
+  'growth-opportunities':         '11 Growth+',
+  'growth-challenges':            '12 Growth−',
+  'disruptive-positioning':       '13 Disruption',
+};
+
+const statusPill: Record<string, string> = {
+  confirmed: 'background:var(--sun);color:var(--bone);',
+  draft:     'background:rgba(11,31,38,0.08);color:var(--mute);',
+  cut:       'background:transparent;color:var(--mute);border:1px solid var(--border-ink);text-decoration:line-through;',
+};
+---
+
+<Section
+  title="Interview Prep"
+  chapter="Final Question Set · Coutts"
+  description="Polished question set for interview day. Reorder by editing the order field."
+>
+  <!-- Status summary + export -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:32px;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      {confirmed.length > 0 && (
+        <span class="type-eyebrow" style="padding:4px 10px;background:var(--sun);color:var(--bone);">
+          {confirmed.length} confirmed
+        </span>
+      )}
+      {draft.length > 0 && (
+        <span class="type-eyebrow" style="padding:4px 10px;background:rgba(11,31,38,0.08);color:var(--mute);">
+          {draft.length} draft
+        </span>
+      )}
+      {cut.length > 0 && (
+        <span class="type-eyebrow" style="padding:4px 10px;background:transparent;border:1px solid var(--border-ink);color:var(--mute);">
+          {cut.length} cut
+        </span>
+      )}
+    </div>
+    <button
+      id="export-btn"
+      class="type-eyebrow"
+      style="padding:6px 16px;border:1px solid var(--border-ink);background:transparent;color:var(--mute);cursor:pointer;"
+    >
+      Export → Text
+    </button>
+  </div>
+
+  {sorted.length === 0 ? (
+    <div style="padding:48px 0;text-align:center;">
+      <p class="type-body" style="color:var(--mute);">
+        No questions yet. Create files in <code style="font-family:var(--font-mono);font-size:13px;background:var(--bone-2);padding:1px 4px;">src/content/interview-prep/</code> when your research is mature.
+      </p>
+    </div>
+  ) : (
+    <ol id="question-list" style="list-style:none;padding:0;margin:0;">
+      {sorted.map((q, i) => (
+        <li
+          style={`display:grid;grid-template-columns:60px 1fr 110px;gap:18px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-ink);${q.data.status === 'cut' ? 'opacity:0.4;' : ''}`}
+        >
+          <!-- Order number -->
+          <div style="font-family:var(--font-display);font-size:36px;color:rgba(11,31,38,0.18);line-height:1;letter-spacing:-0.02em;">
+            {String(q.data.order).padStart(2, '0')}
+          </div>
+
+          <!-- Question + meta -->
+          <div>
+            <p
+              style={`font-family:var(--font-serif);font-size:18px;line-height:1.4;color:var(--ink);margin:0 0 10px;${q.data.status === 'cut' ? 'text-decoration:line-through;color:var(--mute);' : ''}`}
+            >
+              {q.data.question}
+            </p>
+            {q.data.rationale && (
+              <p style="font-family:var(--font-serif);font-style:italic;font-size:14px;color:rgba(11,31,38,0.55);margin:0 0 10px;line-height:1.5;">
+                {q.data.rationale}
+              </p>
+            )}
+            {q.data.framework_links.length > 0 && (
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                {q.data.framework_links.map((slug: string) => (
+                  <a
+                    href={`/framework/${slug}`}
+                    class="type-eyebrow"
+                    style="padding:3px 8px;background:var(--bone-2);border:1px solid var(--border-ink);color:var(--ink-2);text-decoration:none;"
+                  >
+                    {frameworkLabels[slug] ?? slug}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <!-- Status pill -->
+          <div style="text-align:right;padding-top:4px;">
+            <div class="type-eyebrow" style={`display:inline-block;padding:4px 10px;${statusPill[q.data.status] ?? ''}`}>
+              {q.data.status}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  )}
+
+  <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
+    <p class="type-body-small" style="color:var(--mute);">
+      Create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/interview-prep/slug.md</code>
+      with <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">order, question, status</code>.
+    </p>
+  </div>
+</Section>
+
+<script>
+  const btn = document.getElementById('export-btn') as HTMLButtonElement;
+  btn?.addEventListener('click', () => {
+    const qs = document.querySelectorAll<HTMLElement>('#question-list li');
+    const lines: string[] = ['INTERVIEW PREP — SailGP / Russell Coutts\n'];
+    qs.forEach(li => {
+      if (li.style.opacity === '0.4') return;
+      const num = li.querySelector('[style*="36px"]')?.textContent?.trim() ?? '';
+      const q   = li.querySelector('p')?.textContent?.trim() ?? '';
+      lines.push(`${num}. ${q}`);
+    });
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+    const a    = document.createElement('a');
+    a.href     = URL.createObjectURL(blob);
+    a.download = 'sailgp-interview-questions.txt';
+    a.click();
+  });
+</script>

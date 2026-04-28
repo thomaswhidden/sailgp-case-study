@@ -1,0 +1,57 @@
+---
+import Section from '../../layouts/Section.astro';
+import FrameworkRow from '../../components/FrameworkRow.astro';
+import { getCollection } from 'astro:content';
+
+const criteria = await getCollection('framework');
+const sorted   = [...criteria].sort((a, b) => a.data.criterion_number - b.data.criterion_number);
+
+const frameworkMeta: Record<number, { summary: string; status: string }> = {
+  1:  { summary: '"F1 of sailing." Ellison-Coutts founding credibility; explicit disruption of the Cup model.', status: 'strong' },
+  2:  { summary: 'Quality of capital is exceptional — Lasry, Ares, PE-grade family offices, plus celebrity names.', status: 'strong' },
+  3:  { summary: 'League-vs-team rights split unclear. Coutts succession unaddressed.', status: 'open' },
+  4:  { summary: 'F50 foiling at 60+ mph, stadium courses, regular-season cadence.', status: 'strong' },
+  5:  { summary: 'Global pool to crew F50s is shallow. Pipeline overlaps Olympic + Cup.', status: 'open' },
+  6:  { summary: '$26.2M avg regional impact. Christchurch and St-Tropez exits show fragility.', status: 'mixed' },
+  7:  { summary: 'CBS deal; 3.47M Abu Dhabi peak; "Uncharted" docuseries.', status: 'strong' },
+  8:  { summary: 'Rolex 10-yr title; Emirates, DP World, KPMG, Accor multi-season.', status: 'strong' },
+  9:  { summary: '+58 NPS, 112k+ ticketed, 25k Auckland. Demographic mix unclear.', status: 'strong' },
+  10: { summary: '$200M+ revenue. Four teams reportedly profitable. League P&L not public.', status: 'open' },
+  11: { summary: '20-team cap, expansion queued. Broadcast + licensing underdeveloped.', status: 'strong' },
+  12: { summary: 'Talent depth, single-supplier F50 risk, Middle East / China geopolitics.', status: 'mixed' },
+  13: { summary: "Disrupts America's Cup; defends vs. Extreme E and E1; F1 is aspirational.", status: 'strong' },
+};
+---
+
+<Section
+  title="Foster's thirteen."
+  chapter="Chapter III · Foster Framework"
+  description={`The 13-criterion evaluation rubric from Prof. Foster's "New Sporting Leagues" course, mapped to SailGP.`}
+>
+  <div style="margin-bottom:32px;padding:20px 24px;background:var(--bone-2);border-left:3px solid var(--sun);">
+    <p class="type-body-small" style="color:rgba(11,31,38,0.7);">
+      From Chapter 5 of <em>Sports Business Management</em> (3rd ed., Foster, O'Reilly &amp; Davila)
+      and Professor Foster's "New Sporting Leagues" curriculum at Stanford GSB.
+      Scores are a self-assessment from 1 (very weak) to 5 (very strong).
+    </p>
+  </div>
+
+  <div>
+    {sorted.map(c => (
+      <FrameworkRow
+        n={c.data.criterion_number}
+        name={c.data.criterion_name}
+        summary={frameworkMeta[c.data.criterion_number]?.summary}
+        score={c.data.sailgp_score ?? 0}
+        status={frameworkMeta[c.data.criterion_number]?.status ?? 'open'}
+        slug={c.slug}
+      />
+    ))}
+  </div>
+
+  <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
+    <p class="type-body-small" style="color:var(--mute);max-width:520px;">
+      Each criterion links to a full longform analysis with Strengths, Weaknesses, and Open Questions.
+    </p>
+  </div>
+</Section>

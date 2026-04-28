@@ -1,0 +1,46 @@
+---
+import Section from '../../layouts/Section.astro';
+import ComparableCard from '../../components/ComparableCard.astro';
+import { getCollection } from 'astro:content';
+import { sailgpImages } from '../../data/teamImages';
+
+const comparables = await getCollection('comparables');
+const sorted = [...comparables].sort((a, b) => a.data.founded - b.data.founded);
+---
+
+<Section
+  title="Measured against everyone."
+  chapter="Chapter V · Comparables"
+  description={`${comparables.length} reference leagues benchmarked against SailGP across revenue, governance, format, and media.`}
+  dark={true}
+>
+  <!-- Fleet image header -->
+  <div style="position:relative;overflow:hidden;height:220px;margin-bottom:36px;">
+    <img
+      src={sailgpImages.christchurch.url}
+      alt={sailgpImages.christchurch.alt}
+      loading="lazy"
+      style="width:100%;height:115%;object-fit:cover;object-position:center 45%;position:absolute;top:-7.5%;"
+    />
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(19,52,63,0.4) 0%, rgba(11,31,38,0.7) 100%);"></div>
+    <div style="position:absolute;bottom:16px;left:24px;">
+      <div class="type-eyebrow" style="color:rgba(242,235,221,0.6);">SailGP · Christchurch 2024 · Alan Viles / CC BY 2.0</div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap:14px;">
+    {sorted.map(league => (
+      <ComparableCard
+        name={league.data.name}
+        founded={league.data.founded}
+        parent_owner={league.data.parent_owner}
+        team_count={league.data.team_count}
+        season_revenue_usd={league.data.season_revenue_usd}
+        season_event_count={league.data.season_event_count}
+        relevance_to_sailgp={league.data.relevance_to_sailgp}
+        slug={league.slug}
+        dark={false}
+      />
+    ))}
+  </div>
+</Section>

@@ -1,0 +1,24 @@
+---
+interface Props {
+  tags: string[];
+  label?: string;
+}
+
+const { tags, label = 'Already asked' } = Astro.props;
+const sorted = [...new Set(tags)].sort();
+---
+
+{sorted.length > 0 && (
+  <div class="mb-8">
+    {label && (
+      <p class="text-xs font-mono uppercase tracking-wide text-zinc-400 mb-2">{label}</p>
+    )}
+    <div class="flex flex-wrap gap-2">
+      {sorted.map(tag => (
+        <span class="text-xs font-mono bg-zinc-100 text-zinc-600 px-2 py-0.5 border border-zinc-200">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </div>
+)}

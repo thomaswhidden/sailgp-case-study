@@ -1,0 +1,58 @@
+---
+interface Props {
+  criterion_number: number;
+  criterion_name: string;
+  sailgp_score?: number;
+  slug: string;
+}
+
+const { criterion_number, criterion_name, sailgp_score, slug } = Astro.props;
+
+function scoreLabel(n?: number): string {
+  if (!n) return 'Not rated';
+  const labels = ['', 'Very Weak', 'Weak', 'Moderate', 'Strong', 'Very Strong'];
+  return labels[n] ?? String(n);
+}
+
+function scoreColor(n?: number): string {
+  if (!n) return 'bg-zinc-200';
+  if (n >= 4) return 'bg-emerald-500';
+  if (n >= 3) return 'bg-navy-500';
+  if (n >= 2) return 'bg-amber-400';
+  return 'bg-rose-400';
+}
+---
+
+<a
+  href={`/framework/${slug}`}
+  class="block bg-white border border-zinc-200 p-5 hover:border-navy-300 hover:shadow-md transition-all group relative overflow-hidden"
+>
+  <div class="absolute top-0 left-0 right-0 h-[2px] bg-zinc-100 group-hover:bg-navy-200 transition-colors"></div>
+  <div class="flex items-start gap-4">
+    <span class="text-2xl font-serif text-zinc-200 leading-none select-none tabular-nums w-7 shrink-0 text-right group-hover:text-navy-200 transition-colors">
+      {String(criterion_number).padStart(2, '0')}
+    </span>
+    <div class="flex-1 min-w-0">
+      <h3 class="font-serif text-sm font-normal text-zinc-800 group-hover:text-navy-700 transition-colors leading-snug">
+        {criterion_name}
+      </h3>
+      {sailgp_score !== undefined ? (
+        <div class="flex items-center gap-2 mt-2.5">
+          <div class="flex gap-[3px]">
+            {Array.from({ length: 5 }, (_, i) => (
+              <span
+                class:list={[
+                  'inline-block w-3.5 h-1',
+                  i < sailgp_score ? scoreColor(sailgp_score) : 'bg-zinc-100',
+                ]}
+              />
+            ))}
+          </div>
+          <span class="text-[11px] text-zinc-400 font-mono">{scoreLabel(sailgp_score)}</span>
+        </div>
+      ) : (
+        <p class="text-[11px] text-zinc-300 font-mono mt-1.5 italic">Not yet rated</p>
+      )}
+    </div>
+  </div>
+</a>

@@ -1,0 +1,141 @@
+---
+import Section from '../../layouts/Section.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const interviews = await getCollection('interviews');
+  return interviews.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { title, outlet, interviewer, date, url, format, duration, guest, guest_role, priority, key_topics, already_asked_tags, framework_link, note_value } = entry.data;
+
+// Reverse lookups
+const allQuestions = await getCollection('open-questions');
+const allFramework = await getCollection('framework');
+const citingQuestions = allQuestions.filter(q => q.data.source_check.includes(entry.slug));
+const citingCriteria  = allFramework.filter(f => f.data.sources.includes(entry.slug));
+citingCriteria.sort((a, b) => a.data.criterion_number - b.data.criterion_number);
+---
+
+<Section title={title} chapter={`Interview Archive · ${outlet}`}>
+  <!-- Meta row -->
+  <div style="display:flex;flex-wrap:wrap;gap:24px;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border-ink);">
+    {[
+      ...(guest ? [['Guest', guest_role ? `${guest} · ${guest_role}` : guest]] : [['Outlet', outlet]]),
+      ...(guest ? [['Outlet', outlet]] : []),
+      ...(interviewer ? [['Interviewer', interviewer]] : []),
+      ['Date', date],
+      ['Format', duration ? `${format} · ${duration}` : format],
+    ].map(([label, val]) => (
+      <div>
+        <div class="type-eyebrow mb-1" style="color:var(--mute);">{label}</div>
+        <div style="font-family:var(--font-serif);font-size:15px;color:var(--ink);">{val}</div>
+      </div>
+    ))}
+    <div>
+      <div class="type-eyebrow mb-1" style="color:var(--mute);">Source</div>
+      <a href={url} target="_blank" rel="noopener noreferrer" class="link-sun" style="font-family:var(--font-serif);font-size:15px;">
+        View original →
+      </a>
+    </div>
+  </div>
+
+  {note_value && (
+    <div style="margin-bottom:20px;padding:10px 16px;background:rgba(233,116,81,0.1);border-left:3px solid var(--sun);display:flex;align-items:center;gap:10px;">
+      <span class="type-eyebrow" style="color:var(--sun);text-transform:uppercase;">{note_value}</span>
+    </div>
+  )}
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+    <!-- Main content -->
+    <div class="lg:col-span-2">
+
+      {key_topics.length > 0 && (
+        <div style="margin-bottom:24px;">
+          <div class="eyebrow-marker mb-3">Key topics</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            {key_topics.map((t: string) => (
+              <span class="type-eyebrow" style="padding:4px 10px;background:var(--bone-2);border:1px solid var(--border-ink);color:var(--mute);">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {already_asked_tags.length > 0 && (
+        <div style="margin-bottom:28px;padding:16px 20px;background:rgba(233,116,81,0.08);border-left:3px solid var(--sun);">
+          <div class="eyebrow-marker mb-3" style="color:var(--sun);">Already asked — avoid in live interview</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            {already_asked_tags.map((t: string) => (
+              <span class="type-eyebrow" style="padding:4px 10px;background:var(--bone-2);border:1px solid rgba(233,116,81,0.3);color:var(--sun);">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div class="prose max-w-none">
+        <Content />
+      </div>
+    </div>
+
+    <!-- Sidebar: cross-links -->
+    <div>
+
+      {citingCriteria.length > 0 && (
+        <div style="background:var(--bone-2);padding:20px 24px;margin-bottom:20px;">
+          <div class="eyebrow-marker mb-4">Framework Criteria</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            {citingCriteria.map(f => (
+              <a
+                href={`/framework/${f.slug}`}
+                style="font-family:var(--font-serif);font-size:14px;color:var(--ink);text-decoration:none;display:block;padding-bottom:10px;border-bottom:1px solid var(--border-ink);"
+                class="hover:underline"
+              >
+                <span class="type-eyebrow" style="color:var(--mute);display:block;margin-bottom:2px;">
+                  {String(f.data.criterion_number).padStart(2, '0')}
+                </span>
+                {f.data.criterion_name}
+              </a>
+            ))}
+          </div>
+          <a href="/framework" class="link-sun type-eyebrow mt-4 inline-block">All criteria →</a>
+        </div>
+      )}
+
+      {citingQuestions.length > 0 && (
+        <div style="background:var(--bone-2);padding:20px 24px;">
+          <div class="eyebrow-marker mb-4">Open Questions</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            {citingQuestions.map(q => {
+              const pBg  = q.data.priority === 'high' ? 'var(--sun)' : 'rgba(11,31,38,0.08)';
+              const pCol = q.data.priority === 'high' ? 'var(--bone)' : 'var(--mute)';
+              return (
+                <div style="padding-bottom:10px;border-bottom:1px solid var(--border-ink);">
+                  <span class="type-eyebrow" style={`padding:2px 7px;background:${pBg};color:${pCol};display:inline-block;margin-bottom:4px;`}>
+                    {q.data.priority}
+                  </span>
+                  <div style="font-family:var(--font-serif);font-size:14px;color:var(--ink);">{q.data.theme}</div>
+                </div>
+              );
+            })}
+          </div>
+          <a href="/open-questions" class="link-sun type-eyebrow mt-4 inline-block">All questions →</a>
+        </div>
+      )}
+
+    </div>
+  </div>
+
+  <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border-ink);">
+    <a href="/interviews" class="link-sun type-eyebrow">← All interviews</a>
+  </div>
+</Section>

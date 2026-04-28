@@ -1,0 +1,173 @@
+---
+import Section from '../../layouts/Section.astro';
+import { getCollection } from 'astro:content';
+
+const themes = await getCollection('open-questions');
+const allInterviews = await getCollection('interviews');
+const interviewBySlug = Object.fromEntries(allInterviews.map(iv => [iv.slug, iv]));
+const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
+const sorted = [...themes].sort((a, b) =>
+  (priorityOrder[a.data.priority] ?? 9) - (priorityOrder[b.data.priority] ?? 9)
+);
+
+const rendered = await Promise.all(
+  sorted.map(async (theme) => {
+    const { Content } = await theme.render();
+    return { theme, Content };
+  })
+);
+
+const frameworkLabels: Record<string, string> = {
+  'vision-strategic-positioning': '01 Vision',
+  'investor-owner-base':          '02 Investors',
+  'league-governance':            '03 Governance',
+  'competitive-format':           '04 Format',
+  'athlete-talent-pool':          '05 Talent',
+  'venue-host-city':              '06 Venues',
+  'broadcast-media':              '07 Broadcast',
+  'sponsorship':                  '08 Sponsorship',
+  'fan-engagement':               '09 Fans',
+  'financial-sustainability':     '10 Financials',
+  'growth-opportunities':         '11 Growth+',
+  'growth-challenges':            '12 Growth−',
+  'disruptive-positioning':       '13 Disruption',
+};
+
+const highCount   = sorted.filter(t => t.data.priority === 'high').length;
+const medCount    = sorted.filter(t => t.data.priority === 'medium').length;
+const askedCount  = sorted.filter(t => t.data.already_asked).length;
+---
+
+<Section
+  title="What the public record won't say."
+  chapter="Chapter VI · Open Questions"
+  description={`${sorted.length} themes, priority-sorted. ${askedCount} already covered in public interviews.`}
+>
+  <!-- Filter pills + toggle -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:32px;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="filter-pill type-eyebrow" data-filter="all" style="padding:6px 14px;background:var(--ink);color:var(--bone);border:none;cursor:pointer;">
+        All · {sorted.length}
+      </button>
+      <button class="filter-pill type-eyebrow" data-filter="high" style="padding:6px 14px;background:var(--sun);color:var(--bone);border:none;cursor:pointer;">
+        High · {highCount}
+      </button>
+      <button class="filter-pill type-eyebrow" data-filter="medium" style="padding:6px 14px;background:transparent;color:var(--mute);border:1px solid var(--border-ink);cursor:pointer;">
+        Med · {medCount}
+      </button>
+    </div>
+    <button
+      id="toggle-asked"
+      class="type-eyebrow"
+      style="padding:6px 14px;border:1px solid var(--border-ink);background:transparent;color:var(--mute);cursor:pointer;"
+    >
+      Hide already-asked
+    </button>
+  </div>
+
+  <!-- Question list -->
+  <div id="questions-list">
+    {rendered.map(({ theme, Content }, i) => {
+      const pillBg  = theme.data.priority === 'high' ? 'var(--sun)' : 'rgba(11,31,38,0.08)';
+      const pillCol = theme.data.priority === 'high' ? 'var(--bone)' : 'var(--mute)';
+      return (
+        <div
+          id={theme.slug}
+          class="theme-block"
+          data-asked={String(theme.data.already_asked)}
+          data-priority={theme.data.priority}
+          style="display:grid;grid-template-columns:60px 1fr 110px;gap:18px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-ink);"
+        >
+          <!-- Index -->
+          <div style="font-family:var(--font-display);font-size:36px;color:rgba(11,31,38,0.18);line-height:1;letter-spacing:-0.02em;">
+            {String(i + 1).padStart(2, '0')}
+          </div>
+
+          <!-- Content -->
+          <div>
+            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+              <h2 style="font-family:var(--font-display);font-size:26px;line-height:1.05;letter-spacing:-0.015em;color:var(--ink);margin:0;">{theme.data.theme}</h2>
+              {theme.data.already_asked && (
+                <span class="type-eyebrow" style="color:var(--mute);">already asked</span>
+              )}
+            </div>
+
+            {(theme.data.framework_links.length > 0 || theme.data.source_check.length > 0) && (
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+                {theme.data.framework_links.map((slug: string) => (
+                  <a
+                    href={`/framework/${slug}`}
+                    class="type-eyebrow"
+                    style="padding:3px 8px;background:var(--bone-2);border:1px solid var(--border-ink);color:var(--ink-2);text-decoration:none;"
+                  >
+                    {frameworkLabels[slug] ?? slug}
+                  </a>
+                ))}
+                {theme.data.source_check.filter((s: string) => interviewBySlug[s]).map((s: string) => (
+                  <a
+                    href={`/interviews/${s}`}
+                    class="type-eyebrow"
+                    style="padding:3px 8px;background:rgba(233,116,81,0.12);border:1px solid rgba(233,116,81,0.3);color:var(--sun);text-decoration:none;"
+                  >
+                    ↗ {interviewBySlug[s].data.guest ?? interviewBySlug[s].data.outlet}
+                  </a>
+                ))}
+              </div>
+            )}
+
+            <div class="prose prose-sm max-w-none" style="font-family:var(--font-serif);font-size:15px;color:rgba(11,31,38,0.65);">
+              <Content />
+            </div>
+          </div>
+
+          <!-- Priority pill -->
+          <div style="text-align:right;padding-top:4px;">
+            <div style={`display:inline-block;padding:4px 10px;background:${pillBg};color:${pillCol};font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;`}>
+              {theme.data.priority}
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
+    <p class="type-body-small" style="color:var(--mute);">
+      Create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/open-questions/slug.md</code>
+      with <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">priority: high | medium | low</code>.
+    </p>
+  </div>
+</Section>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-pill');
+  const themeBl    = document.querySelectorAll<HTMLElement>('.theme-block');
+  const toggleBtn  = document.getElementById('toggle-asked') as HTMLButtonElement;
+  let hideAsked    = false;
+  let activeFilter = 'all';
+
+  function applyFilters() {
+    themeBl.forEach(el => {
+      const matchPriority = activeFilter === 'all' || el.dataset.priority === activeFilter;
+      const matchAsked    = !hideAsked || el.dataset.asked !== 'true';
+      el.style.display = matchPriority && matchAsked ? '' : 'none';
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeFilter = btn.dataset.filter ?? 'all';
+      filterBtns.forEach(b => {
+        b.style.background = b === btn ? 'var(--ink)' : 'transparent';
+        b.style.color      = b === btn ? 'var(--bone)' : 'var(--mute)';
+      });
+      applyFilters();
+    });
+  });
+
+  toggleBtn?.addEventListener('click', () => {
+    hideAsked = !hideAsked;
+    toggleBtn.textContent = hideAsked ? 'Show already-asked' : 'Hide already-asked';
+    applyFilters();
+  });
+</script>

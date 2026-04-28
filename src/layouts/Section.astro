@@ -1,0 +1,50 @@
+---
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title: string;
+  chapter?: string;
+  description?: string;
+  dark?: boolean;
+}
+
+const { title, chapter, description, dark = false } = Astro.props;
+---
+<Base title={title}>
+  <div class="min-h-screen flex flex-col" style="background:var(--bone);">
+    <Nav />
+
+    <!-- Page header -->
+    <div class="px-6 md:px-10 lg:px-16 py-16 md:py-20" style={dark ? 'background:var(--ink);' : ''}>
+      {chapter && (
+        <div class="eyebrow-marker mb-4" style={dark ? 'color:var(--sun);' : ''}>{chapter}</div>
+      )}
+      <h1
+        class="type-3"
+        style={`color:${dark ? 'var(--bone)' : 'var(--ink)'};max-width:800px;`}
+      >
+        {title}
+      </h1>
+      {description && (
+        <p
+          class="type-body mt-4"
+          style={`color:${dark ? 'rgba(242,235,221,0.65)' : 'rgba(11,31,38,0.65)'};max-width:640px;`}
+        >
+          {description}
+        </p>
+      )}
+    </div>
+
+    <main class="flex-1 px-6 md:px-10 lg:px-16 py-10 md:py-14" data-pagefind-body>
+      <slot />
+    </main>
+
+    <footer style="background:var(--ink);">
+      <div class="px-6 md:px-10 lg:px-16 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <span class="type-eyebrow" style="color:rgba(242,235,221,0.5);">Foiling · A Stanford GSB case study</span>
+        <span class="type-eyebrow" style="color:rgba(242,235,221,0.35);">With Prof. George Foster · Local research instrument</span>
+      </div>
+    </footer>
+  </div>
+</Base>

@@ -1,0 +1,9 @@
+---
+interface Props {
+  color?: string;
+}
+const { color = 'var(--sun)' } = Astro.props;
+---
+<div class="eyebrow-marker" style={`color:${color};`}>
+  <slot />
+</div>
