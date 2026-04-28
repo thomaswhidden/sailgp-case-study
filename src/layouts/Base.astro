@@ -13,7 +13,7 @@ const pageTitle = title ? `${title} — SailGP Case Study` : 'SailGP Case Study'
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <title>{pageTitle}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
@@ -21,10 +21,10 @@ const pageTitle = title ? `${title} — SailGP Case Study` : 'SailGP Case Study'
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif&display=swap"
       rel="stylesheet"
     />
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <link href={`${import.meta.env.BASE_URL}pagefind/pagefind-ui.css`} rel="stylesheet" />
   </head>
   <body>
     <slot />
-    <script src="/pagefind/pagefind-ui.js" is:inline></script>
+    <script src={`${import.meta.env.BASE_URL}pagefind/pagefind-ui.js`} is:inline></script>
   </body>
 </html>

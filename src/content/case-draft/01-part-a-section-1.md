@@ -24,7 +24,7 @@ last_updated: "2026-04-27"
 
 - **The TV problem.** Traditional sailing was hard to watch — "white triangles on a blue background," as Coutts has framed it. Boats were slow, races were long, courses were offshore, and the visual product was inaccessible to non-sailors.
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *Coutts' personal articulation of the moment he and Larry Ellison decided sailing needed a different commercial vehicle. The exact origin conversation has not been told publicly in detail. Worth pressing on: when did you first commit to building this, and what was the alternative you rejected?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *Coutts' personal articulation of the moment he and Larry Ellison decided sailing needed a different commercial vehicle. The exact origin conversation has not been told publicly in detail. Worth pressing on: when did you first commit to building this, and what was the alternative you rejected?*
 
 ---
 
@@ -38,9 +38,9 @@ last_updated: "2026-04-27"
 
 - **Inaugural season.** 2019 — 6 league-owned national teams, 5 events. Australia (Tom Slingsby) won the inaugural championship.
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *Coutts' view of why he and Ellison were uniquely positioned to do this versus other contenders. America's Cup syndicates, World Sailing, or other sailing investors could in theory have built something similar — why didn't they, and why did this team?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *Coutts' view of why he and Ellison were uniquely positioned to do this versus other contenders. America's Cup syndicates, World Sailing, or other sailing investors could in theory have built something similar — why didn't they, and why did this team?*
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *How long was the planning phase before the 2018 announcement? When did Ellison commit capital?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *How long was the planning phase before the 2018 announcement? When did Ellison commit capital?*
 
 ---
 
@@ -60,7 +60,7 @@ last_updated: "2026-04-27"
 
 - **Stadium racing.** Short courses, harbor venues, races approximately 15 minutes long. Iconic visual product (Sydney Harbour, San Francisco Bay, Auckland, etc.).
 
-- <a href="/open-questions#one-design-vs-innovation" class="interview-needed">INTERVIEW NEEDED</a> *Why these specific design choices versus alternatives? Was an open-design (F1-style) format ever seriously considered? Why national teams instead of city-based franchises (NBA model) or brand-based teams (Formula E early model)?*
+- <a href="../../open-questions/#one-design-vs-innovation" class="interview-needed">INTERVIEW NEEDED</a> *Why these specific design choices versus alternatives? Was an open-design (F1-style) format ever seriously considered? Why national teams instead of city-based franchises (NBA model) or brand-based teams (Formula E early model)?*
 
 ---
 
@@ -76,9 +76,9 @@ last_updated: "2026-04-27"
 
 - **Initial partnerships.** Rolex emerged as title partner; broadcast deals signed in core markets. Per Thompson, "back in 2019, 2020, you go into a room and people are like 'what the hell is SailGP, what are you even talking about.'"
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *What was the most difficult moment in the league-owned years? COVID, the slow audience build, or something else? When did Coutts know the model was working?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *What was the most difficult moment in the league-owned years? COVID, the slow audience build, or something else? When did Coutts know the model was working?*
 
-- <a href="/open-questions#liquidity-strategic-future" class="interview-needed">INTERVIEW NEEDED</a> *Was there a point at which Ellison's continued underwriting felt unsustainable? What would have happened if private team sales hadn't materialized?*
+- <a href="../../open-questions/#liquidity-strategic-future" class="interview-needed">INTERVIEW NEEDED</a> *Was there a point at which Ellison's continued underwriting felt unsustainable? What would have happened if private team sales hadn't materialized?*
 
 ---
 

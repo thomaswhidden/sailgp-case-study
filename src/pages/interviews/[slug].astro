@@ -1,6 +1,7 @@
 ---
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 export async function getStaticPaths() {
   const interviews = await getCollection('interviews');
@@ -12,7 +13,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-const { title, outlet, interviewer, date, url, format, duration, guest, guest_role, priority, key_topics, already_asked_tags, framework_link, note_value } = entry.data;
+const { title, outlet, interviewer, date, url: sourceUrl, format, duration, guest, guest_role, priority, key_topics, already_asked_tags, framework_link, note_value } = entry.data;
 
 // Reverse lookups
 const allQuestions = await getCollection('open-questions');
@@ -39,7 +40,7 @@ citingCriteria.sort((a, b) => a.data.criterion_number - b.data.criterion_number)
     ))}
     <div>
       <div class="type-eyebrow mb-1" style="color:var(--mute);">Source</div>
-      <a href={url} target="_blank" rel="noopener noreferrer" class="link-sun" style="font-family:var(--font-serif);font-size:15px;">
+      <a href={sourceUrl} target="_blank" rel="noopener noreferrer" class="link-sun" style="font-family:var(--font-serif);font-size:15px;">
         View original →
       </a>
     </div>
@@ -96,7 +97,7 @@ citingCriteria.sort((a, b) => a.data.criterion_number - b.data.criterion_number)
           <div style="display:flex;flex-direction:column;gap:10px;">
             {citingCriteria.map(f => (
               <a
-                href={`/framework/${f.slug}`}
+                href={url(`/framework/${f.slug}`)}
                 style="font-family:var(--font-serif);font-size:14px;color:var(--ink);text-decoration:none;display:block;padding-bottom:10px;border-bottom:1px solid var(--border-ink);"
                 class="hover:underline"
               >
@@ -107,7 +108,7 @@ citingCriteria.sort((a, b) => a.data.criterion_number - b.data.criterion_number)
               </a>
             ))}
           </div>
-          <a href="/framework" class="link-sun type-eyebrow mt-4 inline-block">All criteria →</a>
+          <a href={url('/framework')} class="link-sun type-eyebrow mt-4 inline-block">All criteria →</a>
         </div>
       )}
 
@@ -128,7 +129,7 @@ citingCriteria.sort((a, b) => a.data.criterion_number - b.data.criterion_number)
               );
             })}
           </div>
-          <a href="/open-questions" class="link-sun type-eyebrow mt-4 inline-block">All questions →</a>
+          <a href={url('/open-questions')} class="link-sun type-eyebrow mt-4 inline-block">All questions →</a>
         </div>
       )}
 
@@ -136,6 +137,6 @@ citingCriteria.sort((a, b) => a.data.criterion_number - b.data.criterion_number)
   </div>
 
   <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border-ink);">
-    <a href="/interviews" class="link-sun type-eyebrow">← All interviews</a>
+    <a href={url('/interviews')} class="link-sun type-eyebrow">← All interviews</a>
   </div>
 </Section>

@@ -12,6 +12,7 @@ import ComparableCard from '../components/ComparableCard.astro';
 import QuestionRow from '../components/QuestionRow.astro';
 import { getCollection } from 'astro:content';
 import { sailgpImages, teamImages } from '../data/teamImages';
+import { url } from '../utils/url';
 
 const sources       = await getCollection('sources');
 const interviews    = await getCollection('interviews');
@@ -142,7 +143,7 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
             F50s at sixty miles an hour, racing inside a city harbour, fixed it.
             Per-event US viewership has compounded six times in seven seasons.
           </p>
-          <a href="/timeline" class="link-sun type-eyebrow mt-6 inline-block">Full story →</a>
+          <a href={url('/timeline')} class="link-sun type-eyebrow mt-6 inline-block">Full story →</a>
         </div>
 
         <!-- Chart + callouts -->
@@ -221,7 +222,7 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
           />
         ))}
       </div>
-      <a href="/teams" class="link-sun type-eyebrow mt-8 inline-block">All team profiles →</a>
+      <a href={url('/teams')} class="link-sun type-eyebrow mt-8 inline-block">All team profiles →</a>
     </section>
 
     <!-- ══ CHAPTER III — FOSTER FRAMEWORK ════════════════════════ -->
@@ -241,7 +242,7 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
             Each criterion scored 1–5; status flagged where the public record leaves the question open.
             Strongest pillars: capital and commercial. Softest: governance, talent depth, and the league's own P&amp;L.
           </p>
-          <a href="/framework" class="link-sun type-eyebrow mt-6 inline-block">Full analysis →</a>
+          <a href={url('/framework')} class="link-sun type-eyebrow mt-6 inline-block">Full analysis →</a>
         </div>
 
         <!-- Right: framework rows -->
@@ -285,7 +286,7 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
           />
         ))}
       </div>
-      <a href="/timeline" class="link-sun type-eyebrow mt-8 inline-block">Full timeline ({timeline.length} events) →</a>
+      <a href={url('/timeline')} class="link-sun type-eyebrow mt-8 inline-block">Full timeline ({timeline.length} events) →</a>
     </section>
 
     <!-- ══ FLEET PHOTO DIVIDER ══════════════════════════════════════ -->
@@ -327,7 +328,7 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
           />
         ))}
       </div>
-      <a href="/comparables" class="link-sun type-eyebrow mt-8 inline-block">All {comparables.length} comparables →</a>
+      <a href={url('/comparables')} class="link-sun type-eyebrow mt-8 inline-block">All {comparables.length} comparables →</a>
     </section>
 
     <!-- ══ CHAPTER VI — OPEN QUESTIONS ═══════════════════════════ -->
@@ -356,7 +357,7 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
           />
         ))}
       </div>
-      <a href="/open-questions" class="link-sun type-eyebrow mt-8 inline-block">Full question list →</a>
+      <a href={url('/open-questions')} class="link-sun type-eyebrow mt-8 inline-block">Full question list →</a>
     </section>
 
     <!-- ══ FOOTER ══════════════════════════════════════════════════ -->

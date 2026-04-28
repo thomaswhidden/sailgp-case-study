@@ -1,6 +1,7 @@
 ---
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 const questions = await getCollection('interview-prep');
 const sorted = [...questions].sort((a, b) => a.data.order - b.data.order);
@@ -98,7 +99,7 @@ const statusPill: Record<string, string> = {
               <div style="display:flex;flex-wrap:wrap;gap:6px;">
                 {q.data.framework_links.map((slug: string) => (
                   <a
-                    href={`/framework/${slug}`}
+                    href={url(`/framework/${slug}`)}
                     class="type-eyebrow"
                     style="padding:3px 8px;background:var(--bone-2);border:1px solid var(--border-ink);color:var(--ink-2);text-decoration:none;"
                   >

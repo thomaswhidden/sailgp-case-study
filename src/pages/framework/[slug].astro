@@ -1,6 +1,7 @@
 ---
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 export async function getStaticPaths() {
   const criteria = await getCollection('framework');
@@ -74,7 +75,7 @@ const scoreColor =
           <div style="display:flex;flex-direction:column;gap:10px;">
             {linkedInterviews.map(iv => (
               <a
-                href={`/interviews/${iv.slug}`}
+                href={url(`/interviews/${iv.slug}`)}
                 style="font-family:var(--font-serif);font-size:14px;color:var(--ink);text-decoration:none;display:block;padding-bottom:10px;border-bottom:1px solid var(--border-ink);"
                 class="hover:underline"
               >
@@ -100,14 +101,14 @@ const scoreColor =
                       {q.data.priority}
                     </span>
                   </div>
-                  <a href="/open-questions" style="font-family:var(--font-serif);font-size:14px;color:var(--ink);text-decoration:none;" class="hover:underline">
+                  <a href={url('/open-questions')} style="font-family:var(--font-serif);font-size:14px;color:var(--ink);text-decoration:none;" class="hover:underline">
                     {q.data.theme}
                   </a>
                 </div>
               );
             })}
           </div>
-          <a href="/open-questions" class="link-sun type-eyebrow mt-4 inline-block">All open questions →</a>
+          <a href={url('/open-questions')} class="link-sun type-eyebrow mt-4 inline-block">All open questions →</a>
         </div>
       ) : (
         <p class="type-eyebrow" style="color:var(--mute);">No linked open questions yet.</p>
@@ -116,6 +117,6 @@ const scoreColor =
   </div>
 
   <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border-ink);">
-    <a href="/framework" class="link-sun type-eyebrow">← All criteria</a>
+    <a href={url('/framework')} class="link-sun type-eyebrow">← All criteria</a>
   </div>
 </Section>

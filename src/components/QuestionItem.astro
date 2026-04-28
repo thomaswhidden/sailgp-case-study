@@ -1,4 +1,5 @@
 ---
+import { url } from '../utils/url';
 interface Props {
   question: string;
   priority: 'high' | 'medium' | 'low';
@@ -61,7 +62,7 @@ function criterionLabel(slug: string): string {
       <div class="flex flex-wrap gap-1.5 mt-2">
         {framework_links.map(slug => (
           <a
-            href={`/framework/${slug}`}
+            href={url(`/framework/${slug}`)}
             class="text-xs font-mono text-navy-600 bg-navy-50 px-1.5 py-0.5 border border-navy-100 hover:bg-navy-100 transition-colors"
           >
             {criterionLabel(slug)}

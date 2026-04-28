@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 const order = ['0','A-I','A-II','A-III','A-IV','B-I','B-II','B-III','exhibits','matrix'];
 const sections = [...(await getCollection('case-draft'))].sort(
@@ -22,7 +23,7 @@ const rendered = await Promise.all(
       SailGP Case Draft · Print View · {sections.length} sections
     </div>
     <div style="display:flex;gap:12px;align-items:center;">
-      <a href="/case-draft" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute);text-decoration:none;">← Back</a>
+      <a href={url('/case-draft')} style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute);text-decoration:none;">← Back</a>
       <button
         onclick="window.print()"
         style="padding:7px 18px;background:var(--ink);color:var(--bone);font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;"

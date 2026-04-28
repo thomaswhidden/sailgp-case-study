@@ -1,4 +1,5 @@
 ---
+import { url } from '../utils/url';
 interface Props {
   name: string;
   nation: string;
@@ -30,7 +31,7 @@ const code = nation.slice(0, 3).toUpperCase();
 ---
 
 <a
-  href={`/teams/${slug}`}
+  href={url(`/teams/${slug}`)}
   class="block card-hover"
   style="background:var(--bone-2);text-decoration:none;overflow:hidden;"
 >

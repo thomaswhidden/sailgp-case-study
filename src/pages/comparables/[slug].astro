@@ -1,6 +1,7 @@
 ---
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 export async function getStaticPaths() {
   const comparables = await getCollection('comparables');
@@ -53,6 +54,6 @@ const d = entry.data;
   </div>
 
   <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border-ink);">
-    <a href="/comparables" class="link-sun type-eyebrow">← All comparables</a>
+    <a href={url('/comparables')} class="link-sun type-eyebrow">← All comparables</a>
   </div>
 </Section>

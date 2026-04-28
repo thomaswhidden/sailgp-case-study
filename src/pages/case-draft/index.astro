@@ -1,6 +1,7 @@
 ---
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 const order = ['0','A-I','A-II','A-III','A-IV','B-I','B-II','B-III','exhibits','matrix'];
 const sections = [...(await getCollection('case-draft'))].sort(
@@ -28,7 +29,7 @@ const interviewCount = 42;
     </div>
     <div style="display:flex;align-items:center;gap:16px;">
       <span class="type-eyebrow" style="color:rgba(242,235,221,0.5);">{interviewCount} INTERVIEW NEEDED markers</span>
-      <a href="/case-draft/print" class="type-eyebrow no-print" style="color:var(--sun);text-decoration:none;">Print all →</a>
+      <a href={url('/case-draft/print')} class="type-eyebrow no-print" style="color:var(--sun);text-decoration:none;">Print all →</a>
     </div>
   </div>
 
@@ -40,7 +41,7 @@ const interviewCount = 42;
         const isCover = section.data.part === 'cover';
         return (
           <a
-            href={`/case-draft/${section.slug}`}
+            href={url(`/case-draft/${section.slug}`)}
             style={`
               display:grid;
               grid-template-columns:80px 1fr auto;
@@ -75,7 +76,7 @@ const interviewCount = 42;
     <div style="display:flex;flex-direction:column;gap:2px;">
       {partB.map(section => (
         <a
-          href={`/case-draft/${section.slug}`}
+          href={url(`/case-draft/${section.slug}`)}
           style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:center;padding:18px 20px;background:rgba(242,235,221,0.04);border:1px solid rgba(242,235,221,0.1);text-decoration:none;transition:background 150ms;"
           class="card-hover-dark"
         >
@@ -99,7 +100,7 @@ const interviewCount = 42;
     <div style="display:flex;flex-direction:column;gap:2px;">
       {appendix.map(section => (
         <a
-          href={`/case-draft/${section.slug}`}
+          href={url(`/case-draft/${section.slug}`)}
           style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:center;padding:18px 20px;background:rgba(242,235,221,0.04);border:1px solid rgba(242,235,221,0.1);text-decoration:none;transition:background 150ms;"
           class="card-hover-dark"
         >

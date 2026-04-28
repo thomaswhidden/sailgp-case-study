@@ -1,17 +1,18 @@
 ---
+import { url } from '../utils/url';
 const pathname = Astro.url.pathname;
 
 const links = [
-  { href: '/',              label: 'Brief',     exact: true },
-  { href: '/timeline',      label: 'Story' },
-  { href: '/sources',       label: 'Sources' },
-  { href: '/teams',         label: 'Teams' },
-  { href: '/framework',     label: 'Framework' },
-  { href: '/open-questions',label: 'Questions' },
-  { href: '/comparables',   label: 'Comparables' },
-  { href: '/interviews',    label: 'Interviews' },
-  { href: '/interview-prep',label: 'Prep' },
-  { href: '/case-draft',    label: 'Draft' },
+  { href: url('/'),              label: 'Brief',     exact: true },
+  { href: url('/timeline'),      label: 'Story' },
+  { href: url('/sources'),       label: 'Sources' },
+  { href: url('/teams'),         label: 'Teams' },
+  { href: url('/framework'),     label: 'Framework' },
+  { href: url('/open-questions'),label: 'Questions' },
+  { href: url('/comparables'),   label: 'Comparables' },
+  { href: url('/interviews'),    label: 'Interviews' },
+  { href: url('/interview-prep'),label: 'Prep' },
+  { href: url('/case-draft'),    label: 'Draft' },
 ];
 
 function isActive(href: string, exact = false): boolean {
@@ -25,7 +26,7 @@ function isActive(href: string, exact = false): boolean {
   style="background: rgba(242,235,221,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(11,31,38,0.12); height: 56px;"
 >
   <!-- Wordmark -->
-  <a href="/" class="flex items-center gap-3 shrink-0 no-underline" style="text-decoration: none;">
+  <a href={url('/')} class="flex items-center gap-3 shrink-0 no-underline" style="text-decoration: none;">
     <div style="width:20px;height:20px;position:relative;flex-shrink:0;">
       <div style="position:absolute;inset:0;background:#0B1F26;clip-path:polygon(0 100%, 100% 100%, 50% 0);"></div>
     </div>

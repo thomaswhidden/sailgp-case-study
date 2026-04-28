@@ -1,6 +1,7 @@
 ---
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 const themes = await getCollection('open-questions');
 const allInterviews = await getCollection('interviews');
@@ -96,7 +97,7 @@ const askedCount  = sorted.filter(t => t.data.already_asked).length;
               <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
                 {theme.data.framework_links.map((slug: string) => (
                   <a
-                    href={`/framework/${slug}`}
+                    href={url(`/framework/${slug}`)}
                     class="type-eyebrow"
                     style="padding:3px 8px;background:var(--bone-2);border:1px solid var(--border-ink);color:var(--ink-2);text-decoration:none;"
                   >
@@ -105,7 +106,7 @@ const askedCount  = sorted.filter(t => t.data.already_asked).length;
                 ))}
                 {theme.data.source_check.filter((s: string) => interviewBySlug[s]).map((s: string) => (
                   <a
-                    href={`/interviews/${s}`}
+                    href={url(`/interviews/${s}`)}
                     class="type-eyebrow"
                     style="padding:3px 8px;background:rgba(233,116,81,0.12);border:1px solid rgba(233,116,81,0.3);color:var(--sun);text-decoration:none;"
                   >

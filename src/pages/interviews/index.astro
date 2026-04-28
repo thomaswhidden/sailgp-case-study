@@ -1,6 +1,7 @@
 ---
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 const interviews = await getCollection('interviews');
 const sorted = [...interviews].sort((a, b) => b.data.date.localeCompare(a.data.date));
@@ -34,7 +35,7 @@ const allTags = [...new Set(interviews.flatMap(i => i.data.already_asked_tags))]
   <div style="display:flex;flex-direction:column;gap:2px;">
     {sorted.map(interview => (
       <a
-        href={`/interviews/${interview.slug}`}
+        href={url(`/interviews/${interview.slug}`)}
         class="card-hover block"
         style="padding:24px;text-decoration:none;"
       >

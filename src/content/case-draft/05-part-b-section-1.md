@@ -26,4 +26,4 @@ last_updated: "2026-04-27"
 
 - **The next-phase question.** How to allocate capital and management attention across multiple credible priorities, without diluting coherence.
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *Coutts' framing of the 2026 inflection — what's the analog of PSG's "abundance, not scarcity" moment?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *Coutts' framing of the 2026 inflection — what's the analog of PSG's "abundance, not scarcity" moment?*

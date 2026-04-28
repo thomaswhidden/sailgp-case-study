@@ -28,9 +28,9 @@ last_updated: "2026-04-27"
 
 - **"Racing fan" positioning, not "sailing fan."** Per Thompson, target persona is racing fans — with F1 at the top of that category and SailGP positioning in the second tier of racing properties.
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *What is the realistic audience ceiling for SailGP — measured in average per-event viewership, social followers, or annual reach? Is the F1 comparison really achievable, or is the realistic ceiling somewhere closer to MotoGP, IndyCar, or NASCAR?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *What is the realistic audience ceiling for SailGP — measured in average per-event viewership, social followers, or annual reach? Is the F1 comparison really achievable, or is the realistic ceiling somewhere closer to MotoGP, IndyCar, or NASCAR?*
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *How do you think about converting TikTok/YouTube viral viewers (transient) into broadcast loyalists (recurring)?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *How do you think about converting TikTok/YouTube viral viewers (transient) into broadcast loyalists (recurring)?*
 
 <div class="exhibit-callout">
 <strong>Exhibit 4: SailGP Audience Growth Across Channels, 2019–2025</strong> — Multi-line chart: per-event TV viewership by major market, social followers across platforms, ticketed attendance per event. <em>Source: SailGP disclosures, CBS/Discovery/TNT public ratings.</em>
@@ -48,11 +48,11 @@ last_updated: "2026-04-27"
 
 - **The athlete-as-hero challenge.** Per Thompson: "If I had a pound for every marketing person who said storylines, athletes as heroes, I'd be a very rich man." Sailors aren't household names yet — Ben Ainslie in the UK, Pete Burling in Auckland, but no one with truly global recognition.
 
-- <a href="/open-questions#content-strategy" class="interview-needed">INTERVIEW NEEDED</a> *What is the next major content initiative beyond Uncharted? Thompson teased "a couple more ideas up our sleeve."*
+- <a href="../../open-questions/#content-strategy" class="interview-needed">INTERVIEW NEEDED</a> *What is the next major content initiative beyond Uncharted? Thompson teased "a couple more ideas up our sleeve."*
 
-- <a href="/open-questions#content-strategy" class="interview-needed">INTERVIEW NEEDED</a> *Is there a SailGP-direct streaming product in the planning, or stay distribution-partner-dependent?*
+- <a href="../../open-questions/#content-strategy" class="interview-needed">INTERVIEW NEEDED</a> *Is there a SailGP-direct streaming product in the planning, or stay distribution-partner-dependent?*
 
-- <a href="/open-questions#content-strategy" class="interview-needed">INTERVIEW NEEDED</a> *How are you thinking about creator partnerships — bringing TikTok/YouTube native talent into SailGP storytelling vs. building athlete-led channels?*
+- <a href="../../open-questions/#content-strategy" class="interview-needed">INTERVIEW NEEDED</a> *How are you thinking about creator partnerships — bringing TikTok/YouTube native talent into SailGP storytelling vs. building athlete-led channels?*
 
 ---
 
@@ -68,11 +68,11 @@ last_updated: "2026-04-27"
 
 - **Betting and gaming as emerging revenue.** Per Thompson, SailGP has commissioned studies showing the sport "lends itself well" to betting because the one-design format creates a level playing field similar to a horse racing handicap. Internal odds-generation team. Bet365 has already taken SailGP odds as a live product.
 
-- <a href="/open-questions#betting-gaming" class="interview-needed">INTERVIEW NEEDED</a> *Is there an exclusive sportsbook partnership in the pipeline? What's the league's revenue capture model from betting — fixed rights fee, revenue share on handle, or both?*
+- <a href="../../open-questions/#betting-gaming" class="interview-needed">INTERVIEW NEEDED</a> *Is there an exclusive sportsbook partnership in the pipeline? What's the league's revenue capture model from betting — fixed rights fee, revenue share on handle, or both?*
 
-- <a href="/open-questions#unit-economics" class="interview-needed">INTERVIEW NEEDED</a> *What's the team-vs-league split on title and presenting partnerships? Does the league negotiate sponsorship floors for teams?*
+- <a href="../../open-questions/#unit-economics" class="interview-needed">INTERVIEW NEEDED</a> *What's the team-vs-league split on title and presenting partnerships? Does the league negotiate sponsorship floors for teams?*
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *How are sponsor renewal and churn rates running? Has any major sponsor declined to renew?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *How are sponsor renewal and churn rates running? Has any major sponsor declined to renew?*
 
 ---
 
@@ -86,10 +86,10 @@ last_updated: "2026-04-27"
 
 - **Growth pace philosophy.** Deliberately one or two teams per year, one venue per year. Not a fire sale. May settle at 14 or 16 if that's the right number. Italy and Brazil were added Season 5; Sweden/Artemis added Season 6.
 
-- <a href="/open-questions#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *Is the Group A / Group B split competitive (top 10 vs. bottom 10, with promotion/relegation) or logistical (random assignment, both groups race for the same championship)?*
+- <a href="../../open-questions/#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *Is the Group A / Group B split competitive (top 10 vs. bottom 10, with promotion/relegation) or logistical (random assignment, both groups race for the same championship)?*
 
-- <a href="/open-questions#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *Are there separate Group A and Group B champions, or one overall champion?*
+- <a href="../../open-questions/#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *Are there separate Group A and Group B champions, or one overall champion?*
 
-- <a href="/open-questions#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *What's the implementation timeline — Season 7? Season 8?*
+- <a href="../../open-questions/#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *What's the implementation timeline — Season 7? Season 8?*
 
-- <a href="/open-questions#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *Have you modeled commercial impact on team valuations of being in Group B vs. Group A? Does it create a tier risk?*
+- <a href="../../open-questions/#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *Have you modeled commercial impact on team valuations of being in Group B vs. Group A? Does it create a tier risk?*

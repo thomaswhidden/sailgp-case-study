@@ -3,6 +3,7 @@ import Section from '../../layouts/Section.astro';
 import ImagePlate from '../../components/ImagePlate.astro';
 import { getCollection } from 'astro:content';
 import { teamImages } from '../../data/teamImages';
+import { url } from '../../utils/url';
 
 export async function getStaticPaths() {
   const teams = await getCollection('teams');
@@ -70,6 +71,6 @@ function formatValuation(v?: number): string {
   </div>
 
   <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border-ink);">
-    <a href="/teams" class="link-sun type-eyebrow">← All teams</a>
+    <a href={url('/teams')} class="link-sun type-eyebrow">← All teams</a>
   </div>
 </Section>

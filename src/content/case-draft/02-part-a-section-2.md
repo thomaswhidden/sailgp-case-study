@@ -28,11 +28,11 @@ last_updated: "2026-04-27"
 
 - **Logistics.** Approximately 140 forty-foot containers per tour. F50s detach at the bow (50ft → 40ft) to fit standard shipping containers. Disassembled within 24 hours of a race. DP World is logistics partner. SailGP chartered its own ship for the 2025–26 tour due to shipping industry conditions.
 
-- <a href="/open-questions#cost-cap-evolution" class="interview-needed">INTERVIEW NEEDED</a> *How was the $10M cap arrived at? Why not $5M (more profitable for teams) or $20M (more competitive depth)? What's the planned cap trajectory as franchise valuations rise toward $100M+?*
+- <a href="../../open-questions/#cost-cap-evolution" class="interview-needed">INTERVIEW NEEDED</a> *How was the $10M cap arrived at? Why not $5M (more profitable for teams) or $20M (more competitive depth)? What's the planned cap trajectory as franchise valuations rise toward $100M+?*
 
-- <a href="/open-questions#cost-cap-evolution" class="interview-needed">INTERVIEW NEEDED</a> *What categories are under discussion for cap exclusion beyond marketing? Athlete development? Hospitality investment?*
+- <a href="../../open-questions/#cost-cap-evolution" class="interview-needed">INTERVIEW NEEDED</a> *What categories are under discussion for cap exclusion beyond marketing? Athlete development? Hospitality investment?*
 
-- <a href="/open-questions#governance-owner-dynamics" class="interview-needed">INTERVIEW NEEDED</a> *How is cap compliance audited? What are the penalties for violation? Has any team approached the cap ceiling and been denied a signing?*
+- <a href="../../open-questions/#governance-owner-dynamics" class="interview-needed">INTERVIEW NEEDED</a> *How is cap compliance audited? What are the penalties for violation? Has any team approached the cap ceiling and been denied a signing?*
 
 ---
 
@@ -48,11 +48,11 @@ last_updated: "2026-04-27"
 
 - **Other team revenue streams.** Hospitality, merchandise, in-territory event partnership.
 
-- <a href="/open-questions#team-revenue-ceiling" class="interview-needed">INTERVIEW NEEDED</a> *What's the realistic top-line revenue ceiling for a SailGP team at maturity? F1 team benchmark is $300M+ — SailGP is at 1/30th of that. Is the F1 comparison really the right benchmark, or is the sustainable revenue level somewhere closer to $20–40M per team?*
+- <a href="../../open-questions/#team-revenue-ceiling" class="interview-needed">INTERVIEW NEEDED</a> *What's the realistic top-line revenue ceiling for a SailGP team at maturity? F1 team benchmark is $300M+ — SailGP is at 1/30th of that. Is the F1 comparison really the right benchmark, or is the sustainable revenue level somewhere closer to $20–40M per team?*
 
-- <a href="/open-questions#league-path-to-profitability" class="interview-needed">INTERVIEW NEEDED</a> *What proportion of league operating costs are still being underwritten by Ellison vs. covered by team fees, sponsorship, broadcast, and event revenue? Is the league itself break-even?*
+- <a href="../../open-questions/#league-path-to-profitability" class="interview-needed">INTERVIEW NEEDED</a> *What proportion of league operating costs are still being underwritten by Ellison vs. covered by team fees, sponsorship, broadcast, and event revenue? Is the league itself break-even?*
 
-- <a href="/open-questions#league-path-to-profitability" class="interview-needed">INTERVIEW NEEDED</a> *As broadcast deals mature in the next 5 years, what does the revenue mix look like at maturity?*
+- <a href="../../open-questions/#league-path-to-profitability" class="interview-needed">INTERVIEW NEEDED</a> *As broadcast deals mature in the next 5 years, what does the revenue mix look like at maturity?*
 
 <div class="exhibit-callout">
 <strong>Exhibit 3: SailGP Team Revenue Composition, Season 5 (2024–25)</strong> — Stacked bar chart: sponsorship (boat branding), broadcast distribution, hospitality, merchandise, in-territory event share. <em>Source: Andrew Thompson Business of Sport interview; team-level disclosures.</em>
@@ -74,11 +74,11 @@ last_updated: "2026-04-27"
 
 - **Title partnership: Rolex 10-year deal.** Other major partners: Emirates, DP World, KPMG, Accor, Mubadala, Deutsche Bank.
 
-- <a href="/open-questions#league-path-to-profitability" class="interview-needed">INTERVIEW NEEDED</a> *League-level P&L bridge to profitability. Is the league break-even today? If not, by when? What proportion of the $200M revenue is recurring vs. event-driven?*
+- <a href="../../open-questions/#league-path-to-profitability" class="interview-needed">INTERVIEW NEEDED</a> *League-level P&L bridge to profitability. Is the league break-even today? If not, by when? What proportion of the $200M revenue is recurring vs. event-driven?*
 
-- <a href="/open-questions#liquidity-strategic-future" class="interview-needed">INTERVIEW NEEDED</a> *How is the relationship with Ellison structured? Equity, debt, ongoing capital commitment?*
+- <a href="../../open-questions/#liquidity-strategic-future" class="interview-needed">INTERVIEW NEEDED</a> *How is the relationship with Ellison structured? Equity, debt, ongoing capital commitment?*
 
-- <a href="/open-questions#liquidity-strategic-future" class="interview-needed">INTERVIEW NEEDED</a> *Is there a plan for a league-level liquidity event — IPO, strategic sale, PE round? When?*
+- <a href="../../open-questions/#liquidity-strategic-future" class="interview-needed">INTERVIEW NEEDED</a> *Is there a plan for a league-level liquidity event — IPO, strategic sale, PE round? When?*
 
 ---
 
@@ -100,10 +100,10 @@ last_updated: "2026-04-27"
 
 - **National federation pathway development.** Spanish team created a "foiling pathway" supported by the Spanish federation. Vision: Olympic pathway → SailGP pathway as elite professional destination.
 
-- <a href="/open-questions#talent-pipeline" class="interview-needed">INTERVIEW NEEDED</a> *How many sailors globally can actually crew an F50 at competitive level? What's the realistic pool?*
+- <a href="../../open-questions/#talent-pipeline" class="interview-needed">INTERVIEW NEEDED</a> *How many sailors globally can actually crew an F50 at competitive level? What's the realistic pool?*
 
-- <a href="/open-questions#talent-pipeline" class="interview-needed">INTERVIEW NEEDED</a> *As Asian and Latin American teams expand, what's the development plan in those markets given the talent concentration in NZ/AUS/UK/US/FR/IT/ES?*
+- <a href="../../open-questions/#talent-pipeline" class="interview-needed">INTERVIEW NEEDED</a> *As Asian and Latin American teams expand, what's the development plan in those markets given the talent concentration in NZ/AUS/UK/US/FR/IT/ES?*
 
-- <a href="/open-questions#transfer-market-governance" class="interview-needed">INTERVIEW NEEDED</a> *At what point does SailGP need a CBA-style athlete agreement? Is there one in the works?*
+- <a href="../../open-questions/#transfer-market-governance" class="interview-needed">INTERVIEW NEEDED</a> *At what point does SailGP need a CBA-style athlete agreement? Is there one in the works?*
 
-- <a href="/open-questions#talent-pipeline" class="interview-needed">INTERVIEW NEEDED</a> *How does SailGP relate to Olympic and America's Cup talent flows? Competitive or complementary for sailors?*
+- <a href="../../open-questions/#talent-pipeline" class="interview-needed">INTERVIEW NEEDED</a> *How does SailGP relate to Olympic and America's Cup talent flows? Competitive or complementary for sailors?*

@@ -16,9 +16,9 @@ last_updated: "2026-04-27"
 
 - Tradeoff: scarcity-driven valuation appreciation vs. expansion-driven audience growth.
 
-- <a href="/open-questions#asia-mexico-expansion" class="interview-needed">INTERVIEW NEEDED</a> *Which markets are highest priority for the next 3 years? What's the realistic timeline for a Chinese team given regulatory complexity?*
+- <a href="../../open-questions/#asia-mexico-expansion" class="interview-needed">INTERVIEW NEEDED</a> *Which markets are highest priority for the next 3 years? What's the realistic timeline for a Chinese team given regulatory complexity?*
 
-- <a href="/open-questions#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *If the 20-team target is 2-pool, does that imply the league is committing to a fundamentally different competitive product? How is that being communicated to current owners?*
+- <a href="../../open-questions/#group-format-mechanics" class="interview-needed">INTERVIEW NEEDED</a> *If the 20-team target is 2-pool, does that imply the league is committing to a fundamentally different competitive product? How is that being communicated to current owners?*
 
 ---
 
@@ -32,9 +32,9 @@ last_updated: "2026-04-27"
 
 - Ticketing and hospitality as faster-growing-than-expected categories.
 
-- <a href="/open-questions#league-path-to-profitability" class="interview-needed">INTERVIEW NEEDED</a> *Is the league break-even today at the central operations level? If not, by when?*
+- <a href="../../open-questions/#league-path-to-profitability" class="interview-needed">INTERVIEW NEEDED</a> *Is the league break-even today at the central operations level? If not, by when?*
 
-- <a href="/open-questions#liquidity-strategic-future" class="interview-needed">INTERVIEW NEEDED</a> *Is there a planned IPO, strategic sale, or PE round at the league level?*
+- <a href="../../open-questions/#liquidity-strategic-future" class="interview-needed">INTERVIEW NEEDED</a> *Is there a planned IPO, strategic sale, or PE round at the league level?*
 
 ---
 
@@ -48,9 +48,9 @@ last_updated: "2026-04-27"
 
 - The athlete equity model — expand or contain?
 
-- <a href="/open-questions#transfer-market-governance" class="interview-needed">INTERVIEW NEEDED</a> *Will there be a CBA-style athlete agreement by 2028?*
+- <a href="../../open-questions/#transfer-market-governance" class="interview-needed">INTERVIEW NEEDED</a> *Will there be a CBA-style athlete agreement by 2028?*
 
-- <a href="/open-questions#talent-pipeline" class="interview-needed">INTERVIEW NEEDED</a> *Is there a planned league-funded grassroots/youth pipeline, or does that stay at the team and federation level?*
+- <a href="../../open-questions/#talent-pipeline" class="interview-needed">INTERVIEW NEEDED</a> *Is there a planned league-funded grassroots/youth pipeline, or does that stay at the team and federation level?*
 
 ---
 
@@ -64,9 +64,9 @@ last_updated: "2026-04-27"
 
 - Merchandising and apparel as commercial categories.
 
-- <a href="/open-questions#content-strategy" class="interview-needed">INTERVIEW NEEDED</a> *What's the planned investment in content over the next 3 years — dollar magnitude and structural choices?*
+- <a href="../../open-questions/#content-strategy" class="interview-needed">INTERVIEW NEEDED</a> *What's the planned investment in content over the next 3 years — dollar magnitude and structural choices?*
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *Is there a thesis on sports merchandise that could meaningfully scale beyond niche-sport norms?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *Is there a thesis on sports merchandise that could meaningfully scale beyond niche-sport norms?*
 
 ---
 
@@ -78,8 +78,8 @@ last_updated: "2026-04-27"
 
 - Could SailGP IP/operational know-how license to other emerging-sport leagues?
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *Does SailGP see itself as a single league, or could it eventually own a portfolio of sailing properties (analogous to TKO Group owning UFC and WWE)?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *Does SailGP see itself as a single league, or could it eventually own a portfolio of sailing properties (analogous to TKO Group owning UFC and WWE)?*
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *Is there an interest in launching a women's circuit, or is that a separate property?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *Is there an interest in launching a women's circuit, or is that a separate property?*
 
-- <a href="/open-questions#americas-cup-relationship" class="interview-needed">INTERVIEW NEEDED</a> *Has there been any discussion of SailGP playing a role in America's Cup governance?*
+- <a href="../../open-questions/#americas-cup-relationship" class="interview-needed">INTERVIEW NEEDED</a> *Has there been any discussion of SailGP playing a role in America's Cup governance?*

@@ -44,9 +44,9 @@ last_updated: "2026-04-27"
 
 - **SailGP's positioning.** "The simple version of sailing, sitting at the elite level" (Thompson).
 
-- <a href="/open-questions#americas-cup-relationship" class="interview-needed">INTERVIEW NEEDED</a> *Does Coutts see SailGP and the America's Cup as competitive, complementary, or convergent over time? Could they ever merge or formally align?*
+- <a href="../../open-questions/#americas-cup-relationship" class="interview-needed">INTERVIEW NEEDED</a> *Does Coutts see SailGP and the America's Cup as competitive, complementary, or convergent over time? Could they ever merge or formally align?*
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *What's the long-term relationship strategy with World Sailing? Is there pressure to hand over more governance, or does the special-event status remain stable?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *What's the long-term relationship strategy with World Sailing? Is there pressure to hand over more governance, or does the special-event status remain stable?*
 
 ---
 
@@ -64,15 +64,15 @@ last_updated: "2026-04-27"
 
 - **Calendar/venue risk.** Venues have been moved (St-Tropez → Geneva for 2026).
 
-- <a href="/open-questions#risk-management" class="interview-needed">INTERVIEW NEEDED</a> *Lessons from the Christchurch Hector's dolphin cancellation? What changed operationally?*
+- <a href="../../open-questions/#risk-management" class="interview-needed">INTERVIEW NEEDED</a> *Lessons from the Christchurch Hector's dolphin cancellation? What changed operationally?*
 
-- <a href="/open-questions#risk-management" class="interview-needed">INTERVIEW NEEDED</a> *The Auckland 2026 NZ-FRA collision — what changes operationally?*
+- <a href="../../open-questions/#risk-management" class="interview-needed">INTERVIEW NEEDED</a> *The Auckland 2026 NZ-FRA collision — what changes operationally?*
 
-- <a href="/open-questions#risk-management" class="interview-needed">INTERVIEW NEEDED</a> *How is geopolitical risk managed for races in the Middle East and planned events in China?*
+- <a href="../../open-questions/#risk-management" class="interview-needed">INTERVIEW NEEDED</a> *How is geopolitical risk managed for races in the Middle East and planned events in China?*
 
-- <a href="/open-questions#sustainability-brand-risk" class="interview-needed">INTERVIEW NEEDED</a> *How does Coutts answer the carbon critique — "Powered By Nature" positioning vs. flying global teams? Is the Impact League marketing or operational?*
+- <a href="../../open-questions/#sustainability-brand-risk" class="interview-needed">INTERVIEW NEEDED</a> *How does Coutts answer the carbon critique — "Powered By Nature" positioning vs. flying global teams? Is the Impact League marketing or operational?*
 
-- <a href="/open-questions#risk-management" class="interview-needed">INTERVIEW NEEDED</a> *Single-supplier F50 risk — what's the contingency if Southampton has a disruption? Has SailGP considered a second manufacturing site?*
+- <a href="../../open-questions/#risk-management" class="interview-needed">INTERVIEW NEEDED</a> *Single-supplier F50 risk — what's the contingency if Southampton has a disruption? Has SailGP considered a second manufacturing site?*
 
 <div class="exhibit-callout">
 <strong>Exhibit 6: SailGP Calendar Evolution and Venue Footprint, 2019–2026</strong> — Map showing all SailGP venues by season, with venue additions, removals, and venue economics (host fees, regional impact, ticketed attendance). <em>Source: SailGP press releases.</em>
@@ -88,9 +88,9 @@ last_updated: "2026-04-27"
 
 - **Sponsor activation.** International partners use SailGP venues as activation platforms in markets where they want commercial presence.
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *Coutts' framing of SailGP's role in the broader sports economy — additive vs. zero-sum with America's Cup, Olympic sailing, etc.*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *Coutts' framing of SailGP's role in the broader sports economy — additive vs. zero-sum with America's Cup, Olympic sailing, etc.*
 
-- <a href="/open-questions" class="interview-needed">INTERVIEW NEEDED</a> *How does SailGP think about its leadership role in elevating the broader sport of sailing? Is there a 'rising tide' strategy?*
+- <a href="../../open-questions/" class="interview-needed">INTERVIEW NEEDED</a> *How does SailGP think about its leadership role in elevating the broader sport of sailing? Is there a 'rising tide' strategy?*
 
 ---
 

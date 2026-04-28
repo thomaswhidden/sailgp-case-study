@@ -1,6 +1,7 @@
 ---
 import Section from '../../layouts/Section.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../../utils/url';
 
 export async function getStaticPaths() {
   const sections = await getCollection('case-draft');
@@ -43,13 +44,13 @@ const chapterLabel = `Case Draft · Stanford GSB · ${partLabel}`;
       {last_updated && (
         <span class="type-eyebrow" style="color:var(--mute);">Updated {last_updated}</span>
       )}
-      <a href="/open-questions" class="type-eyebrow link-sun">Open Questions →</a>
+      <a href={url('/open-questions')} class="type-eyebrow link-sun">Open Questions →</a>
     </div>
     <div style="display:flex;gap:12px;">
       <button onclick="window.print()" class="type-eyebrow" style="padding:5px 12px;border:1px solid var(--border-ink);background:transparent;color:var(--mute);cursor:pointer;">
         Print section
       </button>
-      <a href="/case-draft/print" class="type-eyebrow" style="padding:5px 12px;border:1px solid var(--border-ink);color:var(--mute);text-decoration:none;">
+      <a href={url('/case-draft/print')} class="type-eyebrow" style="padding:5px 12px;border:1px solid var(--border-ink);color:var(--mute);text-decoration:none;">
         Print all
       </a>
     </div>
@@ -63,13 +64,13 @@ const chapterLabel = `Case Draft · Stanford GSB · ${partLabel}`;
   <!-- Prev / Next navigation -->
   <div class="no-print" style="display:flex;justify-content:space-between;gap:16px;margin-top:40px;padding-top:28px;border-top:1px solid var(--border-ink);">
     {prev ? (
-      <a href={`/case-draft/${prev.slug}`} style="text-decoration:none;max-width:45%;">
+      <a href={url(`/case-draft/${prev.slug}`)} style="text-decoration:none;max-width:45%;">
         <div class="type-eyebrow mb-1" style="color:var(--mute);">← Previous</div>
         <div style="font-family:var(--font-serif);font-size:14px;color:var(--ink);">{prev.data.title}</div>
       </a>
     ) : <div />}
     {next ? (
-      <a href={`/case-draft/${next.slug}`} style="text-decoration:none;text-align:right;max-width:45%;">
+      <a href={url(`/case-draft/${next.slug}`)} style="text-decoration:none;text-align:right;max-width:45%;">
         <div class="type-eyebrow mb-1" style="color:var(--mute);">Next →</div>
         <div style="font-family:var(--font-serif);font-size:14px;color:var(--ink);">{next.data.title}</div>
       </a>
@@ -77,7 +78,7 @@ const chapterLabel = `Case Draft · Stanford GSB · ${partLabel}`;
   </div>
 
   <div class="no-print" style="margin-top:16px;">
-    <a href="/case-draft" class="link-sun type-eyebrow">← All sections</a>
+    <a href={url('/case-draft')} class="link-sun type-eyebrow">← All sections</a>
   </div>
 
 </Section>
