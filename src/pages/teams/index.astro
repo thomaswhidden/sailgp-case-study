@@ -75,6 +75,7 @@ const teamColors: Record<string, string> = {
         color={teamColors[team.slug] ?? 'var(--mute)'}
         imageSrc={teamImages[team.slug]?.url}
         imageAlt={teamImages[team.slug]?.alt}
+        objectPosition={teamImages[team.slug]?.objectPosition}
       />
     ))}
   </div>

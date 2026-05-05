@@ -16,13 +16,14 @@ interface Props {
   color?: string;
   imageSrc?: string;
   imageAlt?: string;
+  objectPosition?: string;
 }
 
 const {
   name, nation, current_owner, current_valuation_usd, latest_valuation_date,
   valuation_source, valuation_source_url,
   championships, title_sponsor, driver, slug,
-  color = 'var(--mute)', imageSrc, imageAlt,
+  color = 'var(--mute)', imageSrc, imageAlt, objectPosition = 'center center',
 } = Astro.props;
 
 function formatVal(v?: number): string {
@@ -40,12 +41,12 @@ const code = nation.slice(0, 3).toUpperCase();
 >
   <!-- Image strip -->
   {imageSrc && (
-    <div style="height:140px;overflow:hidden;position:relative;">
+    <div style="height:220px;overflow:hidden;position:relative;">
       <img
         src={imageSrc}
         alt={imageAlt ?? name}
         loading="lazy"
-        style="width:100%;height:100%;object-fit:cover;object-position:center center;transition:transform 400ms ease;"
+        style={`width:100%;height:100%;object-fit:cover;object-position:${objectPosition};transition:transform 400ms ease;`}
         class="team-card-img"
       />
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom, transparent 50%, rgba(11,31,38,0.35) 100%);"></div>

@@ -6,6 +6,7 @@ export interface TeamImage {
   url: string;
   alt: string;
   credit: string;
+  objectPosition?: string;
 }
 
 const WC = 'https://upload.wikimedia.org/wikipedia/commons';
@@ -43,8 +44,8 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   denmark: {
-    url:    thumb('6/68', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283703%29.jpg'),
-    alt:    'Denmark SailGP Team F50 at the Season 3 Grand Final, San Francisco 2023',
+    url:    thumb('a/a5', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283149%29.jpg'),
+    alt:    'Denmark SailGP F50 racing in San Francisco',
     credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
   },
   us: {
@@ -63,14 +64,14 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   spain: {
-    url:    thumb('c/c7', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283147%29.jpg'),
-    alt:    'Spain SailGP Team F50 at the Season 3 Grand Final, San Francisco 2023',
+    url:    thumb('d/d2', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283227%29.jpg'),
+    alt:    'Spain SailGP F50 racing in San Francisco',
     credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
   },
   'new-zealand': {
-    url:    thumb('9/90', 'Black_Foils_SailGP_Team_%282026_Perth_SailGP%2C_after_crash%29_-_1.jpg'),
-    alt:    'Black Foils New Zealand SailGP Team at the 2026 Perth SailGP',
-    credit: 'Wikimedia Commons / CC BY-SA 4.0',
+    url:    thumb('b/be', 'SailGP_Christchurch_2024.jpg'),
+    alt:    'New Zealand Black Foils SailGP F50 in Christchurch 2024',
+    credit: 'Alan Viles / Wikimedia Commons / CC BY 2.0',
   },
   canada: {
     url:    thumb('b/be', 'ROCKWOOL_CANADA_SAIL_GRAND_PRIX_2024.jpg'),
@@ -78,8 +79,8 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   switzerland: {
-    url:    thumb('5/58', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283074%29.jpg'),
-    alt:    'Switzerland SailGP Team F50 at the Season 3 Grand Final, San Francisco 2023',
+    url:    thumb('9/92', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283164%29.jpg'),
+    alt:    'Switzerland SailGP F50 racing in San Francisco',
     credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
   },
 };

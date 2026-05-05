@@ -2,21 +2,45 @@
 import { url } from '../utils/url';
 const pathname = Astro.url.pathname;
 
-const links = [
-  { href: url('/'),              label: 'Brief',      exact: true },
-  { href: url('/timeline'),      label: 'Story' },
-  { href: url('/sources'),       label: 'Sources' },
-  { href: url('/teams'),         label: 'Teams' },
-  { href: url('/framework'),     label: 'Framework' },
-  { href: url('/comparables'),   label: 'Comparables' },
-  { href: url('/interviews'),    label: 'Interviews' },
-  { href: url('/interview-prep'),label: 'Questions' },
-  { href: url('/case-draft'),    label: 'Draft' },
+const groups = [
+  {
+    label: 'Brief',
+    href:  url('/'),
+    exact: true,
+    children: [] as { href: string; label: string }[],
+  },
+  {
+    label: 'The League',
+    href:  null,
+    exact: false,
+    children: [
+      { href: url('/timeline'), label: 'Story' },
+      { href: url('/teams'),    label: 'Teams' },
+    ],
+  },
+  {
+    label: 'Research',
+    href:  null,
+    exact: false,
+    children: [
+      { href: url('/framework'),      label: 'Framework' },
+      { href: url('/comparables'),    label: 'Comparables' },
+      { href: url('/interviews'),     label: 'Interviews' },
+      { href: url('/interview-prep'), label: 'Questions' },
+      { href: url('/sources'),        label: 'Sources' },
+      { href: url('/case-draft'),     label: 'Draft' },
+    ],
+  },
 ];
 
 function isActive(href: string, exact = false): boolean {
   if (exact) return pathname === href;
   return pathname === href || pathname.startsWith(href + '/');
+}
+
+function groupActive(g: typeof groups[0]): boolean {
+  if (g.href) return isActive(g.href, g.exact);
+  return g.children.some(c => isActive(c.href));
 }
 ---
 
@@ -34,22 +58,49 @@ function isActive(href: string, exact = false): boolean {
     </span>
   </a>
 
-  <!-- Nav items -->
-  <div class="flex items-center gap-5 overflow-x-auto" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">
-    {links.map(link => (
-      <a
-        href={link.href}
-        class="shrink-0 whitespace-nowrap no-underline transition-colors duration-150"
-        style={`
-          color: ${isActive(link.href, link.exact) ? '#E97451' : '#5A6E76'};
-          position: relative;
-          padding-bottom: 2px;
-          ${isActive(link.href, link.exact) ? 'border-bottom: 1px solid #E97451;' : ''}
-        `}
-      >
-        {link.label}
-      </a>
-    ))}
+  <!-- Nav groups -->
+  <div class="flex items-center gap-6" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">
+    {groups.map(group => {
+      const active = groupActive(group);
+      return group.href ? (
+        <!-- Direct link (Brief) -->
+        <a
+          href={group.href}
+          class="nav-direct shrink-0 whitespace-nowrap no-underline"
+          style={`color:${active ? '#E97451' : '#5A6E76'};padding-bottom:2px;${active ? 'border-bottom:1px solid #E97451;' : ''}`}
+        >
+          {group.label}
+        </a>
+      ) : (
+        <!-- Dropdown group -->
+        <div class="nav-group" style="position:relative;">
+          <button
+            class="nav-trigger shrink-0 whitespace-nowrap"
+            style={`display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;padding:0 0 2px;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:${active ? '#E97451' : '#5A6E76'};${active ? 'border-bottom:1px solid #E97451;' : ''}`}
+          >
+            {group.label}
+            <svg width="8" height="5" viewBox="0 0 8 5" fill="none" style="flex-shrink:0;margin-top:1px;">
+              <path d="M1 1l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="nav-dropdown">
+            {group.children.map(child => {
+              const childActive = isActive(child.href);
+              return (
+                <a
+                  href={child.href}
+                  class="nav-dropdown-item"
+                  style={`color:${childActive ? '#E97451' : '#5A6E76'};`}
+                >
+                  {child.label}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      );
+    })}
   </div>
 
   <!-- Search -->
@@ -58,7 +109,61 @@ function isActive(href: string, exact = false): boolean {
   </div>
 </nav>
 
+<style>
+  .nav-group { position: relative; }
+
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 9px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(242,235,221,0.98);
+    border: 1px solid rgba(11,31,38,0.12);
+    backdrop-filter: blur(8px);
+    padding: 6px 0;
+    min-width: 130px;
+    z-index: 200;
+  }
+
+  .nav-group:hover .nav-dropdown,
+  .nav-group.open .nav-dropdown {
+    display: block;
+  }
+
+  .nav-dropdown-item {
+    display: block;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 150ms;
+  }
+
+  .nav-dropdown-item:hover { color: #E97451 !important; }
+</style>
+
 <script>
+  // Click toggle for touch devices
+  document.querySelectorAll<HTMLElement>('.nav-trigger').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const group = btn.closest<HTMLElement>('.nav-group')!;
+      const isOpen = group.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+      if (!isOpen) group.classList.add('open');
+      e.stopPropagation();
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+  });
+
+  // Pagefind
   if (typeof window !== 'undefined' && (window as any).PagefindUI) {
     new (window as any).PagefindUI({
       element: '#search',
