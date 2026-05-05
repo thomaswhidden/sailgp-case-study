@@ -102,6 +102,11 @@ export const sailgpImages = {
     alt:    'Artemis, Black Foils and Denmark SailGP teams racing at the 2026 Perth SailGP',
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
+  teamsBanner: {
+    url:    thumb('5/59', 'Final_day_of_racing_at_2025_New_York_SailGP.jpg', 1920),
+    alt:    'Fleet racing on the final day of the 2025 New York SailGP',
+    credit: 'Clyde Charles Brown / Wikimedia Commons / CC BY-SA 4.0',
+  },
   sassnitz: {
     url:    thumb('9/96', 'Germany_SailGP_Sassnitz_2025_01.JPG', 1920),
     alt:    'SailGP fleet racing at Sassnitz, Germany 2025',

@@ -38,22 +38,22 @@ const teamColors: Record<string, string> = {
   <!-- Perth 2026 fleet image -->
   <div style="position:relative;overflow:hidden;height:420px;margin-bottom:36px;">
     <img
-      src={sailgpImages.perthFleet.url}
-      alt={sailgpImages.perthFleet.alt}
+      src={sailgpImages.teamsBanner.url}
+      alt={sailgpImages.teamsBanner.alt}
       loading="lazy"
-      style="width:100%;height:115%;object-fit:cover;object-position:center 40%;position:absolute;top:-7.5%;"
+      style="width:100%;height:100%;object-fit:cover;object-position:center center;position:absolute;top:0;"
     />
     <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(11,31,38,0.6) 0%, transparent 70%);"></div>
     <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 32px;">
       <div>
-        <div class="eyebrow-marker mb-2" style="color:var(--sun);">2026 Perth SailGP</div>
+        <div class="eyebrow-marker mb-2" style="color:var(--sun);">2025 New York SailGP</div>
         <div style="font-family:var(--font-display);font-size:clamp(24px,3vw,40px);color:var(--bone);line-height:1.05;letter-spacing:-0.02em;">
-          Artemis · Black Foils · Rockwool Denmark
+          Thirteen nations. One winner.
         </div>
       </div>
     </div>
     <div style="position:absolute;bottom:12px;right:20px;">
-      <div class="type-eyebrow" style="color:rgba(242,235,221,0.5);">Wikimedia Commons / CC BY-SA 4.0</div>
+      <div class="type-eyebrow" style="color:rgba(242,235,221,0.5);">{sailgpImages.teamsBanner.credit}</div>
     </div>
   </div>
 
