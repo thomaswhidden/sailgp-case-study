@@ -4,11 +4,10 @@ import { getCollection } from 'astro:content';
 import { url } from '../../utils/url';
 
 const questions = await getCollection('interview-prep');
-const sorted = [...questions].sort((a, b) => a.data.order - b.data.order);
-
-const confirmed = sorted.filter(q => q.data.status === 'confirmed');
-const draft     = sorted.filter(q => q.data.status === 'draft');
-const cut       = sorted.filter(q => q.data.status === 'cut');
+const active = questions.filter(q => q.data.status !== 'cut').sort((a, b) => a.data.order - b.data.order);
+const cut    = questions.filter(q => q.data.status === 'cut');
+const confirmed = questions.filter(q => q.data.status === 'confirmed');
+const draft     = questions.filter(q => q.data.status === 'draft');
 
 const frameworkLabels: Record<string, string> = {
   'vision-strategic-positioning': '01 Vision',
@@ -31,15 +30,41 @@ const statusPill: Record<string, string> = {
   draft:     'background:rgba(11,31,38,0.08);color:var(--mute);',
   cut:       'background:transparent;color:var(--mute);border:1px solid var(--border-ink);text-decoration:line-through;',
 };
+
+const CATEGORY_ORDER = [
+  'Origins & Founding',
+  'Financials & Unit Economics',
+  'Expansion & Growth',
+  'Governance & Ownership',
+  'Competitive Format & Technology',
+  'Media & Broadcast',
+  'Strategic Future',
+];
+
+const grouped = new Map<string, typeof active>();
+for (const cat of CATEGORY_ORDER) grouped.set(cat, []);
+for (const q of active) {
+  const cat = q.data.category ?? 'Uncategorized';
+  if (!grouped.has(cat)) grouped.set(cat, []);
+  grouped.get(cat)!.push(q);
+}
+
+let globalIndex = 0;
+const indexedGroups = [...grouped.entries()]
+  .filter(([, qs]) => qs.length > 0)
+  .map(([cat, qs]) => ({
+    cat,
+    items: qs.map(q => ({ q, n: ++globalIndex })),
+  }));
 ---
 
 <Section
   title="Interview Prep"
   chapter="Final Question Set · Coutts"
-  description="Polished question set for interview day. Reorder by editing the order field."
+  description={`${active.length} questions across ${indexedGroups.length} categories. ${confirmed.length} confirmed · ${draft.length} draft.`}
 >
   <!-- Status summary + export -->
-  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:40px;">
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
       {confirmed.length > 0 && (
         <span class="type-eyebrow" style="padding:4px 10px;background:var(--sun);color:var(--bone);">
@@ -66,65 +91,79 @@ const statusPill: Record<string, string> = {
     </button>
   </div>
 
-  {sorted.length === 0 ? (
+  {active.length === 0 ? (
     <div style="padding:48px 0;text-align:center;">
       <p class="type-body" style="color:var(--mute);">
-        No questions yet. Create files in <code style="font-family:var(--font-mono);font-size:13px;background:var(--bone-2);padding:1px 4px;">src/content/interview-prep/</code> when your research is mature.
+        No questions yet. Create files in <code style="font-family:var(--font-mono);font-size:13px;background:var(--bone-2);padding:1px 4px;">src/content/interview-prep/</code>.
       </p>
     </div>
   ) : (
-    <ol id="question-list" style="list-style:none;padding:0;margin:0;">
-      {sorted.map((q, i) => (
-        <li
-          style={`display:grid;grid-template-columns:60px 1fr 110px;gap:18px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-ink);${q.data.status === 'cut' ? 'opacity:0.4;' : ''}`}
-        >
-          <!-- Order number -->
-          <div style="font-family:var(--font-display);font-size:36px;color:rgba(11,31,38,0.18);line-height:1;letter-spacing:-0.02em;">
-            {String(q.data.order).padStart(2, '0')}
+    <div id="question-list">
+      {indexedGroups.map(({ cat, items }) => (
+        <div style="margin-bottom:48px;">
+          <!-- Category header -->
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+            <span class="type-eyebrow" style="color:var(--sun);letter-spacing:0.18em;">{cat.toUpperCase()}</span>
+            <div style="flex:1;height:1px;background:rgba(11,31,38,0.15);"></div>
+            <span class="type-eyebrow" style="color:var(--mute);">{items.length} Q</span>
           </div>
 
-          <!-- Question + meta -->
-          <div>
-            <p
-              style={`font-family:var(--font-serif);font-size:18px;line-height:1.4;color:var(--ink);margin:0 0 10px;${q.data.status === 'cut' ? 'text-decoration:line-through;color:var(--mute);' : ''}`}
-            >
-              {q.data.question}
-            </p>
-            {q.data.rationale && (
-              <p style="font-family:var(--font-serif);font-style:italic;font-size:14px;color:rgba(11,31,38,0.55);margin:0 0 10px;line-height:1.5;">
-                {q.data.rationale}
-              </p>
-            )}
-            {q.data.framework_links.length > 0 && (
-              <div style="display:flex;flex-wrap:wrap;gap:6px;">
-                {q.data.framework_links.map((slug: string) => (
-                  <a
-                    href={url(`/framework/${slug}`)}
-                    class="type-eyebrow"
-                    style="padding:3px 8px;background:var(--bone-2);border:1px solid var(--border-ink);color:var(--ink-2);text-decoration:none;"
+          <ol style="list-style:none;padding:0;margin:0;">
+            {items.map(({ q, n }) => (
+              <li
+                data-status={q.data.status}
+                style={`display:grid;grid-template-columns:60px 1fr 110px;gap:18px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-ink);${q.data.status === 'cut' ? 'opacity:0.4;' : ''}`}
+              >
+                <!-- Global index -->
+                <div style="font-family:var(--font-display);font-size:36px;color:rgba(11,31,38,0.18);line-height:1;letter-spacing:-0.02em;">
+                  {String(n).padStart(2, '0')}
+                </div>
+
+                <!-- Question + meta -->
+                <div>
+                  <p
+                    style={`font-family:var(--font-serif);font-size:18px;line-height:1.4;color:var(--ink);margin:0 0 10px;${q.data.status === 'cut' ? 'text-decoration:line-through;color:var(--mute);' : ''}`}
                   >
-                    {frameworkLabels[slug] ?? slug}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
+                    {q.data.question}
+                  </p>
+                  {q.data.rationale && (
+                    <p style="font-family:var(--font-serif);font-style:italic;font-size:14px;color:rgba(11,31,38,0.55);margin:0 0 10px;line-height:1.5;">
+                      {q.data.rationale}
+                    </p>
+                  )}
+                  {q.data.framework_links.length > 0 && (
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                      {q.data.framework_links.map((slug: string) => (
+                        <a
+                          href={url(`/framework/${slug}`)}
+                          class="type-eyebrow"
+                          style="padding:3px 8px;background:var(--bone-2);border:1px solid var(--border-ink);color:var(--ink-2);text-decoration:none;"
+                        >
+                          {frameworkLabels[slug] ?? slug}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-          <!-- Status pill -->
-          <div style="text-align:right;padding-top:4px;">
-            <div class="type-eyebrow" style={`display:inline-block;padding:4px 10px;${statusPill[q.data.status] ?? ''}`}>
-              {q.data.status}
-            </div>
-          </div>
-        </li>
+                <!-- Status pill -->
+                <div style="text-align:right;padding-top:4px;">
+                  <div class="type-eyebrow" style={`display:inline-block;padding:4px 10px;${statusPill[q.data.status] ?? ''}`}>
+                    {q.data.status}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       ))}
-    </ol>
+    </div>
   )}
 
   <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
     <p class="type-body-small" style="color:var(--mute);">
-      Create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/interview-prep/slug.md</code>
-      with <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">order, question, status</code>.
+      Create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/interview-prep/NN-slug.md</code>
+      with <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">order, question, category, status</code>.
     </p>
   </div>
 </Section>
@@ -132,13 +171,18 @@ const statusPill: Record<string, string> = {
 <script>
   const btn = document.getElementById('export-btn') as HTMLButtonElement;
   btn?.addEventListener('click', () => {
-    const qs = document.querySelectorAll<HTMLElement>('#question-list li');
+    const sections = document.querySelectorAll<HTMLElement>('#question-list > div');
     const lines: string[] = ['INTERVIEW PREP — SailGP / Russell Coutts\n'];
-    qs.forEach(li => {
-      if (li.style.opacity === '0.4') return;
-      const num = li.querySelector('[style*="36px"]')?.textContent?.trim() ?? '';
-      const q   = li.querySelector('p')?.textContent?.trim() ?? '';
-      lines.push(`${num}. ${q}`);
+    sections.forEach(sec => {
+      const catEl = sec.querySelector('.type-eyebrow');
+      if (catEl) lines.push('\n' + catEl.textContent?.trim() + '\n' + '─'.repeat(40));
+      const items = sec.querySelectorAll<HTMLElement>('li');
+      items.forEach(li => {
+        if (li.dataset.status === 'cut') return;
+        const num = li.querySelector('[style*="36px"]')?.textContent?.trim() ?? '';
+        const q   = li.querySelector('p')?.textContent?.trim() ?? '';
+        lines.push(`${num}. ${q}`);
+      });
     });
     const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
     const a    = document.createElement('a');

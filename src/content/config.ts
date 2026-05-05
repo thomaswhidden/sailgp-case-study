@@ -114,6 +114,7 @@ const interviewPrep = defineCollection({
     rationale: z.string().optional(),
     framework_links: z.array(z.string()).default([]),
     status: z.enum(['draft', 'confirmed', 'cut']).default('draft'),
+    category: z.string().optional(),
   }),
 });
 
