@@ -7,6 +7,8 @@ notable_owners:
   - Torbjörn Törnqvist
 current_valuation_usd: 60000000
 latest_valuation_date: "2026"
+valuation_source: "Sportico · 2026"
+valuation_source_url: "https://www.sportico.com/?s=sailgp"
 title_sponsor: ""
 driver: ""
 championships: 0

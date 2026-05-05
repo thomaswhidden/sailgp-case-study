@@ -2,6 +2,8 @@
 interface Stat {
   value: string;
   label: string;
+  source?: string;
+  sourceUrl?: string;
 }
 interface Props {
   stats: Stat[];
@@ -29,6 +31,11 @@ const { stats, label = 'The case in six numbers' } = Astro.props;
           {s.value}
         </div>
         <div class="type-eyebrow mt-3" style="color:var(--mute);">{s.label}</div>
+        {s.source && (
+          s.sourceUrl
+            ? <a href={s.sourceUrl} target="_blank" rel="noopener" class="type-eyebrow mt-1 block" style="color:rgba(11,31,38,0.35);font-size:8.5px;letter-spacing:0.1em;text-decoration:none;hover:color:var(--sun);">↗ {s.source}</a>
+            : <span class="type-eyebrow mt-1 block" style="color:rgba(11,31,38,0.35);font-size:8.5px;letter-spacing:0.1em;">{s.source}</span>
+        )}
       </div>
     ))}
   </div>

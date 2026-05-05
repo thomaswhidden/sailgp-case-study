@@ -1,23 +1,29 @@
 ---
+interface SourceRef {
+  label: string;
+  url: string;
+}
 interface Props {
   date: string;
   category: string;
   title: string;
   summary: string;
-  sources?: string[];
+  sources?: SourceRef[];
 }
-const { date, category, title, summary } = Astro.props;
+const { date, category, title, summary, sources = [] } = Astro.props;
 
 const catColors: Record<string, string> = {
-  founding:   'var(--ink-2)',
-  season:     'var(--ink)',
-  'team-sale':'var(--sun)',
-  broadcast:  'var(--ink-2)',
-  sponsor:    'var(--ink-2)',
-  incident:   'var(--sun)',
-  governance: 'var(--mute)',
-  venue:      'var(--mute)',
-  other:      'var(--mute)',
+  founding:    'var(--ink-2)',
+  season:      'var(--ink)',
+  'team-sale': 'var(--sun)',
+  broadcast:   'var(--ink-2)',
+  sponsor:     'var(--ink-2)',
+  incident:    'var(--sun)',
+  governance:  'var(--mute)',
+  venue:       'var(--mute)',
+  operations:  'var(--mute)',
+  athlete:     'var(--ink-2)',
+  other:       'var(--mute)',
 };
 const c = catColors[category] ?? 'var(--ink)';
 ---
@@ -38,6 +44,23 @@ const c = catColors[category] ?? 'var(--ink)';
       <span class="type-eyebrow" style={`color:${c};font-weight:600;`}>{category}</span>
       <span style="font-family:var(--font-display);font-size:22px;letter-spacing:-0.015em;color:var(--ink);">{title}</span>
     </div>
-    <p style="font-family:var(--font-serif);font-size:14px;color:rgba(11,31,38,0.65);line-height:1.55;max-width:680px;">{summary}</p>
+    <p style="font-family:var(--font-serif);font-size:14px;color:rgba(11,31,38,0.65);line-height:1.55;max-width:680px;margin:0 0 6px;">{summary}</p>
+    {sources.length > 0 && (
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;">
+        {sources.map(src => (
+          <a
+            href={src.url}
+            target="_blank"
+            rel="noopener"
+            class="type-eyebrow"
+            style="font-size:8px;letter-spacing:0.12em;padding:2px 7px;border:1px solid rgba(11,31,38,0.15);color:rgba(11,31,38,0.4);text-decoration:none;transition:color 0.15s,border-color 0.15s;"
+            onmouseover="this.style.color='var(--sun)';this.style.borderColor='var(--sun)';"
+            onmouseout="this.style.color='rgba(11,31,38,0.4)';this.style.borderColor='rgba(11,31,38,0.15)';"
+          >
+            ↗ {src.label}
+          </a>
+        ))}
+      </div>
+    )}
   </div>
 </div>

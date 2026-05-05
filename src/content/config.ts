@@ -48,6 +48,8 @@ const teams = defineCollection({
     notable_owners: z.array(z.string()).default([]),
     current_valuation_usd: z.number().optional(),
     latest_valuation_date: z.string().optional(),
+    valuation_source: z.string().optional(),
+    valuation_source_url: z.string().optional(),
     title_sponsor: z.string().optional(),
     driver: z.string().optional(),
     championships: z.number().default(0),

@@ -3,8 +3,7 @@ date: "2025-08-12"
 category: governance
 title: "Andrew Thompson confirms cost cap discussions and format change"
 summary: "In Business of Sport interview, MD Andrew Thompson discloses active negotiations with teams to remove marketing/social spend from the $10M cost cap, and confirms SailGP is exploring a Group A / Group B two-pool format to support expansion to ~20 teams."
-sources:
-  - thompson-business-of-sport-2025-08-12
+sources: ['thompson-business-of-sport']
 ---
 
 In a wide-ranging Business of Sport podcast interview, SailGP Managing Director Andrew Thompson made several previously-undisclosed operational and financial revelations:

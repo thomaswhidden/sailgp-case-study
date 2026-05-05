@@ -8,6 +8,8 @@ notable_owners:
   - Hugh Jackman
 current_valuation_usd: 60000000
 latest_valuation_date: "2025"
+valuation_source: "Sportico · Jun 2025"
+valuation_source_url: "https://www.sportico.com/?s=sailgp"
 title_sponsor: "BONDS"
 driver: "Tom Slingsby"
 championships: 3

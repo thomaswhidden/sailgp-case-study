@@ -7,6 +7,8 @@ notable_owners:
   - Doug DeVos
 current_valuation_usd: 60000000
 latest_valuation_date: "2026-02"
+valuation_source: "SailGP · Feb 2026"
+valuation_source_url: "https://sailgp.com/news"
 title_sponsor: "ROCKWOOL"
 driver: ""
 championships: 0

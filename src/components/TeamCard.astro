@@ -6,6 +6,8 @@ interface Props {
   current_owner: string;
   current_valuation_usd?: number;
   latest_valuation_date?: string;
+  valuation_source?: string;
+  valuation_source_url?: string;
   championships: number;
   title_sponsor?: string;
   driver?: string;
@@ -17,7 +19,8 @@ interface Props {
 }
 
 const {
-  name, nation, current_owner, current_valuation_usd,
+  name, nation, current_owner, current_valuation_usd, latest_valuation_date,
+  valuation_source, valuation_source_url,
   championships, title_sponsor, driver, slug,
   color = 'var(--mute)', imageSrc, imageAlt,
 } = Astro.props;
@@ -61,7 +64,17 @@ const code = nation.slice(0, 3).toUpperCase();
         </div>
       </div>
       {current_valuation_usd && (
-        <div style="font-family:var(--font-display);font-size:24px;color:var(--sun);line-height:1;letter-spacing:-0.02em;">{formatVal(current_valuation_usd)}</div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--font-display);font-size:24px;color:var(--sun);line-height:1;letter-spacing:-0.02em;">{formatVal(current_valuation_usd)}</div>
+          {valuation_source && (
+            valuation_source_url
+              ? <a href={valuation_source_url} target="_blank" rel="noopener" class="type-eyebrow" style="font-size:7.5px;letter-spacing:0.1em;color:rgba(11,31,38,0.35);text-decoration:none;" onclick="event.preventDefault();event.stopPropagation();window.open(this.href,'_blank');">↗ {valuation_source}</a>
+              : <span class="type-eyebrow" style="font-size:7.5px;letter-spacing:0.1em;color:rgba(11,31,38,0.35);">{valuation_source}</span>
+          )}
+          {!valuation_source && latest_valuation_date && (
+            <span class="type-eyebrow" style="font-size:7.5px;letter-spacing:0.1em;color:rgba(11,31,38,0.35);">est. {latest_valuation_date}</span>
+          )}
+        </div>
       )}
     </div>
 

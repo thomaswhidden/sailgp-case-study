@@ -10,6 +10,8 @@ notable_owners:
   - Jozy Altidore
 current_valuation_usd: 35000000
 latest_valuation_date: "2023"
+valuation_source: "TIME · Jan 2024"
+valuation_source_url: "https://time.com/6696233/russell-coutts-interview/"
 title_sponsor: ""
 driver: ""
 championships: 0

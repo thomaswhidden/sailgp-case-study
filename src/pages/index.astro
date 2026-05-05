@@ -34,13 +34,34 @@ const sortedComparables = [...comparables].sort((a, b) => a.data.founded - b.dat
 const readSources  = sources.filter(s => s.data.status === 'read' || s.data.status === 'cited');
 const highPriority = openQuestions.filter(q => q.data.priority === 'high' && !q.data.already_asked);
 
+// Source lookup for inline citations
+function fmtSourceDate(d?: string): string {
+  if (!d) return '';
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const parts = d.split('-');
+  const mo = parts[1] ? months[parseInt(parts[1], 10) - 1] : '';
+  return mo ? `${mo} ${parts[0]}` : parts[0];
+}
+const srcMap = Object.fromEntries(
+  sources.map(s => [
+    s.slug,
+    {
+      label: s.data.publisher.replace(' (Charlie Stebbings)', '') + (s.data.date ? ' · ' + fmtSourceDate(s.data.date) : ''),
+      url: s.data.url,
+    }
+  ])
+);
+function resolveSources(slugs: string[]) {
+  return slugs.map(slug => srcMap[slug]).filter(Boolean) as { label: string; url: string }[];
+}
+
 const homeStats = [
-  { value: '$200M+', label: 'Season 5 revenue' },
-  { value: '3.47M',  label: 'Abu Dhabi US viewers' },
-  { value: '$26.2M', label: 'Avg regional economic impact' },
-  { value: '+58',    label: 'Average event NPS' },
-  { value: '112k+',  label: 'Ticketed spectators, 2025' },
-  { value: '13→20',  label: 'Current teams → cap' },
+  { value: '$200M+', label: 'Season 5 revenue',            source: 'Fast Company · Nov 2025', sourceUrl: 'https://www.fastcompany.com/91449460/how-sailgp-turned-the-niche-sport-into-a-200-million-a-celebrity-investment-magnet' },
+  { value: '3.47M',  label: 'Abu Dhabi US viewers',        source: 'Fast Company · Nov 2025', sourceUrl: 'https://www.fastcompany.com/91449460/how-sailgp-turned-the-niche-sport-into-a-200-million-a-celebrity-investment-magnet' },
+  { value: '$26.2M', label: 'Avg regional economic impact',source: 'SailGP Media Hub',        sourceUrl: 'https://mediahub.sailgp.com' },
+  { value: '+58',    label: 'Average event NPS',           source: 'Business of Sport · Aug 2025', sourceUrl: 'https://www.youtube.com/watch?v=OVYq2YDIGsg' },
+  { value: '112k+',  label: 'Ticketed spectators, 2025',   source: 'Fast Company · Nov 2025', sourceUrl: 'https://www.fastcompany.com/91449460/how-sailgp-turned-the-niche-sport-into-a-200-million-a-celebrity-investment-magnet' },
+  { value: '13→20',  label: 'Current teams → cap',         source: 'SailGP official',         sourceUrl: 'https://sailgp.com/news' },
 ];
 
 const teamColors: Record<string, string> = {
@@ -155,12 +176,14 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
               <p style="font-family:var(--font-serif);font-size:14px;line-height:1.5;color:rgba(11,31,38,0.72);margin-top:8px;">
                 1.78M US viewers for the Spain race on CBS — the most-watched US sailing broadcast since 1992. It outdrew F1 Brazil that same weekend.
               </p>
+              <a href="https://time.com/6696233/russell-coutts-interview/" target="_blank" rel="noopener" class="type-eyebrow" style="font-size:8px;letter-spacing:0.12em;color:rgba(11,31,38,0.4);text-decoration:none;margin-top:8px;display:inline-block;">↗ TIME · Jan 2024</a>
             </div>
             <div style="padding:18px 0;border-top:1px solid rgba(11,31,38,0.2);">
               <div class="type-5" style="color:var(--sun);">Nov 2025</div>
               <p style="font-family:var(--font-serif);font-size:14px;line-height:1.5;color:rgba(11,31,38,0.72);margin-top:8px;">
                 3.47M for Race to Abu Dhabi — the most-watched sailing race in US history. The "Uncharted" docuseries launched five months earlier.
               </p>
+              <a href="https://www.fastcompany.com/91449460/how-sailgp-turned-the-niche-sport-into-a-200-million-a-celebrity-investment-magnet" target="_blank" rel="noopener" class="type-eyebrow" style="font-size:8px;letter-spacing:0.12em;color:rgba(11,31,38,0.4);text-decoration:none;margin-top:8px;display:inline-block;">↗ Fast Company · Nov 2025</a>
             </div>
           </div>
         </div>
@@ -211,6 +234,8 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
             current_owner={team.data.current_owner}
             current_valuation_usd={team.data.current_valuation_usd}
             latest_valuation_date={team.data.latest_valuation_date}
+            valuation_source={team.data.valuation_source}
+            valuation_source_url={team.data.valuation_source_url}
             championships={team.data.championships}
             title_sponsor={team.data.title_sponsor}
             driver={team.data.driver}
@@ -282,7 +307,7 @@ const frameworkSummaries: Record<number, { summary: string; status: string }> = 
             category={event.data.category}
             title={event.data.title}
             summary={event.data.summary}
-            sources={event.data.sources}
+            sources={resolveSources(event.data.sources)}
           />
         ))}
       </div>
