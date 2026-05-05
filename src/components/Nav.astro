@@ -3,15 +3,14 @@ import { url } from '../utils/url';
 const pathname = Astro.url.pathname;
 
 const links = [
-  { href: url('/'),              label: 'Brief',     exact: true },
+  { href: url('/'),              label: 'Brief',      exact: true },
   { href: url('/timeline'),      label: 'Story' },
   { href: url('/sources'),       label: 'Sources' },
   { href: url('/teams'),         label: 'Teams' },
   { href: url('/framework'),     label: 'Framework' },
-  { href: url('/open-questions'),label: 'Questions' },
   { href: url('/comparables'),   label: 'Comparables' },
   { href: url('/interviews'),    label: 'Interviews' },
-  { href: url('/interview-prep'),label: 'Prep' },
+  { href: url('/interview-prep'),label: 'Questions' },
   { href: url('/case-draft'),    label: 'Draft' },
 ];
 
