@@ -1,2 +1,4 @@
-export const url = (path: string): string =>
-  `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+export const url = (path: string): string => {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return base + '/' + path.replace(/^\//, '');
+};
