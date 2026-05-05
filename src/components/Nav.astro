@@ -46,7 +46,7 @@ function groupActive(g: typeof groups[0]): boolean {
 
 <nav
   class="sticky top-0 z-50 flex items-center justify-between px-6 md:px-10 lg:px-16"
-  style="background: rgba(242,235,221,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(11,31,38,0.12); height: 56px;"
+  style="background: rgba(242,235,221,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(11,31,38,0.12); height: 56px; overflow: visible;"
 >
   <!-- Wordmark -->
   <a href={url('/')} class="flex items-center gap-3 shrink-0 no-underline" style="text-decoration: none;">
@@ -59,24 +59,22 @@ function groupActive(g: typeof groups[0]): boolean {
   </a>
 
   <!-- Nav groups -->
-  <div class="flex items-center gap-6" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">
+  <div class="flex items-stretch gap-6" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;height:56px;">
     {groups.map(group => {
       const active = groupActive(group);
       return group.href ? (
-        <!-- Direct link (Brief) -->
         <a
           href={group.href}
-          class="nav-direct shrink-0 whitespace-nowrap no-underline"
-          style={`color:${active ? '#E97451' : '#5A6E76'};padding-bottom:2px;${active ? 'border-bottom:1px solid #E97451;' : ''}`}
+          class="nav-direct shrink-0 whitespace-nowrap no-underline flex items-center"
+          style={`color:${active ? '#E97451' : '#5A6E76'};border-bottom:${active ? '1px solid #E97451' : 'none'};`}
         >
           {group.label}
         </a>
       ) : (
-        <!-- Dropdown group -->
-        <div class="nav-group" style="position:relative;">
+        <div class="nav-group">
           <button
-            class="nav-trigger shrink-0 whitespace-nowrap"
-            style={`display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;padding:0 0 2px;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:${active ? '#E97451' : '#5A6E76'};${active ? 'border-bottom:1px solid #E97451;' : ''}`}
+            class="nav-trigger"
+            style={`color:${active ? '#E97451' : '#5A6E76'};border-bottom:${active ? '1px solid #E97451' : 'none'};`}
           >
             {group.label}
             <svg width="8" height="5" viewBox="0 0 8 5" fill="none" style="flex-shrink:0;margin-top:1px;">
@@ -110,30 +108,55 @@ function groupActive(g: typeof groups[0]): boolean {
 </nav>
 
 <style>
-  .nav-group { position: relative; }
+  /* Group fills the full nav height — this is the hover target */
+  .nav-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 56px;
+  }
 
+  .nav-trigger {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    padding: 0;
+    background: none;
+    border: none;
+    border-bottom: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    white-space: nowrap;
+  }
+
+  /* Dropdown — no gap from the trigger so hover stays live */
   .nav-dropdown {
     display: none;
     position: absolute;
-    top: calc(100% + 9px);
+    top: 100%; /* flush with bottom of the 56px nav-group */
     left: 50%;
     transform: translateX(-50%);
     background: rgba(242,235,221,0.98);
     border: 1px solid rgba(11,31,38,0.12);
+    border-top: none;
     backdrop-filter: blur(8px);
     padding: 6px 0;
-    min-width: 130px;
-    z-index: 200;
+    min-width: 140px;
+    z-index: 9999;
   }
 
-  .nav-group:hover .nav-dropdown,
-  .nav-group.open .nav-dropdown {
+  /* Show on hover — gap-free so the mouse can travel straight down */
+  .nav-group:hover .nav-dropdown {
     display: block;
   }
 
   .nav-dropdown-item {
     display: block;
-    padding: 8px 18px;
+    padding: 9px 18px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.15em;
@@ -147,23 +170,6 @@ function groupActive(g: typeof groups[0]): boolean {
 </style>
 
 <script>
-  // Click toggle for touch devices
-  document.querySelectorAll<HTMLElement>('.nav-trigger').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const group = btn.closest<HTMLElement>('.nav-group')!;
-      const isOpen = group.classList.contains('open');
-      // Close all
-      document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
-      if (!isOpen) group.classList.add('open');
-      e.stopPropagation();
-    });
-  });
-
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
-  });
-
-  // Pagefind
   if (typeof window !== 'undefined' && (window as any).PagefindUI) {
     new (window as any).PagefindUI({
       element: '#search',
