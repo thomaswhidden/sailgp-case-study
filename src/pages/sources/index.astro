@@ -35,17 +35,6 @@ const statusStyle: Record<string, string> = {
       style="padding:8px 12px;border:1px solid var(--border-ink);background:transparent;color:var(--ink);flex:1;min-width:180px;outline:none;"
     />
     <select
-      id="status-filter"
-      class="type-eyebrow"
-      style="padding:8px 12px;border:1px solid var(--border-ink);background:transparent;color:var(--mute);cursor:pointer;"
-    >
-      <option value="all">All statuses</option>
-      <option value="cited">Cited</option>
-      <option value="read">Read</option>
-      <option value="reading">Reading</option>
-      <option value="to-read">To read</option>
-    </select>
-    <select
       id="type-filter"
       class="type-eyebrow"
       style="padding:8px 12px;border:1px solid var(--border-ink);background:transparent;color:var(--mute);cursor:pointer;"
@@ -70,14 +59,6 @@ const statusStyle: Record<string, string> = {
         data-title={s.data.title.toLowerCase()}
         style="display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--border-ink);"
       >
-        <!-- Status pill -->
-        <div
-          class="type-eyebrow shrink-0"
-          style={`${statusStyle[s.data.status] ?? ''};padding:3px 8px;white-space:nowrap;`}
-        >
-          {s.data.status}
-        </div>
-
         <!-- Title + meta -->
         <div style="flex:1;min-width:0;">
           <a
@@ -120,24 +101,20 @@ const statusStyle: Record<string, string> = {
 </Section>
 
 <script>
-  const search      = document.getElementById('source-search') as HTMLInputElement;
-  const statusSel   = document.getElementById('status-filter') as HTMLSelectElement;
-  const typeSel     = document.getElementById('type-filter') as HTMLSelectElement;
-  const rows        = document.querySelectorAll<HTMLElement>('.source-row');
+  const search  = document.getElementById('source-search') as HTMLInputElement;
+  const typeSel = document.getElementById('type-filter') as HTMLSelectElement;
+  const rows    = document.querySelectorAll<HTMLElement>('.source-row');
 
   function filter() {
-    const q   = search.value.toLowerCase();
-    const st  = statusSel.value;
-    const ty  = typeSel.value;
+    const q  = search.value.toLowerCase();
+    const ty = typeSel.value;
     rows.forEach(r => {
-      const matchTitle  = r.dataset.title?.includes(q) ?? true;
-      const matchStatus = st === 'all' || r.dataset.status === st;
-      const matchType   = ty === 'all' || r.dataset.type === ty;
-      r.style.display   = matchTitle && matchStatus && matchType ? '' : 'none';
+      const matchTitle = r.dataset.title?.includes(q) ?? true;
+      const matchType  = ty === 'all' || r.dataset.type === ty;
+      r.style.display  = matchTitle && matchType ? '' : 'none';
     });
   }
 
   search.addEventListener('input', filter);
-  statusSel.addEventListener('change', filter);
   typeSel.addEventListener('change', filter);
 </script>
