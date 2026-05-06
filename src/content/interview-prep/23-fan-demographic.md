@@ -7,5 +7,5 @@ framework_links:
   - fan-engagement
   - sponsorship
   - broadcast-media
-status: confirmed
+status: cut
 ---
