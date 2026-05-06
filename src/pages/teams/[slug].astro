@@ -32,7 +32,8 @@ function formatValuation(v?: number): string {
       <ImagePlate
         src={img?.url}
         alt={img?.alt ?? `${d.name} · ${d.nation}`}
-        height={200}
+        height={420}
+        objectPosition={img?.objectPosition ?? 'center center'}
         caption={img ? `${d.nation} · ${img.credit}` : d.nation}
       />
 

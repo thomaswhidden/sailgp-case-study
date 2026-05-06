@@ -69,7 +69,7 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
   },
   'new-zealand': {
-    url:    thumb('7/72', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283107%29.jpg'),
+    url:    thumb('d/d9', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283092%29.jpg'),
     alt:    'New Zealand Black Foils SailGP F50 at the Season 3 Grand Final, San Francisco 2023',
     credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
   },
