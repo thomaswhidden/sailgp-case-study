@@ -24,9 +24,9 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   gbr: {
-    url:    thumb('8/86', 'Emirates_GBR_F50_after_winning_the_2025_Sydney_SailGP.jpg'),
-    alt:    'Emirates Great Britain SailGP Team F50 after winning the 2025 Sydney SailGP',
-    credit: 'Wikimedia Commons / CC BY-SA 4.0',
+    url:    thumb('6/6f', 'Emirates_GBR_SailGP_Team_F50_Race_Boat.jpg'),
+    alt:    'Emirates Great Britain SailGP F50 racing at the 2025 Sydney SailGP',
+    credit: 'Wikimedia Commons / CC0 1.0',
   },
   france: {
     url:    thumb('8/85', 'SAILGP_French_Team.jpg'),
