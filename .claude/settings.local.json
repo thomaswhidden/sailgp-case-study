@@ -43,7 +43,16 @@
       "Bash(sed -i '' 's|href=\"/open-questions\"|href=\"../../open-questions/\"|g' src/content/case-draft/*.md)",
       "Bash(sed -i '' 's|]\\(/open-questions#|]\\(../../open-questions/#|g' src/content/case-draft/*.md)",
       "Bash(sed -i '' 's|]\\(/open-questions\\)|]\\(../../open-questions/\\)|g' src/content/case-draft/*.md)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(git commit -m 'Fix broken team card layout caused by nested anchor tags *)",
+      "Bash(git commit -m 'Fix team card valuation alignment — switch baseline to flex-start *)",
+      "Bash(git commit -m 'Restructure nav + home page; merge open questions into Interviews *)",
+      "Bash(git commit -m 'Center team card images — fix object-position from 35% to center *)",
+      "Bash(git commit -m 'Add 9 questions \\(30-38\\): sponsorship, broadcast, talent, womens pathway, geopolitics *)",
+      "Bash(git commit -m 'Remove status filter and pills from Sources page *)",
+      "Bash(git commit -m 'Remove confirmed/cut status badges from Questions page *)",
+      "Bash(git commit -m 'Replace GBR card image with landscape Sydney 2025 race shot *)",
+      "Bash(git commit *)"
     ]
   }
 }

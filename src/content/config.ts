@@ -120,17 +120,6 @@ const interviewPrep = defineCollection({
   }),
 });
 
-const caseDraft = defineCollection({
-  type: 'content',
-  schema: z.object({
-    section_number: z.string(),
-    title: z.string(),
-    part: z.enum(['A', 'B', 'cover', 'exhibits', 'matrix']).optional(),
-    status: z.enum(['draft', 'review', 'final']).default('draft'),
-    last_updated: z.string().optional(),
-  }),
-});
-
 export const collections = {
   sources,
   interviews,
@@ -140,5 +129,4 @@ export const collections = {
   comparables,
   'open-questions': openQuestions,
   'interview-prep': interviewPrep,
-  'case-draft': caseDraft,
 };
