@@ -34,8 +34,8 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   germany: {
-    url:    thumb('9/96', 'Germany_SailGP_Sassnitz_2025_01.JPG'),
-    alt:    'Germany SailGP Team racing at Sassnitz 2025',
+    url:    thumb('4/47', 'Germany_SailGP_Team_%282026_Perth_SailGP%29_-_1.jpg'),
+    alt:    'Germany SailGP Team at the 2026 Perth SailGP',
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   brazil: {
@@ -44,13 +44,13 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   denmark: {
-    url:    thumb('a/a5', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283149%29.jpg'),
-    alt:    'Denmark SailGP F50 racing in San Francisco',
-    credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
+    url:    thumb('3/3b', 'Rockwool_Denmark_SailGP_Team_-_Emirates_Great_Britain_SailGP_Team_%282026_Perth_SailGP%29.jpg'),
+    alt:    'Rockwool Denmark SailGP Team at the 2026 Perth SailGP',
+    credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   us: {
-    url:    thumb('f/f7', 'SAILGP_American_Team-1.jpg'),
-    alt:    'United States SailGP Team F50 foiling catamaran',
+    url:    thumb('2/2a', 'United_States_SailGP_Team_-_Germany_SailGP_Team_%282026_Perth_SailGP%29.jpg'),
+    alt:    'United States SailGP Team at the 2026 Perth SailGP',
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   italy: {
@@ -64,14 +64,14 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   spain: {
-    url:    thumb('d/d2', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283227%29.jpg'),
-    alt:    'Spain SailGP F50 racing in San Francisco',
+    url:    thumb('1/14', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283215%29.jpg'),
+    alt:    'Spain SailGP Team F50 at the Season 3 Grand Final, San Francisco 2023',
     credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
   },
   'new-zealand': {
-    url:    thumb('b/be', 'SailGP_Christchurch_2024.jpg'),
-    alt:    'New Zealand Black Foils SailGP F50 in Christchurch 2024',
-    credit: 'Alan Viles / Wikimedia Commons / CC BY 2.0',
+    url:    thumb('7/72', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283107%29.jpg'),
+    alt:    'New Zealand Black Foils SailGP F50 at the Season 3 Grand Final, San Francisco 2023',
+    credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
   },
   canada: {
     url:    thumb('b/be', 'ROCKWOOL_CANADA_SAIL_GRAND_PRIX_2024.jpg'),
