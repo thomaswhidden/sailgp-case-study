@@ -3,33 +3,27 @@ import { url } from '../utils/url';
 interface Props {
   name: string;
   nation: string;
-  current_owner: string;
-  current_valuation_usd?: number;
-  latest_valuation_date?: string;
-  valuation_source?: string;
-  valuation_source_url?: string;
   championships: number;
-  title_sponsor?: string;
   driver?: string;
   slug: string;
-  status: string;
   color?: string;
   imageSrc?: string;
   imageAlt?: string;
   objectPosition?: string;
+  // passed but unused on card — kept for index page compatibility
+  current_owner?: string;
+  current_valuation_usd?: number;
+  latest_valuation_date?: string;
+  valuation_source?: string;
+  valuation_source_url?: string;
+  title_sponsor?: string;
+  status?: string;
 }
 
 const {
-  name, nation, current_owner, current_valuation_usd, latest_valuation_date,
-  valuation_source, valuation_source_url,
-  championships, title_sponsor, driver, slug,
+  name, nation, championships, driver, slug,
   color = 'var(--mute)', imageSrc, imageAlt, objectPosition = 'center center',
 } = Astro.props;
-
-function formatVal(v?: number): string {
-  if (!v) return '—';
-  return `$${Math.round(v / 1_000_000)}M`;
-}
 
 const code = nation.slice(0, 3).toUpperCase();
 ---
@@ -56,46 +50,22 @@ const code = nation.slice(0, 3).toUpperCase();
   )}
 
   <div style="padding:18px 20px;">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        {!imageSrc && <div style={`width:6px;height:24px;background:${color};flex-shrink:0;`}></div>}
-        <div>
-          <div class="type-eyebrow" style="color:var(--mute);">{code}</div>
-          <div style="font-family:var(--font-display);font-size:19px;line-height:1;letter-spacing:-0.02em;margin-top:3px;color:var(--ink);">{name}</div>
-        </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      {!imageSrc && <div style={`width:6px;height:24px;background:${color};flex-shrink:0;`}></div>}
+      <div>
+        <div class="type-eyebrow" style="color:var(--mute);">{code}</div>
+        <div style="font-family:var(--font-display);font-size:19px;line-height:1;letter-spacing:-0.02em;margin-top:3px;color:var(--ink);">{name}</div>
       </div>
-      {current_valuation_usd && (
-        <div style="text-align:right;">
-          <div style="font-family:var(--font-display);font-size:24px;color:var(--sun);line-height:1;letter-spacing:-0.02em;">{formatVal(current_valuation_usd)}</div>
-          {valuation_source && (
-            <span class="type-eyebrow" style="font-size:7.5px;letter-spacing:0.1em;color:rgba(11,31,38,0.35);">↗ {valuation_source}</span>
-          )}
-          {!valuation_source && latest_valuation_date && (
-            <span class="type-eyebrow" style="font-size:7.5px;letter-spacing:0.1em;color:rgba(11,31,38,0.35);">est. {latest_valuation_date}</span>
-          )}
-        </div>
-      )}
     </div>
 
     <div style="height:1px;background:rgba(11,31,38,0.1);margin:10px 0;"></div>
 
-    <div class="type-eyebrow mb-1" style="color:var(--mute);">Owners</div>
-    <div style="font-family:var(--font-serif);font-size:13px;line-height:1.4;color:var(--ink);">{current_owner}</div>
-
-    <div style="display:flex;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:8px;">
-      {title_sponsor && (
-        <div>
-          <div class="type-eyebrow mb-1" style="color:var(--mute);">Sponsor</div>
-          <div style="font-family:var(--font-serif);font-size:12px;color:var(--ink);">{title_sponsor}</div>
-        </div>
-      )}
-      {driver && (
-        <div>
-          <div class="type-eyebrow mb-1" style="color:var(--mute);">Skipper</div>
-          <div style="font-family:var(--font-serif);font-size:12px;color:var(--ink);">{driver}</div>
-        </div>
-      )}
-      <div style="text-align:right;margin-left:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div>
+        <div class="type-eyebrow mb-1" style="color:var(--mute);">Skipper</div>
+        <div style="font-family:var(--font-serif);font-size:13px;color:var(--ink);">{driver ?? '—'}</div>
+      </div>
+      <div style="text-align:right;">
         <div class="type-eyebrow mb-1" style="color:var(--mute);">Titles</div>
         <div style={`font-family:var(--font-serif);font-size:13px;color:${championships ? 'var(--sun)' : 'var(--mute)'};`}>
           {championships ? '★'.repeat(championships) : '—'}

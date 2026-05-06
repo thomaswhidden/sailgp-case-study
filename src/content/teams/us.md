@@ -13,7 +13,7 @@ latest_valuation_date: "2023"
 valuation_source: "TIME · Jan 2024"
 valuation_source_url: "https://time.com/6696233/russell-coutts-interview/"
 title_sponsor: ""
-driver: ""
+driver: "Taylor Canfield"
 championships: 0
 status: active
 notes: "First major private team acquisition in SailGP history (~$35M, 2023). Largest team transaction at the time. Diverse ownership group including celebrity investors."

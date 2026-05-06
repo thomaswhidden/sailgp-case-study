@@ -59,7 +59,7 @@ export const teamImages: Record<string, TeamImage> = {
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   sweden: {
-    url:    thumb('2/2d', 'Artemis_SailGP_Team_%282026_Perth_SailGP%2C_debut%29_-_1.jpg'),
+    url:    thumb('4/49', 'Artemis_SailGP_Team_%282026_Perth_SailGP%2C_debut%29_-_2.jpg'),
     alt:    'Artemis Sweden SailGP Team debut at the 2026 Perth SailGP',
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },

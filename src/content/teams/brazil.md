@@ -10,7 +10,7 @@ latest_valuation_date: "2025"
 valuation_source: "Sportico · 2025"
 valuation_source_url: "https://www.sportico.com/?s=sailgp"
 title_sponsor: "Mubadala"
-driver: ""
+driver: "Martine Grael"
 championships: 0
 status: active
 notes: "Joined 2025. First South American team. Owned by Mubadala Investment Company (Abu Dhabi sovereign wealth fund). Unique: sovereign wealth fund owns a team in a league that also races in Abu Dhabi."

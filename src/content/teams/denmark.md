@@ -10,7 +10,7 @@ latest_valuation_date: "2026-02"
 valuation_source: "SailGP · Feb 2026"
 valuation_source_url: "https://sailgp.com/news"
 title_sponsor: "ROCKWOOL"
-driver: ""
+driver: "Nicolai Sehested"
 championships: 0
 status: active
 notes: "Formerly ROCKWOOL Racing. Acquired by Doug DeVos / American Magic in February 2026 for $60M+ — record valuation at time of sale, the benchmark transaction for the current cycle."

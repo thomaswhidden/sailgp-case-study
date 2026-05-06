@@ -10,7 +10,7 @@ latest_valuation_date: "2026"
 valuation_source: "Sportico · 2026"
 valuation_source_url: "https://www.sportico.com/?s=sailgp"
 title_sponsor: ""
-driver: ""
+driver: "Nathan Outteridge"
 championships: 0
 status: active
 notes: "New for Season 6 (2026). Named Artemis Racing — inheriting the legacy brand from the Artemis America's Cup syndicate. Owner Torbjörn Törnqvist is a Swedish commodities trader / energy billionaire. 13th team in the league."

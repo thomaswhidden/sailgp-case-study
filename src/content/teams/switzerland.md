@@ -8,7 +8,7 @@ notable_owners:
 current_valuation_usd: 0
 latest_valuation_date: ""
 title_sponsor: ""
-driver: ""
+driver: "Sébastien Schneiter"
 championships: 0
 status: active
 notes: "Joined 2024. Ernesto Bertarelli is a billionaire biotech entrepreneur (Serono) and sailing patriarch — his Alinghi syndicate won the America's Cup in 2003 and 2007. Deep sailing heritage ownership."

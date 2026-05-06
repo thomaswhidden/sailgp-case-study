@@ -8,7 +8,7 @@ notable_owners:
 current_valuation_usd: 0
 latest_valuation_date: "2026-02"
 title_sponsor: ""
-driver: ""
+driver: "Diego Botin"
 championships: 1
 status: active
 notes: "Season 5 champions (2025). Acquired by Idan Ofer / Quantum Pacific in February 2026. Valuation below the $60M+ benchmark. Cadiz/Spain was the venue for the record CBS viewership race (November 2023, 1.78M viewers)."

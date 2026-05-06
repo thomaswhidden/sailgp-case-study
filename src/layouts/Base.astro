@@ -25,7 +25,61 @@ const pageTitle = title ? `${title} — SailGP Case Study` : 'SailGP Case Study'
     <link href={url('/pagefind/pagefind-ui.css')} rel="stylesheet" />
   </head>
   <body>
+    <div id="passcode-gate" style="position:fixed;inset:0;z-index:9999;background:#0b1f26;display:flex;align-items:center;justify-content:center;">
+      <div style="width:100%;max-width:360px;padding:0 24px;text-align:center;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(242,235,221,0.4);margin-bottom:24px;">SailGP Case Study</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;color:#f2ebdd;letter-spacing:-0.02em;margin-bottom:32px;line-height:1.1;">Enter passcode</div>
+        <input
+          id="passcode-input"
+          type="password"
+          placeholder="••••••••"
+          autocomplete="off"
+          style="width:100%;box-sizing:border-box;background:rgba(242,235,221,0.07);border:1px solid rgba(242,235,221,0.15);color:#f2ebdd;font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:0.2em;padding:14px 18px;outline:none;text-align:center;margin-bottom:12px;"
+        />
+        <div id="passcode-error" style="font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:0.1em;color:#e11d48;height:16px;margin-bottom:12px;"></div>
+        <button
+          id="passcode-submit"
+          style="width:100%;background:#f2ebdd;color:#0b1f26;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:14px;border:none;cursor:pointer;"
+        >Enter</button>
+      </div>
+    </div>
+
     <slot />
     <script src={url('/pagefind/pagefind-ui.js')} is:inline></script>
+    <script is:inline>
+      (function () {
+        var PASSCODE = 'sailgp2026';
+        var KEY = 'sgp_auth';
+        var gate = document.getElementById('passcode-gate');
+        if (sessionStorage.getItem(KEY) === '1') {
+          gate.style.display = 'none';
+          return;
+        }
+        // block scroll on body while gate is visible
+        document.body.style.overflow = 'hidden';
+        function unlock() {
+          sessionStorage.setItem(KEY, '1');
+          document.body.style.overflow = '';
+          gate.style.opacity = '0';
+          gate.style.transition = 'opacity 300ms ease';
+          setTimeout(function () { gate.style.display = 'none'; }, 300);
+        }
+        function attempt() {
+          var val = document.getElementById('passcode-input').value;
+          if (val === PASSCODE) {
+            unlock();
+          } else {
+            var err = document.getElementById('passcode-error');
+            err.textContent = 'Incorrect passcode';
+            document.getElementById('passcode-input').value = '';
+          }
+        }
+        document.getElementById('passcode-submit').addEventListener('click', attempt);
+        document.getElementById('passcode-input').addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') attempt();
+          document.getElementById('passcode-error').textContent = '';
+        });
+      })();
+    </script>
   </body>
 </html>
