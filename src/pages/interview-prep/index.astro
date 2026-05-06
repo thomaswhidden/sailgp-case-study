@@ -126,11 +126,6 @@ const indexedGroups = [...grouped.entries()]
                   >
                     {q.data.question}
                   </p>
-                  {q.data.rationale && (
-                    <p style="font-family:var(--font-serif);font-style:italic;font-size:14px;color:rgba(11,31,38,0.55);margin:0 0 10px;line-height:1.5;">
-                      {q.data.rationale}
-                    </p>
-                  )}
                   {q.data.framework_links.length > 0 && (
                     <div style="display:flex;flex-wrap:wrap;gap:6px;">
                       {q.data.framework_links.map((slug: string) => (
