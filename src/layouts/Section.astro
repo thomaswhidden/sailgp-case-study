@@ -16,7 +16,7 @@ const { title, chapter, description, dark = false } = Astro.props;
     <Nav />
 
     <!-- Page header -->
-    <div class="px-6 md:px-10 lg:px-16 py-16 md:py-20" style={dark ? 'background:var(--ink);' : ''}>
+    <div class="px-6 md:px-10 lg:px-16 py-10 md:py-14" style={dark ? 'background:var(--ink);' : ''}>
       {chapter && (
         <div class="eyebrow-marker mb-4" style={dark ? 'color:var(--sun);' : ''}>{chapter}</div>
       )}

@@ -61,10 +61,9 @@ const indexedGroups = [...grouped.entries()]
 <Section
   title="Interview Prep"
   chapter="Final Question Set · Coutts"
-  description={`${active.length} questions across ${indexedGroups.length} categories. ${confirmed.length} confirmed · ${draft.length} draft.`}
 >
   <!-- Export -->
-  <div style="display:flex;justify-content:flex-end;margin-bottom:40px;">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
     <button
       id="export-btn"
       class="type-eyebrow"
@@ -132,7 +131,7 @@ const indexedGroups = [...grouped.entries()]
     </div>
   )}
 
-  <div class="mt-12 pt-10" style="border-top:1px solid var(--border-ink);">
+  <div class="mt-8 pt-6" style="border-top:1px solid var(--border-ink);">
     <p class="type-body-small" style="color:var(--mute);">
       Create <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">src/content/interview-prep/NN-slug.md</code>
       with <code style="font-family:var(--font-mono);font-size:12px;background:var(--bone-2);padding:1px 4px;">order, question, category, status</code>.
