@@ -88,9 +88,9 @@ export const teamImages: Record<string, TeamImage> = {
 // General SailGP images for hero / section plates (landscape, served at 1920px)
 export const sailgpImages = {
   hero: {
-    url:    thumb('3/32', 'Great_Britain_SailGP_New_York.jpg', 1920),
-    alt:    'SailGP F50 foiling catamaran racing in New York Harbour',
-    credit: 'Wikimedia Commons / CC BY-SA 4.0',
+    url:    thumb('4/40', 'SailGP_Season_3_Grand_Final_-_San_Francisco_-_May_2023_%283247%29.jpg', 1920),
+    alt:    'Six SailGP F50 foiling catamarans racing on San Francisco Bay at the Season 3 Grand Final, May 2023',
+    credit: 'Gregory Varnum / Wikimedia Commons / CC BY-SA 4.0',
   },
   christchurch: {
     url:    thumb('b/be', 'SailGP_Christchurch_2024.jpg', 1920),
