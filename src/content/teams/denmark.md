@@ -1,5 +1,5 @@
 ---
-name: "Denmark SailGP Team"
+name: "ROCKWOOL Denmark"
 nation: "Denmark"
 flag: "DK"
 current_owner: "Doug DeVos / American Magic"
@@ -13,12 +13,12 @@ title_sponsor: "ROCKWOOL"
 driver: "Nicolai Sehested"
 championships: 0
 status: active
-notes: "Formerly ROCKWOOL Racing. Acquired by Doug DeVos / American Magic in February 2026 for $60M+ — record valuation at time of sale, the benchmark transaction for the current cycle."
+notes: "Acquired by Doug DeVos / American Magic in February 2026 for $60M+ — record valuation at time of sale, the benchmark transaction for the current cycle. ROCKWOOL (Danish building materials company) remains title sponsor."
 ---
 
 ## Ownership History
 
-The Denmark team was formerly named ROCKWOOL Racing (ROCKWOOL is a Danish building materials company). In February 2026, the team was acquired by Doug DeVos and American Magic.
+The team races as ROCKWOOL Denmark, with ROCKWOOL (Danish building materials company) as title sponsor. In February 2026, the team was acquired by Doug DeVos and American Magic.
 
 **Doug DeVos** is co-owner of the Orlando Magic (NBA) and a member of the DeVos family (Amway founders). This is a sophisticated sports ownership group with existing infrastructure in professional sports management.
 

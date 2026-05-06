@@ -1,5 +1,5 @@
 ---
-name: "France SailGP Team"
+name: "DS Automobiles Team France"
 nation: "France"
 flag: "FR"
 current_owner: "Ares Management (minority stake)"

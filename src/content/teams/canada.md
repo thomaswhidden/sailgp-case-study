@@ -1,5 +1,5 @@
 ---
-name: "Canada SailGP Team"
+name: "NorthStar Canada SailGP Team"
 nation: "Canada"
 flag: "CA"
 current_owner: "Various"
@@ -7,17 +7,17 @@ notable_owners: []
 current_valuation_usd: 0
 latest_valuation_date: ""
 title_sponsor: ""
-driver: "Phil Robertson"
+driver: "TBD"
 championships: 0
 status: active
-notes: "Phil Robertson driver — described by Coutts as the 'Mad Max of SailGP.' Robertson's confrontational personality with umpires and rivals is described as 'gold dust' for content. Ownership details limited in public record."
+notes: "Team name: NorthStar Canada SailGP Team (NorthStar title sponsor per December 2025 announcement). Phil Robertson, formerly the team's 'Mad Max of SailGP' skipper, moved to Italy for Season 6. Season 6 driver to verify — not confirmed in available sources. Ownership details limited in public record."
 ---
 
 ## Sporting Profile
 
-Canada's primary public identity in SailGP is Phil Robertson, its skipper. Robertson is described by Russell Coutts (TIME, January 2024) as the "Mad Max of SailGP" — his confrontational style with umpires and rival teams generates drama, social media content, and media coverage that more conventionally behaved skippers do not.
+Canada's most prominent sporting identity through Season 5 was Phil Robertson as skipper. Russell Coutts (TIME, January 2024) described Robertson as the "Mad Max of SailGP" — his confrontational style with umpires and rivals generated drama and social media content that more conventional skippers do not produce.
 
-This is a deliberate product strategy observation by Coutts: colorful personalities are a commercial asset for a league trying to build casual fan engagement. Robertson's on-water behavior creates the kind of storylines that Drive to Survive built an entire narrative around.
+Robertson moved to Italy (Red Bull Italy SailGP Team) for Season 6. The Season 6 Canada skipper has not been confirmed in available sources (verify via NorthStar December 2025 announcement or SailGP media).
 
 ## Ownership Notes
 

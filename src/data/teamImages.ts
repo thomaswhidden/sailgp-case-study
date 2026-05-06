@@ -30,7 +30,7 @@ export const teamImages: Record<string, TeamImage> = {
   },
   france: {
     url:    thumb('8/85', 'SAILGP_French_Team.jpg'),
-    alt:    'France SailGP Team F50 foiling catamaran',
+    alt:    'DS Automobiles Team France F50 foiling catamaran',
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   germany: {
@@ -75,7 +75,7 @@ export const teamImages: Record<string, TeamImage> = {
   },
   canada: {
     url:    thumb('b/be', 'ROCKWOOL_CANADA_SAIL_GRAND_PRIX_2024.jpg'),
-    alt:    'Rockwool Canada SailGP Team at the 2024 Sail Grand Prix',
+    alt:    'NorthStar Canada SailGP Team at the 2024 Sail Grand Prix',
     credit: 'Wikimedia Commons / CC BY-SA 4.0',
   },
   switzerland: {
