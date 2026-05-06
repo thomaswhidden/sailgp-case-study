@@ -63,25 +63,8 @@ const indexedGroups = [...grouped.entries()]
   chapter="Final Question Set · Coutts"
   description={`${active.length} questions across ${indexedGroups.length} categories. ${confirmed.length} confirmed · ${draft.length} draft.`}
 >
-  <!-- Status summary + export -->
-  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:40px;">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      {confirmed.length > 0 && (
-        <span class="type-eyebrow" style="padding:4px 10px;background:var(--sun);color:var(--bone);">
-          {confirmed.length} confirmed
-        </span>
-      )}
-      {draft.length > 0 && (
-        <span class="type-eyebrow" style="padding:4px 10px;background:rgba(11,31,38,0.08);color:var(--mute);">
-          {draft.length} draft
-        </span>
-      )}
-      {cut.length > 0 && (
-        <span class="type-eyebrow" style="padding:4px 10px;background:transparent;border:1px solid var(--border-ink);color:var(--mute);">
-          {cut.length} cut
-        </span>
-      )}
-    </div>
+  <!-- Export -->
+  <div style="display:flex;justify-content:flex-end;margin-bottom:40px;">
     <button
       id="export-btn"
       class="type-eyebrow"
@@ -112,7 +95,7 @@ const indexedGroups = [...grouped.entries()]
             {items.map(({ q, n }) => (
               <li
                 data-status={q.data.status}
-                style={`display:grid;grid-template-columns:60px 1fr 110px;gap:18px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-ink);${q.data.status === 'cut' ? 'opacity:0.4;' : ''}`}
+                style={`display:grid;grid-template-columns:60px 1fr;gap:18px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-ink);${q.data.status === 'cut' ? 'opacity:0.4;' : ''}`}
               >
                 <!-- Global index -->
                 <div style="font-family:var(--font-display);font-size:36px;color:rgba(11,31,38,0.18);line-height:1;letter-spacing:-0.02em;">
@@ -141,12 +124,6 @@ const indexedGroups = [...grouped.entries()]
                   )}
                 </div>
 
-                <!-- Status pill -->
-                <div style="text-align:right;padding-top:4px;">
-                  <div class="type-eyebrow" style={`display:inline-block;padding:4px 10px;${statusPill[q.data.status] ?? ''}`}>
-                    {q.data.status}
-                  </div>
-                </div>
               </li>
             ))}
           </ol>
