@@ -7,17 +7,17 @@ notable_owners: []
 current_valuation_usd: 0
 latest_valuation_date: ""
 title_sponsor: ""
-driver: "TBD"
+driver: "Giles Scott"
 championships: 0
 status: active
-notes: "Team name: NorthStar Canada SailGP Team (NorthStar title sponsor per December 2025 announcement). Phil Robertson, formerly the team's 'Mad Max of SailGP' skipper, moved to Italy for Season 6. Season 6 driver to verify — not confirmed in available sources. Ownership details limited in public record."
+notes: "Team name: NorthStar Canada SailGP Team (NorthStar title sponsor per December 2025 announcement). Phil Robertson, formerly the team's 'Mad Max of SailGP' skipper, moved to Italy for Season 6. Giles Scott is the Season 6 skipper. Ownership details limited in public record."
 ---
 
 ## Sporting Profile
 
 Canada's most prominent sporting identity through Season 5 was Phil Robertson as skipper. Russell Coutts (TIME, January 2024) described Robertson as the "Mad Max of SailGP" — his confrontational style with umpires and rivals generated drama and social media content that more conventional skippers do not produce.
 
-Robertson moved to Italy (Red Bull Italy SailGP Team) for Season 6. The Season 6 Canada skipper has not been confirmed in available sources (verify via NorthStar December 2025 announcement or SailGP media).
+Robertson moved to Italy (Red Bull Italy SailGP Team) for Season 6. Giles Scott took over as the Season 6 Canada skipper.
 
 ## Ownership Notes
 
